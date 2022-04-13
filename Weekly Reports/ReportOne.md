@@ -32,3 +32,13 @@
     
     - I find out I forget a lot of React, so I will focus on refresh my React skills.
     I will also complete tasks in frond/back end that we aim to finish.
+
+###### An Nguyen
+    - Goals from last week: N/A for this week's report
+    
+    - I met with the team to discuss about the project requirements and team policies. 
+    I reviewed the code I did in previous projects to prepare for my front end deverloper role.
+    
+    - I will continue review my previous coding projects. I plan on working with other developers 
+    to decide the neccessary components and build them. I plan to discuss about how to avoid the 
+    potential risks that we proposed. 
