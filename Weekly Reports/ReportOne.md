@@ -2,8 +2,8 @@
 # **Report 1 4/13/2022**
 
 #### Team Report: Status Update and Project Meeting Agenda
-    -
-    -
+    - Goals from last week: N/A for this week's report
+    - Everyone in our group selected their role. We came up with what features we are going to implement. We decided on the toolset and programming languages we are using for the project. We also discussed the milestones and potential risks in our project.
     -
 
 #### Individual Reports
@@ -20,3 +20,12 @@
     - I plan on reviewing more front end development materials to refresh my 
     memory. I also plan on working with the other front end developers 
     to create components for our web app.
+
+##### Wenxuan Liu
+    - Goals from last week: N/A for this week's report
+
+    - After we discussed about project toolset, I read through a project I did in CSE311. 
+    That project uses SparkJava and React, which is similar to the general structure of our project.
+    
+    - I find out I forget a lot of React, so I will focus on refresh my React skills.
+    I will also complete tasks in frond/back end that we aim to finish.
