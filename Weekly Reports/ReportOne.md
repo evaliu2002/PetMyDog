@@ -42,3 +42,12 @@
     - I will review my CSE 331 project and investigate how to use
     Spark Java together with GCE. I will also try to learn ElasticSearch,
     and how to use it to get geolocations.
+
+###### An Nguyen
+    - Goals from last week: N/A for this week's report
+    
+    - I reviewed the previous projects from CSE 331 to prepare for using React and Javascript 
+    in the current project. 
+
+    - I will meet with other developers to define all the require components and start building 
+    them. I hope to discuss what we can try to do to avoid the potential risks that we proposed.
