@@ -32,3 +32,13 @@
     
     - I find out I forget a lot of React, so I will focus on refresh my React skills.
     I will also complete tasks in frond/back end that we aim to finish.
+
+##### Kevin Kong
+    - Goals from last week: N/A for this week's report
+
+    - I reviewed Spark Java framework slides from CSE 331, which we
+    would use for backend API.
+    
+    - I will review my CSE 331 project and investigate how to use
+    Spark Java together with GCE. I will also try to learn ElasticSearch,
+    and how to use it to get geolocations.
