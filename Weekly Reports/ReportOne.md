@@ -3,10 +3,17 @@
 
 #### Team Report: Status Update and Project Meeting Agenda
     - Goals from last week: N/A for this week's report
+  
+    What we did:
     - Everyone in our group selected their role. 
-    - We came up with what features we are going to implement.
-    - We decided on the toolset and programming languages we are using for the project. 
-    - We also discussed the milestones and potential risks in our project.
+    We came up with what features we are going to implement.
+    We decided on the toolset and programming languages we are using for the project. 
+    We also discussed the milestones and potential risks in our project.
+
+    What we plan to do:
+    - Frond-end: come up with the components needed. Using ant design to look for UI components.
+    - Back-end: Design database schema.
+    - Front&Back: Discuss what request/response are sent between the front/back end. Figure out the platform we are hosting the web app.
 
 #### Individual Reports
 
@@ -26,7 +33,7 @@
 ##### Wenxuan Liu
     - Goals from last week: N/A for this week's report
 
-    - After we discussed about project toolset, I read through a project I did in CSE311. 
+    - After we discussed about project toolset, I read through a project I did in CSE331. 
     That project uses SparkJava and React, which is similar to the general structure of our project.
     
     - I find out I forget a lot of React, so I will focus on refresh my React skills.
