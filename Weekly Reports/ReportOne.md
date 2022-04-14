@@ -81,7 +81,8 @@
     - Goals from last week: N/A for this week's report
 
     - I reviewed the Spark framework info that we used in CSE 331 for the final project, and explored
-    how it works and how we could use it for our backend.
+    how it works and how we could use it for our backend. I also took a look at Compute Engine to see
+    how we can use it for our project.
 
     - I will learn more about the Spark framework, and how we can integrate it with Compute Engine,
     and also discuss with my teammates about how we want to proceed with the structure for the backend.
