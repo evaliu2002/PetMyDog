@@ -11,7 +11,7 @@
     We also discussed the milestones and potential risks in our project.
 
     What we plan to do:
-    - Frond-end: come up with the components needed. Using ant design to look for UI components.
+    - Front-end: come up with the components needed. Using ant design to look for UI components.
     - Back-end: Design database schema.
     - Front&Back: Discuss what request/response are sent between the front/back end. Figure out the platform we are hosting the web app.
 
