@@ -64,4 +64,4 @@
     
     - Researched different options for databases.
     
-    - I will continue to work with my teammates on the database design and request/response format.
+    - I will continue to work with my teammates on the database design and request/response format. My main priority right now is to understand the information needed for the main features so we can design a database schema that would scale well for the applciation. We would also need to discuss the request and response format, so front-end and back-end developers can work asynchronously without being blocked.
