@@ -76,3 +76,12 @@
     My main priority right now is to understand the information needed for the main features so we can design a database schema 
     that would scale well for the applciation. We would also need to discuss the request and response format, 
     so front-end and back-end developers can work asynchronously without being blocked.
+
+###### Anish Konanki
+    - Goals from last week: N/A for this week's report
+
+    - I reviewed the Spark framework info that we used in CSE 331 for the final project, and explored
+    how it works and how we could use it for our backend.
+
+    - I will learn more about the Spark framework, and how we can integrate it with Compute Engine,
+    and also discuss with my teammates about how we want to proceed with the structure for the backend.
