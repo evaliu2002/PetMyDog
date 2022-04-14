@@ -58,10 +58,15 @@
     
     - Finalized development plans and milestones.
     
-    - Discussed with teammates the tools we will need to implement the application's main features. Decided to use Java as the main backend language and JavaScript as the primary front-end language because everyone has some experience. We also decided to use React for the front-end and the Spark framework for the backend.
+    - Discussed with teammates the tools we will need to implement the application's main features. Decided to use Java as the 
+    main backend language and JavaScript as the primary front-end language because everyone has some experience. 
+    We also decided to use React for the front-end and the Spark framework for the backend.
     
     - Researched different packages and frameworks for handling geolocation information.
     
     - Researched different options for databases.
     
-    - I will continue to work with my teammates on the database design and request/response format. My main priority right now is to understand the information needed for the main features so we can design a database schema that would scale well for the applciation. We would also need to discuss the request and response format, so front-end and back-end developers can work asynchronously without being blocked.
+    - I will continue to work with my teammates on the database design and request/response format. 
+    My main priority right now is to understand the information needed for the main features so we can design a database schema 
+    that would scale well for the applciation. We would also need to discuss the request and response format, 
+    so front-end and back-end developers can work asynchronously without being blocked.
