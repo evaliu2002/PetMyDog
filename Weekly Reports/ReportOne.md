@@ -58,7 +58,7 @@
     
     - Finalized development plans and milestones.
     
-    - Discussed with teammates the tools we will need to implement the application's main features.
+    - Discussed with teammates the tools we will need to implement the application's main features. Decided to use Java as the main backend language and JavaScript as the primary front-end language because everyone has some experience. We also decided to use React for the front-end and the Spark framework for the backend.
     
     - Researched different packages and frameworks for handling geolocation information.
     
