@@ -4,10 +4,9 @@
 #### Team Report: Status Update and Project Meeting Agenda
     - Goals from last week: N/A for this week's report
     - Everyone in our group selected their role. 
-    We came up with what features we are going to implement.
-    We decided on the toolset and programming languages we are using for the project. 
-    We also discussed the milestones and potential risks in our project.
-    - TBD
+    - We came up with what features we are going to implement.
+    - We decided on the toolset and programming languages we are using for the project. 
+    - We also discussed the milestones and potential risks in our project.
 
 #### Individual Reports
 
