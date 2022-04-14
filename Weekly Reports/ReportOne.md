@@ -50,3 +50,18 @@
 
     - I will meet with other developers to define all the require components and start building 
     them. I hope to discuss what we can try to do to avoid the potential risks that we proposed.
+
+###### Steve Ma
+    - Goals from last week: N/A for this week's report
+    
+    - Finalized project proposal and the requirements of the project, discussed features with teammates and made adjustments according to requirements.
+    
+    - Finalized development plans and milestones.
+    
+    - Discussed with teammates the tools we will need to implement the application's main features.
+    
+    - Researched different packages and frameworks for handling geolocation information.
+    
+    - Researched different options for databases.
+    
+    - I will continue to work with my teammates on the database design and request/response format.
