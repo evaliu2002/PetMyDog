@@ -21,8 +21,8 @@ directory, which we will update every week to report our progress and action ite
 
 ## Setup Instructions
 
-Navigate to main/front-end.
+1. Navigate to main/front-end.
 
-Run npm install.
+2. Run npm install.
 
-To run PetMyDog on localhost, run npm start.
+3. To run PetMyDog on localhost, run npm start.
