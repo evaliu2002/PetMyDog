@@ -15,7 +15,7 @@ system, and redirection to other social media platforms (e.g., instagram, facebo
 
 ### Layout of the repository
 
-All of the code will be contained in the main directory. The main directory is divided into front
+All the code will be contained in the main directory. The main directory is divided into front
 and back end code, each in a sub directory. We will have our weekly reports in the Weekly Reports
 directory, which we will update every week to report our progress and action items.
 
