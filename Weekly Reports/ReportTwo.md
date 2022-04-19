@@ -3,7 +3,7 @@
 
 #### Team Report: Status Update and Project Meeting Agenda
     Goals from last week: 
-    - Front-end: come up with the components needed. Using ant design to look for UI components.
+    - Front-end: Come up with the components needed. Using ant design to look for UI components.
     - Back-end: Design database schema.
     - Front&Back: Discuss what request/response are sent between the front/back end. Figure out the platform we are hosting the web app.
   
@@ -12,7 +12,7 @@
     - Back-end: Set up Spark framework.
 
     What we plan to do:
-    - Front-end: 
+    - Front-end: Create all necessary components and create the skeleton for the web app before we add functionality.
     - Back-end: 
     - Front&Back: 
 
