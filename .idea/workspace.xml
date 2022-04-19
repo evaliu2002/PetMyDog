@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db68fadb-d024-44d0-9687-d8571b12aa5e" name="Default Changelist" comment="Added An's weekly status report">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_13_2022_7_56_PM__Revert__Added_An_s_weekly_status_r.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_13_2022_7_56_PM__Revert__Added_An_s_weekly_status_r.xml" afterDir="false" />
+    <list default="true" id="db68fadb-d024-44d0-9687-d8571b12aa5e" name="Default Changelist" comment="README format change">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Weekly Reports/ReportTwo.md" beforeDir="false" afterPath="$PROJECT_DIR$/Weekly Reports/ReportTwo.md" afterDir="false" />
     </list>
     <list id="99273845-0fef-46ec-ad16-eaee0a958d21" name="Revert &quot;Added An's weekly status report&quot;" comment="Revert &quot;Added An's weekly status report&quot;&#10;&#10;This reverts commit a23cbf43" />
     <option name="SHOW_DIALOG" value="false" />
@@ -55,7 +55,8 @@
       <workItem from="1649904952683" duration="362000" />
       <workItem from="1649905756581" duration="1693000" />
       <workItem from="1650341928452" duration="1427000" />
-      <workItem from="1650343804346" duration="404000" />
+      <workItem from="1650343804346" duration="674000" />
+      <workItem from="1650400536473" duration="1768000" />
     </task>
     <task id="LOCAL-00001" summary="Added An's weekly status report">
       <created>1649889962015</created>
@@ -85,7 +86,14 @@
       <option name="project" value="LOCAL" />
       <updated>1649906155854</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="README format change">
+      <created>1650344384905</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1650344384905</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -106,6 +114,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added An's weekly status report" />
     <MESSAGE value="Revert &quot;Added An's weekly status report&quot;&#10;&#10;This reverts commit a23cbf43" />
-    <option name="LAST_COMMIT_MESSAGE" value="Revert &quot;Added An's weekly status report&quot;&#10;&#10;This reverts commit a23cbf43" />
+    <MESSAGE value="README format change" />
+    <option name="LAST_COMMIT_MESSAGE" value="README format change" />
   </component>
 </project>
