@@ -8,3 +8,4 @@ and follow them to pet their dogs. In addition to broadcasting their location, o
 share small amounts of information about themselves and their dogs to nearby users.
 
 ## Layout of the repository
+
