@@ -1,6 +1,6 @@
 # PetMyDog
 
-## Project Idea/Goal
+### Project Idea/Goal
 
 Pet My Dog will be a web app that allows dog owners to broadcast their location while
 walking their dogs, during which other nearby users of the app can locate owners in real time
@@ -13,15 +13,15 @@ pets by name. Some stretch goals we could implement include calling and messagin
 invitation system for meetups, a like system for owners and petters for safety precautions, filtering
 system, and redirection to other social media platforms (e.g., instagram, facebook).
 
-## Layout of the repository
+### Layout of the repository
 
 All of the code will be contained in the main directory. The main directory is divided into front
 and back end code, each in a sub directory. We will have our weekly reports in the Weekly Reports
 directory, which we will update every week to report our progress and action items.
 
-## Setup Instructions
+### Setup Instructions
 
-###NPM
+####NPM
 
 1. Navigate to main/front-end.
 
