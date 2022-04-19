@@ -8,12 +8,12 @@ export class Login extends React.Component {
               <div className="input-container">
                 <label>Username </label>
                 <input type="text" name="uname" required />
-                {renderErrorMessage("uname")}
+                {/* {renderErrorMessage("uname")} */}
               </div>
               <div className="input-container">
                 <label>Password </label>
                 <input type="password" name="pass" required />
-                {renderErrorMessage("pass")}
+                {/* {renderErrorMessage("pass")} */}
               </div>
               <div className="button-container">
                 <input type="submit" />

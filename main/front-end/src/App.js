@@ -1,8 +1,7 @@
 import React from 'react';
-import ReactDOM, { render } from 'react-dom';
-import { Login } from './Login';
+import { Login } from './components/Login';
 
-class AppComp extends React.Component {
+class App extends React.Component {
     render() {
         return (
             <div>
@@ -12,3 +11,4 @@ class AppComp extends React.Component {
     }
 }
 
+export default App;

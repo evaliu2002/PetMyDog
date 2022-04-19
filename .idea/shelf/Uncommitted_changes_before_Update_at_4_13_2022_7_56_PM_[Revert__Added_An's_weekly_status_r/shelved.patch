@@ -1,0 +1,92 @@
+Index: Weekly Reports/ReportOne.md
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>\r\n# **Report 1 4/13/2022**\r\n\r\n#### Team Report: Status Update and Project Meeting Agenda\r\n    - Goals from last week: N/A for this week's report\r\n    - Everyone in our group selected their role. \r\n    We came up with what features we are going to implement.\r\n    We decided on the toolset and programming languages we are using for the project. \r\n    We also discussed the milestones and potential risks in our project.\r\n    - TBD\r\n\r\n#### Individual Reports\r\n\r\n###### Eva Liu\r\n    - Goals from last week: N/A for this week's report\r\n\r\n    - I refreshed my knowledge about front end development by looking through\r\n    old repos which helped remind me of project structures I've used before. \r\n    I learned about different code base structures. I had trouble figuring out \r\n    a specific plan for the project since I only had a general idea of the project \r\n    and my role. I wasn't particularly stuck with anything.\r\n    \r\n    - I plan on reviewing more front end development materials to refresh my \r\n    memory. I also plan on working with the other front end developers \r\n    to create components for our web app.\r\n\r\n##### Wenxuan Liu\r\n    - Goals from last week: N/A for this week's report\r\n\r\n    - After we discussed about project toolset, I read through a project I did in CSE311. \r\n    That project uses SparkJava and React, which is similar to the general structure of our project.\r\n    \r\n    - I find out I forget a lot of React, so I will focus on refresh my React skills.\r\n    I will also complete tasks in frond/back end that we aim to finish.\r\n\r\n##### Kevin Kong\r\n    - Goals from last week: N/A for this week's report\r\n\r\n    - I reviewed Spark Java framework slides from CSE 331, which we\r\n    would use for backend API.\r\n    \r\n    - I will review my CSE 331 project and investigate how to use\r\n    Spark Java together with GCE. I will also try to learn ElasticSearch,\r\n    and how to use it to get geolocations.\r\n\r\n###### An Nguyen\r\n    - Goals from last week: N/A for this week's report\r\n    \r\n    - I reviewed the previous projects from CSE 331 to prepare for using React and Javascript \r\n    in the current project. \r\n\r\n    - I will meet with other developers to define all the require components and start building \r\n    them. I hope to discuss what we can try to do to avoid the potential risks that we proposed.
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Weekly Reports/ReportOne.md b/Weekly Reports/ReportOne.md
+--- a/Weekly Reports/ReportOne.md	(revision a23cbf43efaf3cb6175c730b6b47329cacee4170)
++++ b/Weekly Reports/ReportOne.md	(date 1649890463978)
+@@ -41,13 +41,4 @@
+     
+     - I will review my CSE 331 project and investigate how to use
+     Spark Java together with GCE. I will also try to learn ElasticSearch,
+-    and how to use it to get geolocations.
+-
+-###### An Nguyen
+-    - Goals from last week: N/A for this week's report
+-    
+-    - I reviewed the previous projects from CSE 331 to prepare for using React and Javascript 
+-    in the current project. 
+-
+-    - I will meet with other developers to define all the require components and start building 
+-    them. I hope to discuss what we can try to do to avoid the potential risks that we proposed.
+\ No newline at end of file
++    and how to use it to get geolocations.
+\ No newline at end of file
+Index: .idea/modules.xml
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+deleted file mode 100644
+--- a/.idea/modules.xml	(revision a23cbf43efaf3cb6175c730b6b47329cacee4170)
++++ /dev/null	(revision a23cbf43efaf3cb6175c730b6b47329cacee4170)
+@@ -1,8 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="ProjectModuleManager">
+-    <modules>
+-      <module fileurl="file://$PROJECT_DIR$/.idea/PetMyDog.iml" filepath="$PROJECT_DIR$/.idea/PetMyDog.iml" />
+-    </modules>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+deleted file mode 100644
+--- a/.idea/misc.xml	(revision a23cbf43efaf3cb6175c730b6b47329cacee4170)
++++ /dev/null	(revision a23cbf43efaf3cb6175c730b6b47329cacee4170)
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="ProjectRootManager">
+-    <output url="file://$PROJECT_DIR$/out" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/.gitignore
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+deleted file mode 100644
+--- a/.idea/.gitignore	(revision a23cbf43efaf3cb6175c730b6b47329cacee4170)
++++ /dev/null	(revision a23cbf43efaf3cb6175c730b6b47329cacee4170)
+@@ -1,8 +0,0 @@
+-# Default ignored files
+-/shelf/
+-/workspace.xml
+-# Datasource local storage ignored files
+-/dataSources/
+-/dataSources.local.xml
+-# Editor-based HTTP Client requests
+-/httpRequests/
+Index: .idea/PetMyDog.iml
+===================================================================
+diff --git a/.idea/PetMyDog.iml b/.idea/PetMyDog.iml
+deleted file mode 100644
+--- a/.idea/PetMyDog.iml	(revision a23cbf43efaf3cb6175c730b6b47329cacee4170)
++++ /dev/null	(revision a23cbf43efaf3cb6175c730b6b47329cacee4170)
+@@ -1,9 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<module type="JAVA_MODULE" version="4">
+-  <component name="NewModuleRootManager" inherit-compiler-output="true">
+-    <exclude-output />
+-    <content url="file://$MODULE_DIR$" />
+-    <orderEntry type="inheritedJdk" />
+-    <orderEntry type="sourceFolder" forTests="false" />
+-  </component>
+-</module>
+\ No newline at end of file
