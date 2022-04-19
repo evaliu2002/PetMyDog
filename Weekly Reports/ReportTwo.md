@@ -26,3 +26,14 @@
     - I finalized the web app prototype with the other front-end developers and we communicated through Slack about the prototype progress. I  created the react app for our web app and started creating the login component. I also worked on project file organization with the other developers. I learned that our file organization were best put into one whole file and then divide the front-end and back-end through sub directories. I had trouble figuring out design decisions for the prototype but solved it by talking to the other front-end developers and gaining inspiration from their ideas. I am currently a bit stuck on how information will be passed between front-end and back-end but will speak with everyone else to solve my concerns.
     
     - My plans and goals for the next week is to create the rest of the necessary components for the web app: profile component, dog profile component, map component, etc. 
+    
+###### Kevin Kong
+    - Goals from last week: Review my CSE 331 project and investigate how to use
+    Spark Java together with GCE. Try to learn ElasticSearch, and how to use it 
+    to get geolocations.
+    
+    - I setup the dev environment for Maven and Spark. I also helped reorganizing
+    the structure of the directory.
+    
+    - For next week, I plan to settle with the team on the relational database,
+    and figure out how to setup the database in the repo or dev environment.
