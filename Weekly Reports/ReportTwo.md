@@ -27,6 +27,17 @@
     
     - My plans and goals for the next week is to create the rest of the necessary components for the web app: profile component, dog profile component, map component, etc. 
 
+###### An Nguyen
+
+    - Goals from last week: I planned on review more Javascript and React material. I planned
+    to design the build the prototype.
+
+    - I completed the prototypes with the help of another front end developer using Figma
+
+    - My plans for next week is to code the components that I planned and draft 
+    out what we need to send to and receive from the back end.
+
+
 ###### Anish Konanki
     - Goals from last week: I will learn more about the Spark framework, and how we can integrate it with Compute Engine,
     and also discuss with my teammates about how we want to proceed with the structure for the backend.
