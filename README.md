@@ -21,6 +21,8 @@ directory, which we will update every week to report our progress and action ite
 
 ## Setup Instructions
 
+###NPM
+
 1. Navigate to main/front-end.
 
 2. Run npm install.
