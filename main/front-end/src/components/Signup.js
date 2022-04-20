@@ -31,3 +31,5 @@ export class Signup extends React.Component {
             </form>
           </div>
         )
+    }
+}
