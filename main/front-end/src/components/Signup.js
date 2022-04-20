@@ -11,7 +11,7 @@ export class Signup extends React.Component {
                 {/* {renderErrorMessage("uname")} */}
               </div>
               <div className="input-container">
-                <label> Name </label>
+                <label> Email </label>
                 <input type="text" placeholder="Enter your email" name="email" required />
                 {/* {renderErrorMessage("uname")} */}
               </div>
@@ -21,7 +21,7 @@ export class Signup extends React.Component {
                 {/* {renderErrorMessage("uname")} */}
               </div>
               <div className="input-container">
-                <label> Password </label>
+                <label> Verify Password </label>
                 <input type="password" placeholder="Re-enter your password" name="pass" required />
                 {/* {renderErrorMessage("pass")} */}
               </div>
