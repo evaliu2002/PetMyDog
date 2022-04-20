@@ -73,3 +73,15 @@
     - Assisted other developers to setup Git.
     
     - I will work with others to finalize DB design on Thursday and setup GCE, Google Cloud SQL, and ElasticSearch.
+
+###### Wenxuan Liu
+    - Goals from last week: I find out I forget a lot of React, so I will focus on refresh my React skills.
+    I will also complete tasks in frond/back end that we aim to finish.
+    
+    - Worked with backend teammates to create a list of APIs that we will implement in the futrue.
+    - Studied Spark framework that we are going to use.
+    - Helped with set up project repo and structure.
+    
+    - I will discuss with backend team to finalize DB design on Thursday and create a database after that.
+    - I will work with others to set up GCE and ElasticSearch.
+    - I will study more about Spark framework and ElasticSearch.
