@@ -9,12 +9,13 @@
   
     What we did:
     - Front-end: Created and finalized the prototype for our web app. Started creating necessary components.
-    - Back-end: Set up Spark framework.
+    - Back-end: Set up Spark framework in the code base, discussed possible designs for database schema, listed all of the APIs required, communicated with front-end
+    regarding request and response format, and discussed how to update user locations.
 
     What we plan to do:
     - Front-end: Create all necessary components and create the skeleton for the web app before we add functionality.
-    - Back-end: 
-    - Front&Back: 
+    - Back-end: Finalize database design on Thursday, setup GCE, Google Cloud SQL, and ElasticSearch.
+    - Front&Back: Finalize response/request formats and the list of APIs.
 
 #### Individual Reports
 
@@ -58,3 +59,17 @@
     need to look at how we can use Compute Engine for the back-end, and also look at how to set up our database.
 
     - I will research more about Compute Engine and the database that we will use, and learn more about how to set up the database.
+    
+###### Steve Ma
+    - Goals from last week: I will continue to work with my teammates on the database design and request/response format. 
+    My main priority right now is to understand the information needed for the main features so we can design a database schema 
+    that would scale well for the applciation. We would also need to discuss the request and response format, 
+    so front-end and back-end developers can work asynchronously without being blocked.
+    
+    - Worked with front-end developers to finalize the list of APIs required.
+    - Lead the discussion on how user locations can be updated.
+    - Discussed possible database designs and how to have our database work with ElasticSearch.
+    - Setup Spark framework and Maven.
+    - Assisted other developers to setup Git.
+    
+    - I will work with others to finalize DB design on Thursday and setup GCE, Google Cloud SQL, and ElasticSearch.
