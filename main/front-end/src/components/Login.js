@@ -4,7 +4,7 @@ export class Login extends React.Component {
     render() {
         const inputBoxStyle = { border: '2px', 
                                 borderColor: '#E5737D',
-                                
+
                               }
         return (
             <div>
@@ -27,6 +27,6 @@ export class Login extends React.Component {
                     </form>
                 </div>
             </div>
-        )
+        );
     }
 }

@@ -8,6 +8,6 @@ export class FindDogs extends React.Component {
                 <button>Petter Mode</button>
                 <BsFillPersonFill />
             </div>
-        )
+        );
     }
 }
