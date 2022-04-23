@@ -23,6 +23,7 @@ export class Login extends React.Component {
                     </div>
                     <div className="button-container">
                         <input type="submit" />
+                        <input type="submit" />
                     </div>
                     </form>
                 </div>
