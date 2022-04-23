@@ -2,6 +2,10 @@ import React from 'react';
 
 export class Login extends React.Component {
     render() {
+        const inputBoxStyle = { border: '2px', 
+                                borderColor: '#E5737D',
+                                
+                              }
         return (
             <div>
                 <h1 className="">Pet My Dog</h1>
@@ -9,7 +13,7 @@ export class Login extends React.Component {
                     <form>
                     <div className="input-container">
                         <label> Username </label>
-                        <input type="text" placeholder="UserName" name="uname" required />
+                        <input style={ inputBoxStyle } type="text" placeholder="UserName" name="uname" required />
                         {/* {renderErrorMessage("uname")} */}
                     </div>
                     <div className="input-container">
