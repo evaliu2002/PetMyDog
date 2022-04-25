@@ -3,6 +3,8 @@ import org.pac4j.core.authorization.authorizer.RequireAnyRoleAuthorizer;
 import org.pac4j.core.config.Config;
 import org.pac4j.core.exception.http.HttpAction;
 import org.pac4j.core.matching.matcher.PathMatcher;
+import org.pac4j.core.profile.ProfileManager;
+import org.pac4j.core.profile.UserProfile;
 import org.pac4j.jee.context.session.JEESessionStore;
 import org.pac4j.oidc.client.OidcClient;
 import org.pac4j.oidc.config.OidcConfiguration;
@@ -14,10 +16,13 @@ import org.pac4j.sparkjava.CallbackRoute;
 import org.pac4j.sparkjava.SecurityFilter;
 import org.pac4j.sparkjava.SparkHttpActionAdapter;
 import org.pac4j.sparkjava.SparkWebContext;
+import spark.Request;
+import spark.Response;
 import spark.template.mustache.MustacheTemplateEngine;
 import org.pac4j.core.context.session.SessionStore;
 
 
+import java.util.List;
 import java.util.Optional;
 
 import static spark.Spark.*;
@@ -68,7 +73,7 @@ public class Main {
 
         /****************************************   Start Service end pints   *****************************************/
 
-        get("/hello", (req, res) -> "Hello World");
+        get("/hello", (req, res) -> getProfiles(req, res));
         get("/login", (req, res) -> {
             final SparkWebContext context = new SparkWebContext(req, res);
             HttpAction action;
@@ -82,11 +87,13 @@ public class Main {
         });
 
         /******************************************   End Service end pints   *****************************************/
-
-
-        /****************************************   Start utils   *****************************************/
-
-        /****************************************   End utils   *****************************************/
-
     }
+
+    /****************************************   Start utils   *****************************************/
+    private static List<UserProfile> getProfiles(Request request, Response response) {
+        final SparkWebContext context = new SparkWebContext(request, response);
+        final ProfileManager manager = new ProfileManager(context, JEESessionStore.INSTANCE);
+        return manager.getProfiles();
+    }
+    /****************************************   End utils   *****************************************/
 }
