@@ -26,7 +26,7 @@ export class SelectedDog extends React.Component {
                 <p>Age: { this.state.dogAge }</p>
                 <p>Breed: { this.state.dogBreed }</p>
 
-                <img></img>
+                {/* <img></img> */}
 
                 <button>Go to Dog</button>
             </div>
