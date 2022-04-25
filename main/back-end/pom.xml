@@ -20,11 +20,17 @@
             <groupId>com.sparkjava</groupId>
             <artifactId>spark-template-mustache</artifactId>
             <version>2.7.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.sparkjava</groupId>
+                    <artifactId>spark-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.pac4j</groupId>
             <artifactId>spark-pac4j</artifactId>
-            <version>4.0.0</version>
+            <version>5.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.pac4j</groupId>
@@ -41,61 +47,6 @@
             <artifactId>pac4j-oauth</artifactId>
             <version>5.4.3</version>
         </dependency>
-        <dependency>
-            <groupId>com.sparkjava</groupId>
-            <artifactId>spark-core</artifactId>
-            <version>2.9.3</version>
-        </dependency>
 
-        <dependency>
-            <groupId>org.pac4j</groupId>
-            <artifactId>pac4j-saml</artifactId>
-            <version>5.4.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.pac4j</groupId>
-            <artifactId>pac4j-cas</artifactId>
-            <version>5.4.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.pac4j</groupId>
-            <artifactId>pac4j-http</artifactId>
-            <version>5.4.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.pac4j</groupId>
-            <artifactId>pac4j-jwt</artifactId>
-            <version>5.4.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.pac4j</groupId>
-            <artifactId>pac4j-sql</artifactId>
-            <version>5.4.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.pac4j</groupId>
-            <artifactId>pac4j-ldap</artifactId>
-            <version>5.4.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.pac4j</groupId>
-            <artifactId>pac4j-mongo</artifactId>
-            <version>5.4.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.pac4j</groupId>
-            <artifactId>pac4j-kerberos</artifactId>
-            <version>5.4.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.pac4j</groupId>
-            <artifactId>pac4j-couch</artifactId>
-            <version>5.4.3</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.2.11</version>
-        </dependency>
     </dependencies>
 </project>
