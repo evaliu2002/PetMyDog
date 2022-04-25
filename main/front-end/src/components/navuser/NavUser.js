@@ -1,7 +1,7 @@
 import React from 'react';
 import { BsFillTelephoneFill, BsFillPinMapFill, BsArrowUpCircleFill } from "react-icons/bs";
 
-export class NavigationUser extends React.Component {
+export class NavUser extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

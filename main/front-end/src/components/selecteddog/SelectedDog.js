@@ -1,6 +1,6 @@
 import React from 'react';
 
-export class DogsProfilePrewview extends React.Component {
+export class SelectedDog extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

@@ -1,9 +1,9 @@
 import React from 'react';
-import { Login } from './components/Login';
-import { Signup } from './components/Signup';
-import { FindDogs } from './components/FindDogs'
-import { DogsProfilePrewview } from './components/DogsProfilePreview';
-import { NavigationUser } from './components/NavigationUser';
+import { Login } from './components/login/Login';
+import { Signup } from './components/signup/Signup';
+import { FindDogs } from './components/finddogs/FindDogs'
+import { SelectedDog } from './components/selecteddog/SelectedDog';
+import { NavUser } from './components/navuser/NavUser';
 
 class App extends React.Component {
     render() {
@@ -12,8 +12,8 @@ class App extends React.Component {
                 <Login />
                 <Signup />
                 <FindDogs />
-                <DogsProfilePrewview />
-                <NavigationUser />
+                <SelectedDog />
+                <NavUser />
             </div>
         );
     }
