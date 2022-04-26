@@ -41,4 +41,14 @@ form {
   max-width: 50%;
 }
 
+.container{
+  display: block;
+  /*margin-left: auto;*/
+  /*margin-right: auto;*/
+  margin-top: 10%;
+  margin-bottom: 10%;
+  width: 1920px;
+  height: 1080px;
+  background-color: antiquewhite;
 
+}
