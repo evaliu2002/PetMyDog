@@ -11,3 +11,34 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+h1 { text-align: center;
+padding: 30px}
+
+form {
+  padding: 30px;
+}
+
+.create-button {
+  display: block;
+  border: none;
+  text-align: center;
+  font-size: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 70%;
+  background-color: white;
+
+}
+
+.circular-profile { border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  align-content: center;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 50%;
+}
+
+

@@ -8,9 +8,9 @@ export class Login extends React.Component {
                 <div className="form">
                     <form>
                     <div className="input-container">
-                        <label> Username </label>
-                        <input type="text" placeholder="UserName" name="uname" required />
-                        {/* {renderErrorMessage("uname")} */}
+                            <label id="u-label"> Username </label>
+                            <input type="text" id="u-frame"placeholder="UserName" name="uname" required />
+                            {/* {renderErrorMessage("uname")} */}
                     </div>
                     <div className="input-container">
                         <label> Password </label>
