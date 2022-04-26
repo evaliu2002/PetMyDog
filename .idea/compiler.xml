@@ -11,8 +11,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="back-end" target="1.5" />
-      <module name="PetMyDog" target="1.5" />
+      <module name="back-end" target="1.8" />
+      <module name="PetMyDog" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
