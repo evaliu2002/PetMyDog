@@ -19,3 +19,8 @@
 #### Individual Reports
 
 ###### Eva Liu
+    - Goals from last week: Create the rest of the necessary components for the web app: profile component, dog profile component, map component, etc.
+    
+    - Progress and Issues: I worked on the front-end project file organization. I decided to organize the files so that there are sub folders in the components folder for each component rather than store them all together in the components folder. This works because we will need to create test files for each component and rearranging the files this way will make it more organized. I also finished the templates for my assigned components. I am currently working on implementing google login and Oauth with the other developers. I learned how to style component files and organize components. I am having trouble figuring out how to navigate between the implemented web pages. I researched about react router but it seems like I am unable to use react router with buttons and icons. So I am currently stuck on figuring out how navigation between web pages will work.
+    
+    - Plans and Goals for the Next Week: Figure out how we are going to navigate between pages in the web app. Finish implementing the login and signup page for the web app.
