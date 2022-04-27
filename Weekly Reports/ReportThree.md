@@ -37,3 +37,14 @@
     - Progress and Issues: I discussed with the other backend developers what we would do for the database. We also discussed Oauth and how to set it up. I'm working on the createDogProfile API for this week. I will need to read up more on the Spark framework and familiarize myself with it on how to update the database with the given info.
 
     - Plans and Goals for the next week: Finish createDogProfile API and work with the other backend developers to finish the updateLocation API.
+
+###### Wenxuan Liu
+    - Goals from last week: 
+    - I will discuss with backend team to finalize DB design on Thursday and create a database after that.
+    - I will work with others to set up GCE and ElasticSearch.
+    - I will study more about Spark framework and ElasticSearch.
+
+    - Progress and Issues: I set up and configured: the google oauth, google compute engine, google cloud sql, spark pac4j, sql2o.
+    I also finished login endpoint and sql framework and connection.
+
+    - Plans and Goals for the next week: set up elasticsearch, learn how to use elasticsearch, use elasticsearch to make updateLocation endpoint.
