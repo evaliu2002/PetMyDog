@@ -13,12 +13,12 @@ export class CreateDogProfile extends React.Component {
                       "/>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                 <Form.Label>Dog's Name</Form.Label>
-                                <Form.Control type="text" placeholder="Your Dog's Name" />
+                                <Form.Control type="textarea" placeholder="Your Dog's Name" />
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                 <Form.Label>Dog's Breed</Form.Label>
-                                <Form.Control type="text" placeholder="Your Dog's Breed Here" />
+                                <Form.Control type="text`" placeholder="Your Dog's Breed Here" />
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
