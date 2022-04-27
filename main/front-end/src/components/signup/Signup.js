@@ -8,22 +8,18 @@ export class Signup extends React.Component {
               <div className="input-container">
                 <label> Name </label>
                 <input type="text" placeholder="Enter your name" name="name" required />
-                {/* {renderErrorMessage("uname")} */}
               </div>
               <div className="input-container">
                 <label> Email </label>
                 <input type="text" placeholder="Enter your email" name="email" required />
-                {/* {renderErrorMessage("uname")} */}
               </div>
               <div className="input-container">
                 <label> Password </label>
-                <input type="password" placeholder="Enter your password" name="pass" required />
-                {/* {renderErrorMessage("uname")} */}
+                <input type="text" placeholder="Enter your password" name="pass" required />
               </div>
               <div className="input-container">
                 <label> Verify Password </label>
                 <input type="password" placeholder="Re-enter your password" name="pass" required />
-                {/* {renderErrorMessage("pass")} */}
               </div>
               <div className="button-container">
                 <input type="submit" />
