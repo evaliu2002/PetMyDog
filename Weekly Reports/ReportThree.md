@@ -36,4 +36,4 @@
 
     - Progress and Issues: I discussed with the other backend developers what we would do for the database. We also discussed Oauth and how to set it up. I'm working on the createDogProfile API for this week. I will need to read up more on the Spark framework and familiarize myself with it on how to update the database with the given info.
 
-    - Plans and Goals for the next week: Finish createDogProfile API and work with the other backend developers to finish the updateLocation API
+    - Plans and Goals for the next week: Finish createDogProfile API and work with the other backend developers to finish the updateLocation API.
