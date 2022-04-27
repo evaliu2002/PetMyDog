@@ -30,3 +30,10 @@
     - Progress and Issues: I worked with other developers to finalize the database design and worked on setting up Google Cloud SQL. I reviewed Wenxuan's code for setting up SQL connection and code for OAUTH and discussed possible changes to the login route. We also reviewed geolocation related designs and finalized different situations on when the location would be updated. I'm currently working on the get dog profile API.
     
     - Plans and Goals for the Next Week: Finish get dog profile API and work with other developers to finish the update location API.
+
+###### Anish Konanki
+    - Goals from last week: I will research more about Compute Engine and the database that we will use, and learn more about how to set up the database.
+
+    - Progress and Issues: I discussed with the other backend developers what we would do for the database. We also discussed Oauth and how to set it up. I'm working on the createDogProfile API for this week. I will need to read up more on the Spark framework and familiarize myself with it on how to update the database with the given info.
+
+    - Plans and Goals for the next week: Finish createDogProfile API and work with the other backend developers to finish the updateLocation API
