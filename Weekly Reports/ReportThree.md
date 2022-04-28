@@ -48,3 +48,14 @@
     I also finished login endpoint and sql framework and connection.
 
     - Plans and Goals for the next week: set up elasticsearch, learn how to use elasticsearch, use elasticsearch to make updateLocation endpoint.
+
+
+##### Kevin Kong
+    - Goals from last week: I planned to settle with the team on the relational database,
+                                and to figure out how to setup the database in the repo or dev environment.
+
+    - Progress and Issues: I debugged environment settings with a teammate, discussed about the public libraries
+                                that we are using for our database, and worked on API calls assigned to me.
+
+    - Plans and Goals for the next week: Help setup ElasticSearch. Continue to work on backend API calls.
+    

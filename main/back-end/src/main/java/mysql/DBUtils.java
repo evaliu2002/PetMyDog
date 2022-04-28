@@ -2,9 +2,12 @@ package mysql;
 
 import lombok.Data;
 
+import java.util.List;
+
 public class DBUtils {
     public interface Model {
         void updateUser(String username, String bio, String uid);
+        List<User> getUser(String uid);
     }
 
     @Data

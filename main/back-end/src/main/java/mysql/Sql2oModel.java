@@ -3,7 +3,7 @@ package mysql;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
-import java.util.Map;
+import java.util.List;
 
 public class Sql2oModel implements DBUtils.Model {
 
@@ -23,6 +23,15 @@ public class Sql2oModel implements DBUtils.Model {
                     .addParameter("uid", uid)
                     .executeUpdate();
             conn.commit();
+        }
+    }
+
+    @Override
+    public List<DBUtils.User> getUser(String uid) {
+        String sql = "SELECT * FROM User WHERE uid = " + uid;
+
+        try(Connection con = sql2o.open()) {
+            return con.createQuery(sql).executeAndFetch(DBUtils.User.class);
         }
     }
 }

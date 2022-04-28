@@ -22,6 +22,8 @@ import static spark.Spark.*;
 
 
 public class Main {
+    private static DBUtils.Model model;
+
     public static void main(String[] args) {
 
         /*****************************************     Begin OAuth config     *****************************************/
@@ -58,7 +60,7 @@ public class Main {
         /*****************************************     Begin SQL config     *****************************************/
 
         Sql2o sql2o = new Sql2o("jdbc:mysql://34.70.199.136:3306/pmd", "root", "b4lIbLjGOvszgcLC");
-        DBUtils.Model model = new Sql2oModel(sql2o);
+        model = new Sql2oModel(sql2o);
 
         /*****************************************     END SQL config     *****************************************/
 
@@ -86,6 +88,8 @@ public class Main {
             return null;
         });
 
+        get("/hello", (req, res) -> getUserProfile(req, res));
+
         get("sql", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
@@ -103,6 +107,13 @@ public class Main {
         final SparkWebContext context = new SparkWebContext(request, response);
         final ProfileManager manager = new ProfileManager(context, JEESessionStore.INSTANCE);
         return manager.getProfiles();
+    }
+
+    private static String getUserProfile(Request request, Response response) {
+        Gson gson = new Gson();
+        String body = request.body();
+        Map<String, String> bodyContent = gson.fromJson(body, Map.class);
+        return gson.toJson(model.getUser(bodyContent.get("uid")));
     }
     /****************************************   End utils   *****************************************/
 }
