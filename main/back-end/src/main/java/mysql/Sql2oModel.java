@@ -27,17 +27,17 @@ public class Sql2oModel implements DBUtils.Model {
     }
 
     @Override
-    public void createDog(String dogid, String dogname, int age, String gender, String breed, String pic) {
-        String dog = "INSERT INTO Dog " +
+    public void createDog(DBUtils.Dog dog) {
+        String insert = "INSERT INTO Dog " +
                 "VALUES (:did, :name, :age, :gender, :breed, :pic_link)";
         try (Connection conn = sql2o.beginTransaction()) {
-            conn.createQuery(dog)
-                    .addParameter("did", dogid)
-                    .addParameter("name", dogname)
-                    .addParameter("age", age)
-                    .addParameter("gender", gender)
-                    .addParameter("breed", breed)
-                    .addParameter("pic_link", pic)
+            conn.createQuery(insert)
+                    .addParameter("did", dog.getDid())
+                    .addParameter("name", dog.getName())
+                    .addParameter("age", dog.getAge())
+                    .addParameter("gender", dog.getGender())
+                    .addParameter("breed", dog.getBreed())
+                    .addParameter("pic_link", dog.getPic_link())
                     .executeUpdate();
             conn.commit();
         }

@@ -118,7 +118,8 @@ public class Main {
 
     private static String createDogProfile(Request request, Response response) {
         Gson gson = new Gson();
-        model.createDog("4567", "dog", 10, "female", "lab", "test_link");
+        model.createDog(gson.fromJson(request.body(), DBUtils.Dog.class));
+        //model.createDog("4567", "dog", 10, "female", "lab", "test_link");
         return gson.toJson("Success");
     }
     /****************************************   End utils   *****************************************/
