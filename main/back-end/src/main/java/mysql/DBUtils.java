@@ -20,4 +20,13 @@ public class DBUtils {
         private String bio;
         private String pic_link;
     }
+    @Data
+    public class Dog {
+        private String did;
+        private String name;
+        private int age;
+        private String gender;
+        private String breed;
+        private String pic_link;
+    }
 }

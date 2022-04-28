@@ -88,9 +88,9 @@ public class Main {
             return null;
         });
 
-        get("/hello", (req, res) -> getUserProfile(req, res));
-        post("/new-dog", (req, res) -> createNewDog(req, res));
-        get("sql", new Route() {
+        get("/profile", (req, res) -> getUserProfile(req, res));
+        post("/newDog", (req, res) -> createDogProfile(req, res));
+        get("/sql", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
                 model.updateUser("test2", "test2", "1234");
@@ -116,9 +116,9 @@ public class Main {
         return gson.toJson(model.getUser(bodyContent.get("uid")));
     }
 
-    private static String createNewDog(Request request, Response response) {
+    private static String createDogProfile(Request request, Response response) {
         Gson gson = new Gson();
-
+        model.createDog("4567", "dog", 10, "female", "lab", "test_link");
         return gson.toJson("Success");
     }
     /****************************************   End utils   *****************************************/
