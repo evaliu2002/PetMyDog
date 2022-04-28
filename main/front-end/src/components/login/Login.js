@@ -16,7 +16,7 @@ export class Login extends React.Component {
                 clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
                 buttonText="Log in with Google"
                 onSuccess={handleLogin}
-                onFailure={handleFailure}
+                onFailure={handleFailure}in
                 cookiePolicy={'single_host_origin'}
                 ></GoogleLogin>
             </div>
