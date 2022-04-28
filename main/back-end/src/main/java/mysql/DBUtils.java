@@ -8,6 +8,7 @@ public class DBUtils {
     public interface Model {
         void updateUser(String username, String bio, String uid);
         List<User> getUser(String uid);
+        void createDog(String dogid, String dogname, int age, String gender, String breed, String pic);
     }
 
     @Data

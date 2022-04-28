@@ -89,7 +89,7 @@ public class Main {
         });
 
         get("/hello", (req, res) -> getUserProfile(req, res));
-
+        post("/new-dog", (req, res) -> createNewDog(req, res));
         get("sql", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
@@ -114,6 +114,12 @@ public class Main {
         String body = request.body();
         Map<String, String> bodyContent = gson.fromJson(body, Map.class);
         return gson.toJson(model.getUser(bodyContent.get("uid")));
+    }
+
+    private static String createNewDog(Request request, Response response) {
+        Gson gson = new Gson();
+
+        return gson.toJson("Success");
     }
     /****************************************   End utils   *****************************************/
 }

@@ -27,6 +27,23 @@ public class Sql2oModel implements DBUtils.Model {
     }
 
     @Override
+    public void createDog(String dogid, String dogname, int age, String gender, String breed, String pic) {
+        String dog = "INSERT INTO Dog " +
+                "VALUES (:did, :name, :age, :gender, :breed, :pic_link)";
+        try (Connection conn = sql2o.beginTransaction()) {
+            conn.createQuery(dog)
+                    .addParameter("did", dogid)
+                    .addParameter("name", dogname)
+                    .addParameter("age", age)
+                    .addParameter("gender", gender)
+                    .addParameter("breed", breed)
+                    .addParameter("pic_link", pic)
+                    .executeUpdate();
+            conn.commit();
+        }
+    }
+
+    @Override
     public List<DBUtils.User> getUser(String uid) {
         String sql = "SELECT * FROM User WHERE uid = " + uid;
 
