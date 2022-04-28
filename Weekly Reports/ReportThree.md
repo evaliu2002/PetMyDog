@@ -59,3 +59,14 @@
 
     - Plans and Goals for the next week: Help setup ElasticSearch. Continue to work on backend API calls.
     
+##### An Nguyen
+    Goals from last week: I planned to code the components that I planned and draft
+    out what we need to send to and receive from the back end.
+  
+    What we did:
+    -I built the CreateDogProfile and ViewDogProfile components to show the dog's profile photos.
+    -I read the tutorials on React Router and how to preview and upload profile photo.
+
+    What we plan to do:
+    - Continue building other components 
+    - Figure out and implement React Router to navigate between the pages.
