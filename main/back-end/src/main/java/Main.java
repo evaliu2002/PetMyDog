@@ -1,6 +1,12 @@
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.json.jackson.JacksonJsonpMapper;
+import co.elastic.clients.transport.ElasticsearchTransport;
+import co.elastic.clients.transport.rest_client.RestClientTransport;
 import mysql.DBUtils;
 import mysql.Sql2oModel;
 import com.google.gson.Gson;
+import org.apache.http.HttpHost;
+import org.elasticsearch.client.RestClient;
 import org.pac4j.core.config.Config;
 import org.pac4j.core.exception.http.HttpAction;
 import org.pac4j.core.profile.ProfileManager;
@@ -17,13 +23,10 @@ import spark.Response;
 import org.sql2o.Sql2o;
 import spark.Route;
 import java.util.*;
-
 import static spark.Spark.*;
-
 
 public class Main {
     public static void main(String[] args) {
-
         /*****************************************     Begin OAuth config     *****************************************/
 
         // Setup google oauth api configuration with pac4j
@@ -62,6 +65,28 @@ public class Main {
 
         /*****************************************     END SQL config     *****************************************/
 
+        /*************************************   Start Elasticsearch config   *****************************************/
+
+        // Create the low-level client
+        RestClient restClient = RestClient.builder(
+                new HttpHost("localhost", 9200)).build();
+
+        // Create the transport with a Jackson mapper
+        ElasticsearchTransport transport = new RestClientTransport(
+                restClient, new JacksonJsonpMapper());
+
+        // And create the API client
+        ElasticsearchClient ESClient = new ElasticsearchClient(transport);
+
+        try {
+            ESClient.indices().create(c -> c.index("location"));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        /***************************************   End Elasticsearch config   *****************************************/
+
+
 
         /*******************************************   Start Security Guard   *****************************************/
 
@@ -90,6 +115,15 @@ public class Main {
             @Override
             public Object handle(Request request, Response response) throws Exception {
                 model.updateUser("test2", "test2", "1234");
+                Gson gson = new Gson();
+                return gson.toJson("updated");
+            }
+        });
+
+        get("/updateLocation", new Route() {
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+
                 Gson gson = new Gson();
                 return gson.toJson("updated");
             }
