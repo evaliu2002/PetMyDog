@@ -88,7 +88,7 @@ public class Main {
             return null;
         });
 
-        get("/hello", (req, res) -> getUserProfile(req, res));
+        get("/profile", (req, res) -> getUserProfile(req, res));
 
         get("sql", new Route() {
             @Override
