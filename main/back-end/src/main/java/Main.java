@@ -68,6 +68,7 @@ public class Main {
         /*******************************************   Start Security Guard   *****************************************/
 
         before("/hello", new SecurityFilter(config, "GoogleClient"));
+        // before("/getDogProfile", new SecurityFilter(config, "GoogleClient"));
 
         /******************************************    End Security Guard     *****************************************/
 
@@ -88,7 +89,9 @@ public class Main {
             return null;
         });
 
-        get("/hello", (req, res) -> getUserProfile(req, res));
+        get("/getDogProfile", (req, res) -> getDogProfile(req, res));
+
+        get("/getUserProfile", (req, res) -> getUserProfile(req, res));
 
         get("sql", new Route() {
             @Override
@@ -115,5 +118,13 @@ public class Main {
         Map<String, String> bodyContent = gson.fromJson(body, Map.class);
         return gson.toJson(model.getUser(bodyContent.get("uid")));
     }
+
+    private static String getDogProfile(Request request, Response response) {
+        Gson gson = new Gson();
+        String body = request.body();
+        Map<String, String> bodyContent = gson.fromJson(body, Map.class);
+        return gson.toJson(model.getDog(bodyContent.get("dogId")));
+    }
+
     /****************************************   End utils   *****************************************/
 }
