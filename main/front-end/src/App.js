@@ -1,11 +1,10 @@
 import React, { useState }from 'react';
 import GoogleLogin from 'react-google-login';
-// import { useHistory } from "react-router-dom";
-import { FindDogs } from './components/finddogs/FindDogs'
+// import { FindDogs } from './components/finddogs/FindDogs'
 import { SelectedDog } from './components/selecteddog/SelectedDog';
 import { NavUser } from './components/navuser/NavUser';
 
-function App() {
+const App = () => {
     const [loginData, setLoginData] = useState(
             localStorage.getItem('loginData')
             ? JSON.parse(localStorage.getItem('loginData'))
@@ -17,7 +16,7 @@ function App() {
     };
 
     const handleLogin = async (googleData) => {
-        const res = await fetch('callback?client_name=OidcClient', {
+        const res = await fetch('http://localhost:4567/callback', {
             method: 'POST',
             body: JSON.stringify({
                 token: googleData.tokenId,
@@ -55,14 +54,14 @@ function App() {
                                 onSuccess={handleLogin}
                                 onFailure={handleFailure}
                                 cookiePolicy={'single_host_origin'}
-                            ></GoogleLogin>
+                            />
                         )}
                     </div>
                 </header>
             </div>
-            <FindDogs />
             <SelectedDog />
             <NavUser />
+            {/*<FindDogs />*/}
         </div>
     );
 }
