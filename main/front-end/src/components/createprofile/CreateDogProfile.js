@@ -29,7 +29,6 @@ export class CreateDogProfile extends React.Component {
                                     Create Profile
                                 </button>
                             </Form>
-
                     </div>
                 </div>
             </div>
