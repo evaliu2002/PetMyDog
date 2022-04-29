@@ -31,8 +31,8 @@ public class Main {
 
         // Setup google oauth api configuration with pac4j
         final OidcConfiguration oidcConfiguration = new OidcConfiguration();
-        oidcConfiguration.setClientId("215324184605-v64ebk4kddt6aufdkmbaf0iv38doeqdb.apps.googleusercontent.com");
-        oidcConfiguration.setSecret("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");
+        oidcConfiguration.setClientId("205317701531-od80vq0biekitm7bq8irtfoen3fhpfo0.apps.googleusercontent.com");
+        oidcConfiguration.setSecret("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");
         oidcConfiguration.setDiscoveryURI("https://accounts.google.com/.well-known/openid-configuration");
         oidcConfiguration.setUseNonce(true);
         oidcConfiguration.addCustomParam("prompt", "consent");
