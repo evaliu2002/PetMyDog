@@ -26,7 +26,6 @@ export class CreateDogProfile extends React.Component {
                                 <Form.Control type="text" placeholder="Your Dog's Age Here" />
                             </Form.Group>
                         </Form>
-
                     </div>
                 </div>
             </div>

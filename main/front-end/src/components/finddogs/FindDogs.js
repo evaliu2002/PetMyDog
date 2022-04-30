@@ -1,14 +1,14 @@
 import React from 'react';
 import { BsFillPersonFill } from "react-icons/bs";
-import useHistory from "react-router-dom";
+// import useHistory from "react-router-dom";
 
 const dogsNearby = [];
 
 export const FindDogs = () => {
-    const navigate = useHistory();
+    // const navigate = useHistory();
 
     const ownerProfile = () => {
-        navigate("./ownerprofile/OwnerProfile")
+        // navigate("./ownerprofile/OwnerProfile")
     }
     return (
         <div>
