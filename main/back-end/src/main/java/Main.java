@@ -93,6 +93,29 @@ public class Main {
         /*******************************************   Start Security Guard   *****************************************/
 
         before("/hello", new SecurityFilter(config, "GoogleClient"));
+        after("/callback", (Request request, Response response) -> {
+            List<UserProfile> users = getProfiles(request, response);
+            if (users.size() == 1) {
+                UserProfile user = users.get(0);
+                if (!model.existUser(user.getId())) {
+                    String email = null;
+                    String pic_link = null;
+                    Map<String, Object> attributes = user.getAttributes();
+                    if (attributes.containsKey("email") && attributes.get("email") != null) {
+                        email = attributes.get("email").toString();
+                    }
+                    if (attributes.containsKey("picture") && attributes.get("picture") != null) {
+                        pic_link = attributes.get("picture").toString();
+                    }
+                    model.createUser(new DBUtils.User(user.getId(), user.getUsername(),
+                            null, email, null, pic_link, "1000-01-01 00:00:00"));
+                }
+                response.redirect("/hello");
+            } else {
+                response.redirect("/login");
+            }
+
+        });
 
         /******************************************    End Security Guard     *****************************************/
 
