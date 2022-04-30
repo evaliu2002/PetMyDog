@@ -4,7 +4,7 @@ import { BsFillPersonFill } from "react-icons/bs";
 
 const dogsNearby = [];
 
-export const FindDogs = () => {
+const FindDogs = () => {
     // const navigate = useHistory();
 
     const ownerProfile = () => {
@@ -22,3 +22,5 @@ export const FindDogs = () => {
         </div>
     );
 }
+
+export default FindDogs;
