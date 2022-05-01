@@ -7,12 +7,11 @@ import java.util.List;
 
 public class DBUtils {
     public interface Model {
-        boolean existUser(String uid);
 
         boolean createUser(User user);
 
         void updateUser(String username, String bio, String uid);
-        List<User> getUser(String uid);
+        User getUser(String uid) throws Exception;
         void createDog(Dog dog);
     }
 
@@ -36,5 +35,10 @@ public class DBUtils {
         private String gender;
         private String breed;
         private String pic_link;
+    }
+
+    @Data
+    public class ExistUserResult {
+        private int exist;
     }
 }

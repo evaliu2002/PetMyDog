@@ -14,17 +14,12 @@ public class Sql2oModel implements DBUtils.Model {
     }
 
     @Override
-    public boolean existUser(String uid) {
-        try (Connection conn = sql2o.open()) {
-            int c = conn.createQuery("SELECT 1 FROM user WHERE uid = :uid;")
-                    .addParameter("uid", uid)
-                    .executeAndFetch(Integer.class)
-                    .get(0);
-            return c == 1;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return false;
-        }
+    public DBUtils.User getUser(String uid) throws Exception {
+        Connection conn = sql2o.open();
+        DBUtils.User c = conn.createQuery("SELECT * FROM User WHERE uid = :uid;")
+                .addParameter("uid", uid)
+                .executeAndFetchFirst(DBUtils.User.class);
+        return c;
     }
 
     @Override
@@ -76,12 +71,12 @@ public class Sql2oModel implements DBUtils.Model {
         }
     }
 
-    @Override
-    public List<DBUtils.User> getUser(String uid) {
-        String sql = "SELECT * FROM User WHERE uid = " + uid;
-
-        try(Connection con = sql2o.open()) {
-            return con.createQuery(sql).executeAndFetch(DBUtils.User.class);
-        }
-    }
+//    @Override
+//    public List<DBUtils.User> getUser(String uid) {
+//        String sql = "SELECT * FROM User WHERE uid = " + uid;
+//
+//        try(Connection con = sql2o.open()) {
+//            return con.createQuery(sql).executeAndFetch(DBUtils.User.class);
+//        }
+//    }
 }

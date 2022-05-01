@@ -97,20 +97,25 @@ public class Main {
             List<UserProfile> users = getProfiles(request, response);
             if (users.size() == 1) {
                 UserProfile user = users.get(0);
-                if (!model.existUser(user.getId())) {
+                if (model.getUser(user.getId()) == null) {
                     String email = null;
                     String pic_link = null;
+                    String username = null;
                     Map<String, Object> attributes = user.getAttributes();
+                    if (attributes.containsKey("given_name") && attributes.get("given_name") != null) {
+                        username = attributes.get("given_name").toString();
+                    }
                     if (attributes.containsKey("email") && attributes.get("email") != null) {
                         email = attributes.get("email").toString();
                     }
                     if (attributes.containsKey("picture") && attributes.get("picture") != null) {
                         pic_link = attributes.get("picture").toString();
                     }
-                    model.createUser(new DBUtils.User(user.getId(), user.getUsername(),
-                            null, email, null, pic_link, "1000-01-01 00:00:00"));
+                    if (!model.createUser(new DBUtils.User(user.getId(), username,
+                            null, email, null, pic_link, "1000-01-01 00:00:00"))) {
+                        response.redirect("/login", 500);
+                    }
                 }
-                response.redirect("/hello");
             } else {
                 response.redirect("/login");
             }
@@ -123,7 +128,8 @@ public class Main {
 
         /****************************************   Start Service end pints   *****************************************/
 
-        get("/hello", (req, res) -> getProfiles(req, res));
+        get("/hello", Main::getProfiles);
+
         get("/login", (req, res) -> {
             final SparkWebContext context = new SparkWebContext(req, res);
             HttpAction action;
@@ -136,8 +142,10 @@ public class Main {
             return null;
         });
 
-        get("/profile", (req, res) -> getUserProfile(req, res));
-        post("/newDog", (req, res) -> createDogProfile(req, res));
+        get("/profile", Main::getUserProfile);
+
+        post("/newDog", Main::createDogProfile);
+
         get("/sql", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
@@ -167,10 +175,16 @@ public class Main {
     }
 
     private static String getUserProfile(Request request, Response response) {
-        Gson gson = new Gson();
-        String body = request.body();
-        Map<String, String> bodyContent = gson.fromJson(body, Map.class);
-        return gson.toJson(model.getUser(bodyContent.get("uid")));
+        try {
+            Gson gson = new Gson();
+            String body = request.body();
+            Map<String, String> bodyContent = gson.fromJson(body, Map.class);
+            return gson.toJson(model.getUser(bodyContent.get("uid")));
+        } catch (Exception e) {
+            halt(500);
+            return null;
+        }
+
     }
 
     private static String createDogProfile(Request request, Response response) {
