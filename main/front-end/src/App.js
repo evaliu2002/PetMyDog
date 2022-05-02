@@ -10,11 +10,11 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                {/*<Login />*/}
-                {/*<Signup />*/}
-                {/*<FindDogs />*/}
-                {/*<SelectedDog />*/}
-                {/*<NavUser />*/}
+                <Login />
+                <Signup />
+                <FindDogs />
+                <SelectedDog />
+                <NavUser />
                 <ViewDogProfile/>
             </div>
         );
