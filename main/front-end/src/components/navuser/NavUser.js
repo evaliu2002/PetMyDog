@@ -1,41 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BsFillTelephoneFill, BsFillPinMapFill, BsArrowUpCircleFill } from "react-icons/bs";
 
-export class NavUser extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            userName: '',
-            userLocation: {longitude: 0, latitude: 0},
-            ownerName: '',
-            ownerDogName: '',
-            ownerPhoneNum: '',
-            dogLocation: {longitude: 0, latitude: 0},
-            distanceLeft: 0,
-        };
-    }
+const NavUser = () => {
+    const [selectedDog, setSelectedDog] = useState();
+    const [userName, setUserName] = useState("");
+    const [ownerName, setOwnerName] = useState("");
+    const [ownerPhoneNum, setOwnerPhoneNum] = useState("");
+    const [dogName, setDogName] = useState("");
+    const [dogLocation, setDogLocation] = useState({longitude: 0, latitude: 0});
+    const [userLocation, setUserLocation] = useState({longitude: 0, latitude: 0});
+    const [distanceLeft, setDistanceLeft] = useState(0)
 
-    render() {
-        return (
-            <div>
-                {/* map */}
-                <h3> { this.state.userName } is heading to { this.state.ownerDogName }</h3>
+    return (
+        <div>
+            {/* map */}
+            <h3> { userName } is heading to { ownerName }</h3>
 
-                <h5> { this.state.ownerName } </h5> <br />
-                <p> Dog Owner </p>
+            <h5> { ownerName } </h5> <br />
+            <p> Dog Owner </p>
 
-                <BsFillTelephoneFill />
-                <h4> { this.state.ownerPhoneNum } </h4>
+            <BsFillTelephoneFill />
+            <h4> { ownerPhoneNum } </h4>
 
-                <BsFillPinMapFill />
-                <p> Location of { this.state.ownerDogName }: 
-                { this.state.dogLocation.longitude }, { this.state.dogLocation.latitude }</p>
+            <BsFillPinMapFill />
+            <p> Location of { dogName }:
+            { dogLocation.longitude }, { dogLocation.latitude }</p>
 
-                <BsArrowUpCircleFill />
-                <p> Distance Left: { this.state.distanceLeft } </p> 
+            <BsArrowUpCircleFill />
+            <p> Distance Left: { distanceLeft } </p>
 
-                <button>Cancel the Meeting</button>
-            </div>
-        );
-    }
+            <button>Cancel the Meeting</button>
+        </div>
+    );
 }

@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BsFillPersonFill } from "react-icons/bs";
-// import useHistory from "react-router-dom";
-
-const dogsNearby = [];
+import { useNavigate } from 'react-router';
 
 const FindDogs = () => {
-    // const navigate = useHistory();
+    let navigate = useNavigate();
 
     const ownerProfile = () => {
-        // navigate("./ownerprofile/OwnerProfile")
+        navigate("main/front-end/src/components/ownerprofile/OwnerProfile.js")
     }
+
+    const selectedDog = () => {
+        navigate("main/front-end/src/components/selecteddog/SelectedDog.js")
+    }
+
+    const [userLocation, setUserLocation] = useState({longitude: 0, latitude: 0});
+
+    const [dogsNearby, setDogsNearby] = useState([]);
+
     return (
         <div>
             <button>Petter Mode</button>
