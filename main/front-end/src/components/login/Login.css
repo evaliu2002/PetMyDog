@@ -1,0 +1,14 @@
+div {
+    background-color: #E5737D;
+    height: auto;
+}
+
+a {
+    margin: 0;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}

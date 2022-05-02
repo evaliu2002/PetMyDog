@@ -14,9 +14,37 @@ public class Sql2oModel implements DBUtils.Model {
     }
 
     @Override
+    public DBUtils.User getUser(String uid) throws Exception {
+        Connection conn = sql2o.open();
+        DBUtils.User c = conn.createQuery("SELECT * FROM User WHERE uid = :uid;")
+                .addParameter("uid", uid)
+                .executeAndFetchFirst(DBUtils.User.class);
+        return c;
+    }
+
+    @Override
+    public boolean createUser(DBUtils.User user) {
+        try (Connection conn = sql2o.beginTransaction()) {
+            conn.createQuery("INSERT INTO User VALUES (:uid, :username, :phone, :email, :bio, :pic_link, :last_ping);")
+                    .addParameter("uid", user.getUid())
+                    .addParameter("username", user.getUsername())
+                    .addParameter("phone", user.getPhone())
+                    .addParameter("email", user.getEmail())
+                    .addParameter("bio", user.getBio())
+                    .addParameter("pic_link", user.getPic_link())
+                    .addParameter("last_ping", user.getLast_ping())
+                    .executeUpdate();
+            conn.commit();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
     public void updateUser(String username, String bio, String uid) {
         try (Connection conn = sql2o.beginTransaction()) {
-            conn.createQuery("SELECT * FROM User");
             conn.createQuery("UPDATE User SET username = :username, bio = :bio WHERE uid = :uid")
                     .addParameter("username", username)
                     .addParameter("bio", bio)
@@ -43,12 +71,12 @@ public class Sql2oModel implements DBUtils.Model {
         }
     }
 
-    @Override
-    public List<DBUtils.User> getUser(String uid) {
-        String sql = "SELECT * FROM User WHERE uid = " + uid;
-
-        try(Connection con = sql2o.open()) {
-            return con.createQuery(sql).executeAndFetch(DBUtils.User.class);
-        }
-    }
+//    @Override
+//    public List<DBUtils.User> getUser(String uid) {
+//        String sql = "SELECT * FROM User WHERE uid = " + uid;
+//
+//        try(Connection con = sql2o.open()) {
+//            return con.createQuery(sql).executeAndFetch(DBUtils.User.class);
+//        }
+//    }
 }
