@@ -14,12 +14,12 @@ jobs:
 
   #jestTest
   testJest:
-    working_directory: ~/main/front-end
+    working_directory: ~/PetMyDog/main/front-end
     docker:
       - image: cimg/node:18.0.0
     steps:
       - checkout:
-          path: ~/main
+          path: ~/PetMyDog
       - run: npm test
 
   build:
@@ -31,12 +31,12 @@ jobs:
 
   #jestBuild
   buildJest:
-    working_directory: ~/main/front-end
+    working_directory: ~/PetMyDog/main/front-end
     docker:
       - image: cimg/node:18.0.0
     steps:
       - checkout:
-          path: ~/main
+          path: ~/PetMyDog
       - run: npm install
 
 
