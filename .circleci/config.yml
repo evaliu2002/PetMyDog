@@ -33,6 +33,7 @@ jobs:
       - image: cimg/node:18.0.0
     steps:
       - checkout
+      - run: cd ./main/front-end
       - run: npm install
 
 
