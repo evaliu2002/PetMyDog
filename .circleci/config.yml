@@ -20,6 +20,7 @@ jobs:
     steps:
       - checkout:
           path: ~/PetMyDog
+      - run: npm i react-scripts
       - run: npm test
 
   build:
