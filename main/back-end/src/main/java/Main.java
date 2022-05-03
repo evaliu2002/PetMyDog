@@ -1,4 +1,6 @@
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.elasticsearch.core.IndexRequest;
+import co.elastic.clients.elasticsearch.core.IndexResponse;
 import co.elastic.clients.json.jackson.JacksonJsonpMapper;
 import co.elastic.clients.transport.ElasticsearchTransport;
 import co.elastic.clients.transport.rest_client.RestClientTransport;
@@ -158,8 +160,15 @@ public class Main {
         get("/updateLocation", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
-
                 Gson gson = new Gson();
+                DBUtils.Location loc = gson.fromJson(request.body(), DBUtils.Location.class);
+                DBUtils.UserLocation uloc = new DBUtils.UserLocation(loc, "test");
+
+                IndexResponse r = ESClient.index(i -> i
+                        .index("location")
+                        .id(uloc.getUid())
+                        .document(uloc)
+                );
                 return gson.toJson("updated");
             }
         });
