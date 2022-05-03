@@ -12,12 +12,28 @@ jobs:
       - checkout
       - run: mvn clean test
 
+  #jestTest
+  testJest:
+    docker:
+      - image: cimg/node:18.0.0
+    steps:
+      - checkout
+      - run: npm test
+
   build:
     docker:
       - image: cimg/openjdk:17.0.3
     steps:
       - checkout
       - run: mvn -Dmaven.test.skip=true package
+
+  #jestBuild
+  buildJest:
+    docker:
+      - image: cimg/node:18.0.0
+    steps:
+      - checkout
+      - run: npm install
 
 
 # Invoke jobs via workflows
@@ -26,6 +42,10 @@ workflows:
   say-hello-workflow:
     jobs:
       - build
+      - buildJest
       - test:
           requires:
             - build
+      - testJest:
+          requires:
+            - buildJest
