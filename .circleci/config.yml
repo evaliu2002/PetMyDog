@@ -17,10 +17,27 @@ jobs:
       - run:
           name: "Say hello"
           command: "echo Hello, World!"
+  test:
+    docker:
+      - image: cimg/openjdk:17.0.3
+    steps:
+      - checkout
+      - run: ./mvnw clean test
+
+  build:
+    docker:
+      - image: cimg/openjdk:17.0.3
+    steps:
+      - checkout
+      - run: ./mvnw -Dmaven.test.skip=true package
+
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   say-hello-workflow:
     jobs:
-      - say-hello
+      - build
+      - test:
+          requires:
+            - build
