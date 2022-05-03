@@ -7,11 +7,11 @@ import SelectedDog from "./components/selecteddog/SelectedDog";
 const App = () => {
     return (
         <div id='App'>
-            <Login />
+            {/*<Login />*/}
             <Routes>
-                <Route path="http://localhost:3000" element={<Login />} />
-                <Route path="main/front-end/src/components/finddogs/FindDogs.js" element={<FindDogs />}/>
-                <Route path="main/front-end/src/components/selecteddog/SelectedDog.js" element={<SelectedDog />}/>
+                <Route path="/" element={<Login />} />
+                <Route path="find-dogs" element={<FindDogs />}/>
+                <Route path="selected-dog" element={<SelectedDog />}/>
             </Routes>
         </div>
     );
