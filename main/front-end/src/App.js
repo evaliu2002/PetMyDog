@@ -7,7 +7,6 @@ import SelectedDog from "./components/selecteddog/SelectedDog";
 const App = () => {
     return (
         <div id='App'>
-            {/*<Login />*/}
             <Routes>
                 <Route path="/" element={<Login />} />
                 <Route path="find-dogs" element={<FindDogs />}/>
