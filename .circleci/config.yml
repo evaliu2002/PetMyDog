@@ -17,10 +17,12 @@ jobs:
     docker:
       - image: cimg/node:18.0.0
     steps:
-      - checkout
+      - checkout:
+          path: ~/main/front-end
       - run: npm test
 
   build:
+    working_directory: ~/main/front-end
     docker:
       - image: cimg/openjdk:17.0.3
     steps:
@@ -32,8 +34,8 @@ jobs:
     docker:
       - image: cimg/node:18.0.0
     steps:
-      - checkout
-      - run: cd ./main/front-end
+      - checkout:
+          path: ~/main/front-end
       - run: npm install
 
 
