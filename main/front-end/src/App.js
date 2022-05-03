@@ -9,7 +9,6 @@ import CreateDogProfile from "./components/createdogprofile/CreateDogProfile";
 const App = () => {
     return (
         <div id='App'>
-            {/*<Login />*/}
             <Routes>
                 <Route path="/" element={<Login />} />
                 <Route path="find-dogs" element={<FindDogs />}/>
