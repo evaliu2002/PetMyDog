@@ -3,7 +3,7 @@ import {Container, Form} from 'react-bootstrap';
 
 
 
- function ViewDogProfile({name, age, breed, photolink}) {
+ function ViewDogProfile({name, age, breed, gender, bio, photolink}) {
 
         return (
             <Container>
@@ -27,6 +27,16 @@ import {Container, Form} from 'react-bootstrap';
                                 <Form.Control readOnly type="text" value = {breed} />
                             </Form.Group>
 
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label>Dog's Gender</Form.Label>
+                                <Form.Control readOnly type="text" value = {gender} />
+                            </Form.Group>
+
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label>Dog's Biography</Form.Label>
+                                <Form.Control readOnly type="text" value = {bio} />
+                            </Form.Group>
+
                         </Form>
 
                     </Form.Group>
@@ -36,9 +46,11 @@ import {Container, Form} from 'react-bootstrap';
 }
 
 ViewDogProfile.defaultProps = {
-     name: "Kiki",
+    name: "Kiki",
     age: "3",
     breed: "Husky",
+    gender: "Male",
+    bio: "Kiki is a good boy",
     photolink: "https://www.pumpkin.care/dog-breeds/wp-content/uploads/2021/03/Husky-Hero.png"
 }
 
