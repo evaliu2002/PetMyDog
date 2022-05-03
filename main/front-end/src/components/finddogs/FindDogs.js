@@ -6,11 +6,11 @@ const FindDogs = () => {
     let navigate = useNavigate();
 
     const ownerProfile = () => {
-        navigate("main/front-end/src/components/ownerprofile/OwnerProfile.js")
+        navigate("owner-profile")
     }
 
     const selectedDog = () => {
-        navigate("main/front-end/src/components/selecteddog/SelectedDog.js")
+        navigate("selected-dog")
     }
 
     const [userLocation, setUserLocation] = useState({longitude: 0, latitude: 0});
