@@ -14,15 +14,15 @@ jobs:
 
   #jestTest
   testJest:
+    working_directory: ~/main/front-end
     docker:
       - image: cimg/node:18.0.0
     steps:
       - checkout:
-          path: ~/main/front-end
+          path: ~/main
       - run: npm test
 
   build:
-    working_directory: ~/main/front-end
     docker:
       - image: cimg/openjdk:17.0.3
     steps:
@@ -31,11 +31,12 @@ jobs:
 
   #jestBuild
   buildJest:
+    working_directory: ~/main/front-end
     docker:
       - image: cimg/node:18.0.0
     steps:
       - checkout:
-          path: ~/main/front-end
+          path: ~/main
       - run: npm install
 
 
