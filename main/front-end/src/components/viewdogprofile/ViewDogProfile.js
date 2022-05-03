@@ -31,7 +31,6 @@ import {Container, Form} from 'react-bootstrap';
 
                     </Form.Group>
            </Container>
-
         )
 
 }
