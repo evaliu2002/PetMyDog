@@ -1,14 +1,22 @@
-import co.elastic.clients.elasticsearch.ElasticsearchClient;
-import co.elastic.clients.elasticsearch.core.IndexRequest;
-import co.elastic.clients.elasticsearch.core.IndexResponse;
-import co.elastic.clients.json.jackson.JacksonJsonpMapper;
-import co.elastic.clients.transport.ElasticsearchTransport;
-import co.elastic.clients.transport.rest_client.RestClientTransport;
 import mysql.DBUtils;
 import mysql.Sql2oModel;
 import com.google.gson.Gson;
 import org.apache.http.HttpHost;
+import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.client.indices.CreateIndexRequest;
+import org.elasticsearch.client.indices.PutMappingRequest;
+import org.elasticsearch.common.unit.DistanceUnit;
+import org.elasticsearch.index.mapper.ObjectMapper;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.pac4j.core.config.Config;
 import org.pac4j.core.exception.http.HttpAction;
 import org.pac4j.core.profile.ProfileManager;
@@ -24,11 +32,18 @@ import spark.Request;
 import spark.Response;
 import org.sql2o.Sql2o;
 import spark.Route;
+
+import java.io.IOException;
 import java.util.*;
 import static spark.Spark.*;
 
 public class Main {
     private static DBUtils.Model model;
+    private static final String HOST = "localhost";
+    private static final int PORT_ONE = 9200;
+    private static final String SCHEME = "http";
+    private static final String INDEX = "location";
+    private static RestHighLevelClient restHighLevelClient;
 
     public static void main(String[] args) {
         /*****************************************     Begin OAuth config     *****************************************/
@@ -70,22 +85,39 @@ public class Main {
         /*****************************************     END SQL config     *****************************************/
 
         /*************************************   Start Elasticsearch config   *****************************************/
+        restHighLevelClient = new RestHighLevelClient(RestClient.builder(new HttpHost(HOST, PORT_ONE, SCHEME)));
 
-        // Create the low-level client
-        RestClient restClient = RestClient.builder(
-                new HttpHost("localhost", 9200)).build();
+        DeleteIndexRequest deleteIndexRequest = new DeleteIndexRequest(INDEX);
+        try {
+            restHighLevelClient.indices().delete(deleteIndexRequest, RequestOptions.DEFAULT);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
 
-        // Create the transport with a Jackson mapper
-        ElasticsearchTransport transport = new RestClientTransport(
-                restClient, new JacksonJsonpMapper());
+        CreateIndexRequest createIndexRequest = new CreateIndexRequest(INDEX);
+        try {
+            restHighLevelClient.indices().create(createIndexRequest, RequestOptions.DEFAULT);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
 
-        // And create the API client
-        ElasticsearchClient ESClient = new ElasticsearchClient(transport);
+        PutMappingRequest putMappingRequest = new PutMappingRequest(INDEX);
+
+        Map<String, Object> type = new HashMap<>();
+        type.put("type", "geo_point");
+
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("location", type);
+
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("properties", properties);
+        putMappingRequest.source(jsonMap);
 
         try {
-            ESClient.indices().create(c -> c.index("location"));
-        } catch (Exception e) {
+            restHighLevelClient.indices().putMapping(putMappingRequest, RequestOptions.DEFAULT);
+        } catch (IOException e) {
             System.out.println(e.getMessage());
+
         }
 
         /***************************************   End Elasticsearch config   *****************************************/
@@ -157,18 +189,42 @@ public class Main {
             }
         });
 
+        post("/getNearbyUser", new Route() {
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+                Gson gson = new Gson();
+                DBUtils.Location loc = gson.fromJson(request.body(), DBUtils.Location.class);
+                SearchSourceBuilder srb = new SearchSourceBuilder();
+                QueryBuilder qb = QueryBuilders.geoDistanceQuery("location")
+                        .point(loc.getLat(), loc.getLng())
+                        .distance("500", DistanceUnit.METERS);
+                srb.query(qb);
+
+                SearchRequest searchRequest = new SearchRequest(INDEX);
+                searchRequest.source(srb);
+                List<DBUtils.UserLocation> result = new ArrayList<>();
+                try {
+                    SearchResponse search = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+                    SearchHits hits = search.getHits();
+                    for (SearchHit hit: hits) {
+                        String location = hit.getSourceAsString();
+                        DBUtils.UserLocation jsonObject = gson.fromJson(location, DBUtils.UserLocation.class);
+                        result.add(jsonObject);
+                    }
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+                return gson.toJson(result);
+            }
+        });
+
         get("/updateLocation", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
                 Gson gson = new Gson();
                 DBUtils.Location loc = gson.fromJson(request.body(), DBUtils.Location.class);
-                DBUtils.UserLocation uloc = new DBUtils.UserLocation(loc, "test");
 
-                IndexResponse r = ESClient.index(i -> i
-                        .index("location")
-                        .id(uloc.getUid())
-                        .document(uloc)
-                );
+
                 return gson.toJson("updated");
             }
         });
