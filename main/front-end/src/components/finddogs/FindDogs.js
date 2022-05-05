@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { BsFillPersonFill } from "react-icons/bs";
 import { useNavigate } from 'react-router';
+import Map from '../map/Map';
 
 const FindDogs = () => {
     let navigate = useNavigate();
@@ -19,6 +20,7 @@ const FindDogs = () => {
 
     return (
         <div>
+            <Map />
             <button>Petter Mode</button>
             <BsFillPersonFill onClick={ownerProfile}/>
             <h4>Nearby Pets</h4>
