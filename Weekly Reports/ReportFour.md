@@ -13,11 +13,10 @@
 
    - What we plan to do:
      - Front-end: Finish implementing the rest of our listed components. Add more tests
-                  to develop our front end test suite and speak with back end about
-                  communication between both ends.  
+                  to develop our front end test suite.
      - Back-end: Finish implemented the remaining APIs for the beta release, and work on
                  making an exhaustive test suite to make sure everything works well.
-     - Front&Back: 
+     - Front&Back: Develop and figure out communication and responses between both ends.
 
 #### Individual Reports
 
