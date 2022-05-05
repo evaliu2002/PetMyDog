@@ -6,10 +6,11 @@ DROP TABLE IF EXISTS MeetUp;
 CREATE TABLE User(
     uid varchar(255) PRIMARY KEY,
     username VARCHAR(20),
-    phone INT,
-    email varchar(255),
-    bio varchar(255),
-    pic_link varchar(255)
+    phone VARCHAR(20),
+    email VARCHAR(255),
+    bio VARCHAR(255),
+    pic_link VARCHAR(255),
+    last_ping DATETIME
 );
 
 CREATE TABLE Dog(
