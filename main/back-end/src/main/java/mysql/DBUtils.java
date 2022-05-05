@@ -53,5 +53,6 @@ public class DBUtils {
     public static class UserLocation {
         private Location location;
         private String uid;
+        private long timestamp;
     }
 }

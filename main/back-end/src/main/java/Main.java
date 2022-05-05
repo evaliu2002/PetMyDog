@@ -36,6 +36,7 @@ import org.sql2o.Sql2o;
 import spark.Route;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.*;
 import static spark.Spark.*;
 
@@ -46,6 +47,7 @@ public class Main {
     private static final String SCHEME = "http";
     private static final String INDEX = "location";
     private static RestHighLevelClient restHighLevelClient;
+    private static final long LOCATION_EXPIRE_TIME = 1000 * 60 * 15;
 
     public static void main(String[] args) {
         /*****************************************     Begin OAuth config     *****************************************/
@@ -109,10 +111,13 @@ public class Main {
         type.put("type", "geo_point");
         Map<String, Object> keyType = new HashMap<>();
         keyType.put("type", "keyword");
+        Map<String, Object> timeType = new HashMap<>();
+        timeType.put("type", "integer");
 
         Map<String, Object> properties = new HashMap<>();
         properties.put("location", type);
         properties.put("uid", keyType);
+        properties.put("timestamp", timeType);
 
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("properties", properties);
@@ -214,7 +219,8 @@ public class Main {
                     for (SearchHit hit: hits) {
                         String location = hit.getSourceAsString();
                         DBUtils.UserLocation jsonObject = gson.fromJson(location, DBUtils.UserLocation.class);
-                        result.add(jsonObject.getUid());
+                        if (System.currentTimeMillis() - jsonObject.getTimestamp() < LOCATION_EXPIRE_TIME)
+                            result.add(jsonObject.getUid());
                     }
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
@@ -226,12 +232,18 @@ public class Main {
         post("/updateLocation", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
+                String uid = getUserId(request, response);
                 Gson gson = new Gson();
                 DBUtils.Location loc = gson.fromJson(request.body(), DBUtils.Location.class);
+
+                // Update ES location
+                long timestamp = System.currentTimeMillis();
                 Map<String,Object> jsonMap = new HashMap<>();
                 jsonMap.put("location", new GeoPoint(loc.getLat(), loc.getLng()));
-                jsonMap.put("uid", "2413");
-                IndexRequest indexRequest = new IndexRequest(INDEX).source(jsonMap);
+                jsonMap.put("uid", uid);
+                jsonMap.put("timestamp", timestamp);
+
+                IndexRequest indexRequest = new IndexRequest(INDEX).id(uid).source(jsonMap);
                 try {
                     restHighLevelClient.index(indexRequest, RequestOptions.DEFAULT);
                 } catch (IOException e) {
