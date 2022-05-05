@@ -70,3 +70,12 @@
                             platform. We chose CircleCI for the build platform and integrated our JUnit Maven build and I completed
                             the config file with Anish. I've also finished setting up ElasticSearch.
      - Plans and Goals for the Next Week: Finish the APIs planned for next week, and figure out testing with the Spark Java server.
+
+###### Wenxuan Liu
+     - Goals from last week: I will discuss with backend team to finalize DB design on Thursday and create a database after that.
+                             I will work with others to set up GCE and ElasticSearch.
+                             I will study more about Spark framework and ElasticSearch.
+     - Progress and Issues: Worked with back end members to set up Junit and Jest test environment. 
+                            Configured CI/CD with other group members. Adjusted database schema. Completed signup feature.
+                            Learned Elasticsearch. Learned React.js. Complete Map component.
+     - Plans and Goals for the Next Week: Finish findDogs component and updateLocation, getNearbyUser endpoints.
