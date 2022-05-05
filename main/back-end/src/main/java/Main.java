@@ -83,7 +83,7 @@ public class Main {
         try {
             ESClient.indices().create(c -> c.index("location"));
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println(e.getMessage());
         }
 
         /***************************************   End Elasticsearch config   *****************************************/
@@ -179,9 +179,9 @@ public class Main {
             Gson gson = new Gson();
             String body = request.body();
             System.out.println("body: " + body);
-            Map bodyContent = gson.fromJson(body, Map.class);
-            System.out.println("uid from request: " + bodyContent.get("uid"));
-            String output = gson.toJson(model.getUser((String) bodyContent.get("uid")));
+            DBUtils.User bodyContent = gson.fromJson(body, DBUtils.User.class);
+            System.out.println("uid from request: " + bodyContent.getUid());
+            String output = gson.toJson(model.getUser(bodyContent.getUid()));
             System.out.println("output: " + output);
             return output;
 //            return gson.toJson(model.getUser((String) bodyContent.get("uid")));

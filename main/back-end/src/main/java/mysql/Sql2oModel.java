@@ -15,8 +15,9 @@ public class Sql2oModel implements DBUtils.Model {
 
     @Override
     public DBUtils.User getUser(String uid) throws Exception {
-        System.out.println("querying");
+        System.out.println("querying: uid = " + uid);
         Connection conn = sql2o.open();
+        System.out.println("connection opened");
         DBUtils.User c = conn.createQuery("SELECT * FROM User WHERE uid = :uid;")
                 .addParameter("uid", uid)
                 .executeAndFetchFirst(DBUtils.User.class);
