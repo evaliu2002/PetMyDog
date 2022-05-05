@@ -3,6 +3,7 @@ import mysql.Sql2oModel;
 import com.google.gson.Gson;
 import org.apache.http.HttpHost;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
+import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
@@ -10,6 +11,7 @@ import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.indices.CreateIndexRequest;
 import org.elasticsearch.client.indices.PutMappingRequest;
+import org.elasticsearch.common.geo.GeoPoint;
 import org.elasticsearch.common.unit.DistanceUnit;
 import org.elasticsearch.index.mapper.ObjectMapper;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -198,21 +200,21 @@ public class Main {
                 Gson gson = new Gson();
                 DBUtils.Location loc = gson.fromJson(request.body(), DBUtils.Location.class);
                 SearchSourceBuilder srb = new SearchSourceBuilder();
-                QueryBuilder qb = QueryBuilders.geoDistanceQuery("location")
+                QueryBuilder qb = QueryBuilders.geoDistanceQuery(INDEX)
                         .point(loc.getLat(), loc.getLng())
                         .distance("500", DistanceUnit.METERS);
                 srb.query(qb);
 
                 SearchRequest searchRequest = new SearchRequest(INDEX);
                 searchRequest.source(srb);
-                List<DBUtils.UserLocation> result = new ArrayList<>();
+                List<String> result = new ArrayList<>();
                 try {
                     SearchResponse search = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
                     SearchHits hits = search.getHits();
                     for (SearchHit hit: hits) {
                         String location = hit.getSourceAsString();
                         DBUtils.UserLocation jsonObject = gson.fromJson(location, DBUtils.UserLocation.class);
-                        result.add(jsonObject);
+                        result.add(jsonObject.getUid());
                     }
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
@@ -221,13 +223,21 @@ public class Main {
             }
         });
 
-        get("/updateLocation", new Route() {
+        post("/updateLocation", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
                 Gson gson = new Gson();
                 DBUtils.Location loc = gson.fromJson(request.body(), DBUtils.Location.class);
-
-
+                Map<String,Object> jsonMap = new HashMap<>();
+                jsonMap.put("location", new GeoPoint(loc.getLat(), loc.getLng()));
+                jsonMap.put("uid", "2413");
+                IndexRequest indexRequest = new IndexRequest(INDEX).source(jsonMap);
+                try {
+                    restHighLevelClient.index(indexRequest, RequestOptions.DEFAULT);
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                    return gson.toJson("failed to update");
+                }
                 return gson.toJson("updated");
             }
         });
@@ -259,6 +269,15 @@ public class Main {
         Gson gson = new Gson();
         model.createDog(gson.fromJson(request.body(), DBUtils.Dog.class));
         return gson.toJson("Success");
+    }
+
+    private static String getUserId(Request request, Response response) {
+        List<UserProfile> users = getProfiles(request, response);
+        if (users.size() == 1) {
+            UserProfile user = users.get(0);
+            return user.getId();
+        }
+        return null;
     }
     /****************************************   End utils   *****************************************/
 }
