@@ -7,8 +7,11 @@ function CreateDogProfile () {
         return (
             <div>
                 <div className="container">
-                    <h1 className="">Your Dog's Profile</h1>
+
+                    <Form.Group className='font-link'>Your Dog's Profile</Form.Group>
+
                     <UploadImage/>
+
                     <div className="form">
                             <Form>
                                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">

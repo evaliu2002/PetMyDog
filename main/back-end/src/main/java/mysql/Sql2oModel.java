@@ -71,10 +71,19 @@ public class Sql2oModel implements DBUtils.Model {
         }
     }
 
+    @Override
+    public List<DBUtils.Dog> getDog(String did) {
+        String sql = "SELECT * FROM Dog WHERE did = " + did;
+
+        try(Connection con = sql2o.open()) {
+            return con.createQuery(sql).executeAndFetch(DBUtils.Dog.class);
+        }
+    }
+
 //    @Override
 //    public List<DBUtils.User> getUser(String uid) {
 //        String sql = "SELECT * FROM User WHERE uid = " + uid;
-//
+
 //        try(Connection con = sql2o.open()) {
 //            return con.createQuery(sql).executeAndFetch(DBUtils.User.class);
 //        }
