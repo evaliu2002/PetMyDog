@@ -16,7 +16,8 @@
                   to develop our front end test suite.
      - Back-end: Finish implemented the remaining APIs for the beta release, and work on
                  making an exhaustive test suite to make sure everything works well.
-     - Front&Back: Develop and figure out communication and responses between both ends.
+     - Front&Back: Develop and figure out communication and responses between the front end components
+                   and the APIs so that we're set up for the beta release.
 
 #### Individual Reports
 
