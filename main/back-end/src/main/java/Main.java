@@ -1,8 +1,12 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.json.jackson.JacksonJsonpMapper;
+import co.elastic.clients.transport.ElasticsearchTransport;
+import co.elastic.clients.transport.rest_client.RestClientTransport;
 import mysql.DBUtils;
 import mysql.Sql2oModel;
 import com.google.gson.Gson;
+import org.apache.http.HttpHost;
+import org.elasticsearch.client.RestClient;
 import org.pac4j.core.config.Config;
 import org.pac4j.core.exception.http.HttpAction;
 import org.pac4j.core.profile.ProfileManager;
@@ -19,21 +23,18 @@ import spark.Response;
 import org.sql2o.Sql2o;
 import spark.Route;
 import java.util.*;
-
 import static spark.Spark.*;
-
 
 public class Main {
     private static DBUtils.Model model;
 
     public static void main(String[] args) {
-
         /*****************************************     Begin OAuth config     *****************************************/
 
         // Setup google oauth api configuration with pac4j
         final OidcConfiguration oidcConfiguration = new OidcConfiguration();
-        oidcConfiguration.setClientId("215324184605-v64ebk4kddt6aufdkmbaf0iv38doeqdb.apps.googleusercontent.com");
-        oidcConfiguration.setSecret("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");
+        oidcConfiguration.setClientId("205317701531-od80vq0biekitm7bq8irtfoen3fhpfo0.apps.googleusercontent.com");
+        oidcConfiguration.setSecret("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");
         oidcConfiguration.setDiscoveryURI("https://accounts.google.com/.well-known/openid-configuration");
         oidcConfiguration.setUseNonce(true);
         oidcConfiguration.addCustomParam("prompt", "consent");
@@ -66,18 +67,69 @@ public class Main {
 
         /*****************************************     END SQL config     *****************************************/
 
+        /*************************************   Start Elasticsearch config   *****************************************/
+
+        // Create the low-level client
+        RestClient restClient = RestClient.builder(
+                new HttpHost("localhost", 9200)).build();
+
+        // Create the transport with a Jackson mapper
+        ElasticsearchTransport transport = new RestClientTransport(
+                restClient, new JacksonJsonpMapper());
+
+        // And create the API client
+        ElasticsearchClient ESClient = new ElasticsearchClient(transport);
+
+        try {
+            ESClient.indices().create(c -> c.index("location"));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        /***************************************   End Elasticsearch config   *****************************************/
+
+
 
         /*******************************************   Start Security Guard   *****************************************/
 
         before("/hello", new SecurityFilter(config, "GoogleClient"));
-        // before("/getDogProfile", new SecurityFilter(config, "GoogleClient"));
+        after("/callback", (Request request, Response response) -> {
+            List<UserProfile> users = getProfiles(request, response);
+            if (users.size() == 1) {
+                UserProfile user = users.get(0);
+                if (model.getUser(user.getId()) == null) {
+                    String email = null;
+                    String pic_link = null;
+                    String username = null;
+                    Map<String, Object> attributes = user.getAttributes();
+                    if (attributes.containsKey("given_name") && attributes.get("given_name") != null) {
+                        username = attributes.get("given_name").toString();
+                    }
+                    if (attributes.containsKey("email") && attributes.get("email") != null) {
+                        email = attributes.get("email").toString();
+                    }
+                    if (attributes.containsKey("picture") && attributes.get("picture") != null) {
+                        pic_link = attributes.get("picture").toString();
+                    }
+                    if (!model.createUser(new DBUtils.User(user.getId(), username,
+                            null, email, null, pic_link, "1000-01-01 00:00:00"))) {
+                        response.redirect("/login", 500);
+                    }
+                }
+            } else {
+                response.redirect("/login");
+            }
+
+        });
 
         /******************************************    End Security Guard     *****************************************/
 
 
+
         /****************************************   Start Service end pints   *****************************************/
 
-        get("/hello", (req, res) -> getProfiles(req, res));
+        get("/hello", Main::getProfiles);
+
         get("/login", (req, res) -> {
             final SparkWebContext context = new SparkWebContext(req, res);
             HttpAction action;
@@ -90,14 +142,25 @@ public class Main {
             return null;
         });
 
-        get("/getDogProfile", (req, res) -> getDogProfile(req, res));
+        get("/profile", Main::getUserProfile);
 
-        get("/getUserProfile", (req, res) -> getUserProfile(req, res));
+        get("/getDogProfile", Main::getDogProfile);
 
-        get("sql", new Route() {
+        post("/newDog", Main::createDogProfile);
+
+        get("/sql", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
                 model.updateUser("test2", "test2", "1234");
+                Gson gson = new Gson();
+                return gson.toJson("updated");
+            }
+        });
+
+        get("/updateLocation", new Route() {
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+
                 Gson gson = new Gson();
                 return gson.toJson("updated");
             }
@@ -114,10 +177,20 @@ public class Main {
     }
 
     private static String getUserProfile(Request request, Response response) {
+        try {
+            Gson gson = new Gson();
+            return gson.toJson(model.getUser(request.queryParams("uid")));
+        } catch (Exception e) {
+            halt(500);
+            return null;
+        }
+
+    }
+
+    private static String createDogProfile(Request request, Response response) {
         Gson gson = new Gson();
-        String body = request.body();
-        Map<String, String> bodyContent = gson.fromJson(body, Map.class);
-        return gson.toJson(model.getUser(bodyContent.get("uid")));
+        model.createDog(gson.fromJson(request.body(), DBUtils.Dog.class));
+        return gson.toJson("Success");
     }
 
     private static String getDogProfile(Request request, Response response) {
@@ -126,257 +199,5 @@ public class Main {
         Map<String, String> bodyContent = gson.fromJson(body, Map.class);
         return gson.toJson(model.getDog(bodyContent.get("dogId")));
     }
-
     /****************************************   End utils   *****************************************/
-=======
-import mysql.DBUtils;
-import mysql.Sql2oModel;
-import com.google.gson.Gson;
-import org.pac4j.core.config.Config;
-import org.pac4j.core.exception.http.HttpAction;
-import org.pac4j.core.profile.ProfileManager;
-import org.pac4j.core.profile.UserProfile;
-import org.pac4j.jee.context.session.JEESessionStore;
-import org.pac4j.oidc.client.OidcClient;
-import org.pac4j.oidc.config.OidcConfiguration;
-import org.pac4j.sparkjava.CallbackRoute;
-import org.pac4j.sparkjava.SecurityFilter;
-import org.pac4j.sparkjava.SparkHttpActionAdapter;
-import org.pac4j.sparkjava.SparkWebContext;
-import spark.Request;
-import spark.Response;
-import org.sql2o.Sql2o;
-import spark.Route;
-import java.util.*;
-
-import static spark.Spark.*;
-
-
-public class Main {
-    private static DBUtils.Model model;
-
-    public static void main(String[] args) {
-
-        /*****************************************     Begin OAuth config     *****************************************/
-
-        // Setup google oauth api configuration with pac4j
-        final OidcConfiguration oidcConfiguration = new OidcConfiguration();
-        oidcConfiguration.setClientId("215324184605-v64ebk4kddt6aufdkmbaf0iv38doeqdb.apps.googleusercontent.com");
-        oidcConfiguration.setSecret("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");
-        oidcConfiguration.setDiscoveryURI("https://accounts.google.com/.well-known/openid-configuration");
-        oidcConfiguration.setUseNonce(true);
-        oidcConfiguration.addCustomParam("prompt", "consent");
-
-        // Create client with the configuration
-        final OidcClient oidcClient = new OidcClient(oidcConfiguration);
-        oidcClient.setAuthorizationGenerator((ctx, session, profile) -> {
-            profile.addRole("ROLE_ADMIN");
-            return Optional.of(profile);
-        });
-        oidcClient.setCallbackUrl("http://localhost:4567/callback");
-
-        // Security configuration using google client
-        Config config = new Config(oidcClient);
-        config.addAuthorizer("custom", new CustomAuthorizer());
-        config.setHttpActionAdapter(new DemoHttpActionAdapter());
-
-        // Set up call back end points
-        CallbackRoute callback = new CallbackRoute(config, "/hello", true);
-        get("/callback", callback);
-        post("/callback", callback);
-
-        /*******************************************     End OAuth config     *****************************************/
-
-
-        /*****************************************     Begin SQL config     *****************************************/
-
-        Sql2o sql2o = new Sql2o("jdbc:mysql://34.70.199.136:3306/pmd", "root", "b4lIbLjGOvszgcLC");
-        model = new Sql2oModel(sql2o);
-
-        /*****************************************     END SQL config     *****************************************/
-
-
-        /*******************************************   Start Security Guard   *****************************************/
-
-        before("/hello", new SecurityFilter(config, "GoogleClient"));
-
-        /******************************************    End Security Guard     *****************************************/
-
-
-
-        /****************************************   Start Service end pints   *****************************************/
-
-        get("/hello", (req, res) -> getProfiles(req, res));
-        get("/login", (req, res) -> {
-            final SparkWebContext context = new SparkWebContext(req, res);
-            HttpAction action;
-            try {
-                action = oidcClient.getRedirectionAction(context, JEESessionStore.INSTANCE).get();
-            } catch (final HttpAction e) {
-                action = e;
-            }
-            SparkHttpActionAdapter.INSTANCE.adapt(action, context);
-            return null;
-        });
-
-        get("/profile", (req, res) -> getUserProfile(req, res));
-
-        get("sql", new Route() {
-            @Override
-            public Object handle(Request request, Response response) throws Exception {
-                model.updateUser("test2", "test2", "1234");
-                Gson gson = new Gson();
-                return gson.toJson("updated");
-            }
-        });
-
-        /******************************************   End Service end pints   *****************************************/
-    }
-
-    /****************************************   Start utils   *****************************************/
-    private static List<UserProfile> getProfiles(Request request, Response response) {
-        final SparkWebContext context = new SparkWebContext(request, response);
-        final ProfileManager manager = new ProfileManager(context, JEESessionStore.INSTANCE);
-        return manager.getProfiles();
-    }
-
-    private static String getUserProfile(Request request, Response response) {
-        Gson gson = new Gson();
-        String body = request.body();
-        Map<String, String> bodyContent = gson.fromJson(body, Map.class);
-        return gson.toJson(model.getUser(bodyContent.get("uid")));
-    }
-    /****************************************   End utils   *****************************************/
->>>>>>> 48046ab973123e8232c411d09a1979e7c39bcb25
-=======
-import mysql.DBUtils;
-import mysql.Sql2oModel;
-import com.google.gson.Gson;
-import org.pac4j.core.config.Config;
-import org.pac4j.core.exception.http.HttpAction;
-import org.pac4j.core.profile.ProfileManager;
-import org.pac4j.core.profile.UserProfile;
-import org.pac4j.jee.context.session.JEESessionStore;
-import org.pac4j.oidc.client.OidcClient;
-import org.pac4j.oidc.config.OidcConfiguration;
-import org.pac4j.sparkjava.CallbackRoute;
-import org.pac4j.sparkjava.SecurityFilter;
-import org.pac4j.sparkjava.SparkHttpActionAdapter;
-import org.pac4j.sparkjava.SparkWebContext;
-import spark.Request;
-import spark.Response;
-import org.sql2o.Sql2o;
-import spark.Route;
-import java.util.*;
-
-import static spark.Spark.*;
-
-
-public class Main {
-    private static DBUtils.Model model;
-
-    public static void main(String[] args) {
-
-        /*****************************************     Begin OAuth config     *****************************************/
-
-        // Setup google oauth api configuration with pac4j
-        final OidcConfiguration oidcConfiguration = new OidcConfiguration();
-        oidcConfiguration.setClientId("215324184605-v64ebk4kddt6aufdkmbaf0iv38doeqdb.apps.googleusercontent.com");
-        oidcConfiguration.setSecret("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");
-        oidcConfiguration.setDiscoveryURI("https://accounts.google.com/.well-known/openid-configuration");
-        oidcConfiguration.setUseNonce(true);
-        oidcConfiguration.addCustomParam("prompt", "consent");
-
-        // Create client with the configuration
-        final OidcClient oidcClient = new OidcClient(oidcConfiguration);
-        oidcClient.setAuthorizationGenerator((ctx, session, profile) -> {
-            profile.addRole("ROLE_ADMIN");
-            return Optional.of(profile);
-        });
-        oidcClient.setCallbackUrl("http://localhost:4567/callback");
-
-        // Security configuration using google client
-        Config config = new Config(oidcClient);
-        config.addAuthorizer("custom", new CustomAuthorizer());
-        config.setHttpActionAdapter(new DemoHttpActionAdapter());
-
-        // Set up call back end points
-        CallbackRoute callback = new CallbackRoute(config, "/hello", true);
-        get("/callback", callback);
-        post("/callback", callback);
-
-        /*******************************************     End OAuth config     *****************************************/
-
-
-        /*****************************************     Begin SQL config     *****************************************/
-
-        Sql2o sql2o = new Sql2o("jdbc:mysql://34.70.199.136:3306/pmd", "root", "b4lIbLjGOvszgcLC");
-        model = new Sql2oModel(sql2o);
-
-        /*****************************************     END SQL config     *****************************************/
-
-
-        /*******************************************   Start Security Guard   *****************************************/
-
-        before("/hello", new SecurityFilter(config, "GoogleClient"));
-        // before("/getDogProfile", new SecurityFilter(config, "GoogleClient"));
-
-        /******************************************    End Security Guard     *****************************************/
-
-
-
-        /****************************************   Start Service end pints   *****************************************/
-
-        get("/hello", (req, res) -> getProfiles(req, res));
-        get("/login", (req, res) -> {
-            final SparkWebContext context = new SparkWebContext(req, res);
-            HttpAction action;
-            try {
-                action = oidcClient.getRedirectionAction(context, JEESessionStore.INSTANCE).get();
-            } catch (final HttpAction e) {
-                action = e;
-            }
-            SparkHttpActionAdapter.INSTANCE.adapt(action, context);
-            return null;
-        });
-
-        get("/getDogProfile", (req, res) -> getDogProfile(req, res));
-
-        get("/getUserProfile", (req, res) -> getUserProfile(req, res));
-
-        get("sql", new Route() {
-            @Override
-            public Object handle(Request request, Response response) throws Exception {
-                model.updateUser("test2", "test2", "1234");
-                Gson gson = new Gson();
-                return gson.toJson("updated");
-            }
-        });
-
-        /******************************************   End Service end pints   *****************************************/
-    }
-
-    /****************************************   Start utils   *****************************************/
-    private static List<UserProfile> getProfiles(Request request, Response response) {
-        final SparkWebContext context = new SparkWebContext(request, response);
-        final ProfileManager manager = new ProfileManager(context, JEESessionStore.INSTANCE);
-        return manager.getProfiles();
-    }
-
-    private static String getUserProfile(Request request, Response response) {
-        Gson gson = new Gson();
-        String body = request.body();
-        Map<String, String> bodyContent = gson.fromJson(body, Map.class);
-        return gson.toJson(model.getUser(bodyContent.get("uid")));
-    }
-
-    private static String getDogProfile(Request request, Response response) {
-        Gson gson = new Gson();
-        String body = request.body();
-        Map<String, String> bodyContent = gson.fromJson(body, Map.class);
-        return gson.toJson(model.getDog(bodyContent.get("dogId")));
-    }
-
-    /****************************************   End utils   *****************************************/
->>>>>>> 2c914823dc6331d36c78659788415c0d72576960
 }

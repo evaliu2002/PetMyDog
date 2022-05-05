@@ -1,25 +1,25 @@
 import React from 'react';
-import GoogleLogin from 'react-google-login';
+import "./Login.css";
+import { useNavigate } from 'react-router';
 
-export class Login extends React.Component {
-    render() {
-        const handleFailure = (result) => {
-            alert(result);
-        };
-        const handleLogin = (googleData) => {
-            console.log(googleData);
-        }
-        return (
-            <div>
-                <h1 className="">Pet My Dog</h1>
-                <GoogleLogin
-                clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-                buttonText="Log in with Google"
-                onSuccess={handleLogin}
-                onFailure={handleFailure}
-                cookiePolicy={'single_host_origin'}
-                ></GoogleLogin>
-            </div>
-        )
+const Login = () => {
+    let navigate = useNavigate();
+
+    const findDogs = () => {
+        navigate("find-dogs")
     }
+
+    return (
+        <div className='Login'>
+            <h1 className='font-link'>Pet My Dog</h1>
+            <a className="btn btn-outline-dark" href="http://localhost:4567/login" role="button" style={{textTransform: "none"}}>
+                <img width="20px" style={{marginBlock: "3px", marginRight: "5px"}} alt="Google sign-in"
+                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
+                Login with Google
+            </a>
+            <button id="reactButton" onClick={findDogs}>Temporary Button for React Router</button>
+        </div>
+    )
 }
+
+export default Login;

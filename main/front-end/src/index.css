@@ -1,13 +1,72 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #E5737D;
+}
+
+.font-link {
+    font-family: 'Pacifico', cursive;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+h1 { 
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    margin: 20px;
+    transform: translate(-50%, -50%);
+    padding: 30px;
+    color: white;
+}
+
+.google-login {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+form {
+  padding: 30px;
+}
+
+.create-button {
+  display: block;
+  border: none;
+  text-align: center;
+  font-size: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 70%;
+  background-color: white;
+
+}
+
+.circular-profile { border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  align-content: center;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 50%;
+}
+
+.container{
+  display: block;
+  /*margin-left: auto;*/
+  /*margin-right: auto;*/
+  margin-top: 10%;
+  margin-bottom: 10%;
+  width: 1920px;
+  height: 1080px;
+  background-color: antiquewhite;
+
 }
