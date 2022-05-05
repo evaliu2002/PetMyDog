@@ -8,13 +8,15 @@
    - What we did:
      - Front-end: Finished implementing react router, login, map, create dog profile 
                   and view dog profile components
-     - Back-end: 
+     - Back-end: Finished implementing APIs: login, getDogProfile, createDogProfile, getUserProfile, and
+                  set up JUnit with Maven and CircleCI CI for the backend.
 
    - What we plan to do:
      - Front-end: Finish implementing the rest of our listed components. Add more tests
                   to develop our front end test suite and speak with back end about
                   communication between both ends.  
-     - Back-end: 
+     - Back-end: Finish implemented the remaining APIs for the beta release, and work on
+                 making an exhaustive test suite to make sure everything works well.
      - Front&Back: 
 
 #### Individual Reports
@@ -41,3 +43,14 @@
                             page allows uploading profile photo from the local memory and preview them. 
                             
      - What we plan to do: Build the remaining components and discuss the communication with back end.
+###### Anish Konanki
+
+     - Goals from last week: Finish createDogProfile API and work with the other backend developers to 
+                             finish the updateLocation API.
+     - Progress and Issues: I completed implementing the createDogProfile API. I also worked with the other
+                            backend developers to set up JUnit with Maven and CircleCI for the backend. I've
+                            been trying to figure out ElasticSearch and see how it works so that we can finish
+                            updateLocation and getNearbyUsers for next week. I will be looking deeper into it
+                            to understand the ins and outs of ElasticSearch.
+     - Plans and Goals for the Next Week: Finish the big APIs for next week and set up for the beta release, and
+                                          implement proper testing for the backend.
