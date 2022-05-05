@@ -177,14 +177,7 @@ public class Main {
     private static String getUserProfile(Request request, Response response) {
         try {
             Gson gson = new Gson();
-            String body = request.body();
-            System.out.println("body: " + body);
-            DBUtils.User bodyContent = gson.fromJson(body, DBUtils.User.class);
-            System.out.println("uid from request: " + bodyContent.getUid());
-            String output = gson.toJson(model.getUser(bodyContent.getUid()));
-            System.out.println("output: " + output);
-            return output;
-//            return gson.toJson(model.getUser((String) bodyContent.get("uid")));
+            return gson.toJson(model.getUser(request.queryParams("uid")));
         } catch (Exception e) {
             halt(500);
             return null;
