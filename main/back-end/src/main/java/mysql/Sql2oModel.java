@@ -15,10 +15,12 @@ public class Sql2oModel implements DBUtils.Model {
 
     @Override
     public DBUtils.User getUser(String uid) throws Exception {
+        System.out.println("querying");
         Connection conn = sql2o.open();
         DBUtils.User c = conn.createQuery("SELECT * FROM User WHERE uid = :uid;")
                 .addParameter("uid", uid)
                 .executeAndFetchFirst(DBUtils.User.class);
+        System.out.println("returning: " + c.getUid());
         return c;
     }
 
