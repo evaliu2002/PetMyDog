@@ -7,6 +7,12 @@ body {
 
 .font-link {
     font-family: 'Pacifico', cursive;
+    font-size: xxx-large;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
 code {
@@ -37,17 +43,6 @@ form {
   padding: 30px;
 }
 
-.create-button {
-  display: block;
-  border: none;
-  text-align: center;
-  font-size: 30px;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 70%;
-  background-color: white;
-
-}
 
 .circular-profile { border-radius: 50%;
   width: 150px;
@@ -67,6 +62,19 @@ form {
   margin-bottom: 10%;
   width: 1920px;
   height: 1080px;
-  background-color: antiquewhite;
+  background-color: #E5737D;
 
+}
+
+.create-button{
+    font-family: 'Pacifico', cursive;
+    font-size: xx-large;
+    color: white;
+    display: flex;
+    width: 30%;
+    margin-right: 30%;
+    margin-left: 40%;
+    padding: 0;
+    border: none;
+    background: none;
 }
