@@ -62,3 +62,11 @@
                             to understand the ins and outs of ElasticSearch.
      - Plans and Goals for the Next Week: Finish the big APIs for next week and set up for the beta release, and
                                           implement proper testing for the backend.
+
+###### Steve Ma
+     - Goals from last week: Finish get dog profile API and work with other developers to finish the update location API.
+     - Progress and Issues: I completed developing the get dog profile API. I also worked with the other backend developers
+                            to figure out which CI/CD platform we would use and how unit tests can be integrated into the build 
+                            platform. We chose CircleCI for the build platform and integrated our JUnit Maven build and I completed
+                            the config file with Anish. I've also finished setting up ElasticSearch.
+     - Plans and Goals for the Next Week: Finish the APIs planned for next week, and figure out testing with the Spark Java server.
