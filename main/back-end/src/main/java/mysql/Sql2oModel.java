@@ -18,11 +18,18 @@ public class Sql2oModel implements DBUtils.Model {
         System.out.println("querying: uid = " + uid);
         Connection conn = sql2o.open();
         System.out.println("connection opened");
-        DBUtils.User c = conn.createQuery("SELECT * FROM User WHERE uid = :uid;")
-                .addParameter("uid", uid)
-                .executeAndFetchFirst(DBUtils.User.class);
-        System.out.println("returning: " + c.getUid());
-        return c;
+        try {
+
+            DBUtils.User c = conn.createQuery("SELECT * FROM User WHERE uid = :uid;")
+                    .addParameter("uid", uid)
+                    .executeAndFetchFirst(DBUtils.User.class);
+            System.out.println("returning: " + c);
+            return c;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+//        return c;
     }
 
     @Override
