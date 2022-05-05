@@ -105,9 +105,12 @@ public class Main {
 
         Map<String, Object> type = new HashMap<>();
         type.put("type", "geo_point");
+        Map<String, Object> keyType = new HashMap<>();
+        keyType.put("type", "keyword");
 
         Map<String, Object> properties = new HashMap<>();
         properties.put("location", type);
+        properties.put("uid", keyType);
 
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("properties", properties);
