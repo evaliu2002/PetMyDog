@@ -6,8 +6,9 @@ import UploadImage from "../uploadandisplayimage/UploadImage";
 
         return (
             <Container>
-                    <h1>Your Dog's Profile</h1>
-                    <Form.Group>
+                <Form.Group className='font-link'>Your Dog's Profile</Form.Group>
+
+                <Form.Group>
                         <Form>
                             <img className="circular-profile" src= {photolink} onClick={<UploadImage/>} alt="profile sample"/>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
