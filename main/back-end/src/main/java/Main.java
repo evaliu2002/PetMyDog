@@ -177,9 +177,7 @@ public class Main {
     private static String getUserProfile(Request request, Response response) {
         try {
             Gson gson = new Gson();
-            String body = request.body();
-            Map<String, String> bodyContent = gson.fromJson(body, Map.class);
-            return gson.toJson(model.getUser(bodyContent.get("uid")));
+            return gson.toJson(model.getUser(request.queryParams("uid")));
         } catch (Exception e) {
             halt(500);
             return null;

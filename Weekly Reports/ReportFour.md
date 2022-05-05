@@ -43,6 +43,14 @@
                             page allows uploading profile photo from the local memory and preview them. 
                             
      - What we plan to do: Build the remaining components and discuss the communication with back end.
+
+##### Kevin Kong
+    - Goals from last week: Help setup ElasticSearch. Continue to work on backend API calls.
+
+    - Progress and Issues: I added a junit test to the API that I wrote. 
+
+    - Plans and Goals for the next week: Continue to work on backend API calls. Write documentation.
+
 ###### Anish Konanki
 
      - Goals from last week: Finish createDogProfile API and work with the other backend developers to 
