@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {GoogleMap, Marker, useJsApiLoader} from '@react-google-maps/api';
+import {Circle, GoogleMap, Marker, useJsApiLoader} from '@react-google-maps/api';
 
 const containerStyle = {
     width: "auto",
@@ -11,6 +11,7 @@ function Map(props) {
         lat: -3.745,
         lng: -38.523
     });
+
     const [thatUser, setThatUser] = useState(props.thatUser);
 
     useEffect(() => {
@@ -31,6 +32,16 @@ function Map(props) {
 
     const onLoad = React.useCallback(function callback(map) {
         const bounds = new window.google.maps.LatLngBounds(thisUser);
+        // const userCircle = new  window.google.maps.Circle({
+        //     strokeColor: "#FF0000",
+        //     strokeOpacity: 0.8,
+        //     strokeWeight: 2,
+        //     fillColor: "#FF0000",
+        //     fillOpacity: 0.35,
+        //     map,
+        //     center: {lat: thisUser.lat, lng: thisUser.lng},
+        //     radius: 200,
+        // });
         map.fitBounds(bounds);
         setMap(map)
     }, [])
@@ -47,12 +58,20 @@ function Map(props) {
             onLoad={onLoad}
             onUnmount={onUnmount}
         >
-            <Marker
-                key="1"
-                position={thisUser}
-            />
+        <Marker
+            key="1"
+            position={thisUser}
+        />
+        <Circle
+            strokeColor={"#FF0000"}
+            strokeOpacity={0.8}
+            strokeWeight={2}
+            fillColor={"#FF0000"}
+            fillOpacity={0.35}
+            center={{lat: thisUser.lat, lng: thisUser.lng}}
+            radius={200}
+        />
         </GoogleMap>
     ) : <></>
 }
-
 export default React.memo(Map)
