@@ -9,10 +9,11 @@ public class DBUtils {
     public interface Model {
 
         boolean createUser(User user);
-
         void updateUser(String username, String bio, String uid);
         User getUser(String uid) throws Exception;
         void createDog(Dog dog);
+
+        List<Dog> getDog(String did);
     }
 
     @Data
