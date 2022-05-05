@@ -1,32 +1,56 @@
 import React from 'react';
-import Form from 'react-bootstrap/Form';
+import {Container, Form} from 'react-bootstrap';
+import UploadImage from "../uploadandisplayimage/UploadImage";
 
-const CreateDogProfile = () => {
-    return (
-        <div>
-            <div className="container">
-                <h1 className="">Your Dog's Profile</h1>
-                <div className="form">
-                    <Form>
-                        <img className="circular-profile" src="https://images.unsplash.com/photo-1553322378-eb94e5966b0c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" alt="profile sample
-                  "/>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Dog's Name</Form.Label>
-                            <Form.Control type="textarea" placeholder="Your Dog's Name" />
-                        </Form.Group>
+ function ViewDogProfile({name, age, breed, gender, bio, photolink}) {
 
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Dog's Breed</Form.Label>
-                            <Form.Control type="text`" placeholder="Your Dog's Breed Here" />
-                        </Form.Group>
+        return (
+            <Container>
+                    <h1>Your Dog's Profile</h1>
+                    <Form.Group>
+                        <Form>
+                            <img className="circular-profile" src= {photolink} onClick={<UploadImage/>} alt="profile sample"/>
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label>Dog's Name</Form.Label>
+                                <Form.Control
+                                    readOnly type="text" value={name}/>
+                            </Form.Group>
 
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Dog's Age</Form.Label>
-                            <Form.Control type="text" placeholder="Your Dog's Age Here" />
-                        </Form.Group>
-                    </Form>
-                </div>
-            </div>
-        </div>
-    );
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label>Dog's Age</Form.Label>
+                                <Form.Control readOnly type="text" value = {age} />
+                            </Form.Group>
+
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label>Dog's Breed</Form.Label>
+                                <Form.Control readOnly type="text" value = {breed} />
+                            </Form.Group>
+
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label>Dog's Gender</Form.Label>
+                                <Form.Control readOnly type="text" value = {gender} />
+                            </Form.Group>
+
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label>Dog's Biography</Form.Label>
+                                <Form.Control readOnly type="text" value = {bio} />
+                            </Form.Group>
+
+                        </Form>
+
+                    </Form.Group>
+           </Container>
+        )
+
 }
+
+ViewDogProfile.defaultProps = {
+    name: "Kiki",
+    age: "3",
+    breed: "Husky",
+    gender: "Male",
+    bio: "Kiki is a good boy",
+    photolink: "https://www.pumpkin.care/dog-breeds/wp-content/uploads/2021/03/Husky-Hero.png"
+}
+
+export default ViewDogProfile;

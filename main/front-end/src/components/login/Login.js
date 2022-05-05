@@ -6,7 +6,7 @@ const Login = () => {
     let navigate = useNavigate();
 
     const findDogs = () => {
-        navigate("main/front-end/src/components/finddogs/FindDogs.js")
+        navigate("find-dogs")
     }
 
     return (
