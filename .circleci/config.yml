@@ -23,30 +23,28 @@ jobs:
       - run: npm i react-scripts
       - run: npm test
 
-  build:
-    general:
-      branches:
-        only:
-          - main
-    docker:
-      - image: cimg/openjdk:17.0.3
-    steps:
-      - checkout
-      - run: mvn -Dmaven.test.skip=true package
+  - build:
+      filters:
+        branches:
+          ignore: /.*/
+      docker:
+        - image: cimg/openjdk:17.0.3
+      steps:
+        - checkout
+        - run: mvn -Dmaven.test.skip=true package
 
   #jestBuild
-  buildJest:
-    general:
-      branches:
-        only:
-          - main
-    working_directory: ~/PetMyDog/main/front-end
-    docker:
-      - image: cimg/node:16.14.2
-    steps:
-      - checkout:
-          path: ~/PetMyDog
-      - run: npm install
+  - buildJest:
+      filters:
+        branches:
+          ignore: /.*/
+      working_directory: ~/PetMyDog/main/front-end
+      docker:
+        - image: cimg/node:16.14.2
+      steps:
+        - checkout:
+            path: ~/PetMyDog
+        - run: npm install
 
 
 # Invoke jobs via workflows
@@ -57,8 +55,16 @@ workflows:
       - build
       - buildJest
       - test:
+          filters:
+            branches:
+              only:
+                - master
           requires:
             - build
       - testJest:
+          filters:
+            branches:
+              only:
+                - master
           requires:
             - buildJest
