@@ -26,8 +26,7 @@ jobs:
   - build:
       filters:
         branches:
-          only:
-            - main
+          ignore: /.*/
       docker:
         - image: cimg/openjdk:17.0.3
       steps:
@@ -38,8 +37,7 @@ jobs:
   - buildJest:
       filters:
         branches:
-          only:
-            - main
+          ignore: /.*/
       working_directory: ~/PetMyDog/main/front-end
       docker:
         - image: cimg/node:16.14.2
