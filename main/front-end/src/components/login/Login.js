@@ -10,7 +10,7 @@ const Login = () => {
     }
 
     return (
-        <div className='Login'>
+        <div className='login'>
             <h1 className='font-link'>Pet My Dog</h1>
             <a className="btn btn-outline-dark" href="http://localhost:4567/login" role="button" style={{textTransform: "none"}}>
                 <img width="20px" style={{marginBlock: "3px", marginRight: "5px"}} alt="Google sign-in"
