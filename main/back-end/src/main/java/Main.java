@@ -30,10 +30,8 @@ import org.pac4j.sparkjava.CallbackRoute;
 import org.pac4j.sparkjava.SecurityFilter;
 import org.pac4j.sparkjava.SparkHttpActionAdapter;
 import org.pac4j.sparkjava.SparkWebContext;
-import spark.Request;
-import spark.Response;
+import spark.*;
 import org.sql2o.Sql2o;
-import spark.Route;
 
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -74,7 +72,7 @@ public class Main {
         config.setHttpActionAdapter(new DemoHttpActionAdapter());
 
         // Set up call back end points
-        CallbackRoute callback = new CallbackRoute(config, "/hello", true);
+        CallbackRoute callback = new CallbackRoute(config, "http://localhost:3000", true);
         get("/callback", callback);
         post("/callback", callback);
 
@@ -112,7 +110,7 @@ public class Main {
         Map<String, Object> keyType = new HashMap<>();
         keyType.put("type", "keyword");
         Map<String, Object> timeType = new HashMap<>();
-        timeType.put("type", "integer");
+        timeType.put("type", "long");
 
         Map<String, Object> properties = new HashMap<>();
         properties.put("location", type);
@@ -137,6 +135,8 @@ public class Main {
         /*******************************************   Start Security Guard   *****************************************/
 
         before("/hello", new SecurityFilter(config, "GoogleClient"));
+        before("/updateLocation", new SecurityFilter(config, "GoogleClient"));
+
         after("/callback", (Request request, Response response) -> {
             List<UserProfile> users = getProfiles(request, response);
             if (users.size() == 1) {
@@ -167,6 +167,27 @@ public class Main {
         });
 
         /******************************************    End Security Guard     *****************************************/
+
+
+        /********************************************   Start CORS config   *******************************************/
+
+        final Map<String, String> corsHeaders = new HashMap<>();
+        corsHeaders.put("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+        corsHeaders.put("Access-Control-Allow-Origin", "*");
+        corsHeaders.put("Access-Control-Allow-Headers", "Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin,");
+        corsHeaders.put("Access-Control-Allow-Credentials", "true");
+
+        Filter filter = new Filter() {
+            @Override
+            public void handle(Request request, Response response) throws Exception {
+                corsHeaders.forEach((key, value) -> {
+                    response.header(key, value);
+                });
+            }
+        };
+        Spark.after(filter);
+
+        /********************************************   End CORS config   *********************************************/
 
 
 
