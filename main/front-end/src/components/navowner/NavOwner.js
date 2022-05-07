@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { BsFillTelephoneFill, BsFillPinMapFill, BsArrowUpCircleFill } from "react-icons/bs";
 
-const NavUser = () => {
+const NavOwner = () => {
     const [selectedDog, setSelectedDog] = useState();
     const [userName, setUserName] = useState("");
     const [ownerName, setOwnerName] = useState("");
-    const [ownerPhoneNum, setOwnerPhoneNum] = useState("");
+    const [userPhoneNum, setUserPhoneNum] = useState("");
     const [dogName, setDogName] = useState("");
     const [dogLocation, setDogLocation] = useState({longitude: 0, latitude: 0});
     const [userLocation, setUserLocation] = useState({longitude: 0, latitude: 0});
@@ -14,17 +14,17 @@ const NavUser = () => {
     return (
         <div>
             {/* map */}
-            <h3> { userName } is heading to { ownerName }</h3>
+            <h3> { ownerName } is heading to { userName }</h3>
 
-            <h5> { ownerName } </h5> <br />
-            <p> Dog Owner </p>
+            <h5> { userName } </h5> <br />
+            <p> Dog Petter </p>
 
             <BsFillTelephoneFill />
-            <h4> { ownerPhoneNum } </h4>
+            <h4> { userPhoneNum } </h4>
 
             <BsFillPinMapFill />
             <p> Location of { dogName }:
-            { dogLocation.longitude }, { dogLocation.latitude }</p>
+                { dogLocation.longitude }, { dogLocation.latitude }</p>
 
             <BsArrowUpCircleFill />
             <p> Distance Left: { distanceLeft } </p>
@@ -34,4 +34,4 @@ const NavUser = () => {
     );
 }
 
-export default NavUser;
+export default NavOwner;

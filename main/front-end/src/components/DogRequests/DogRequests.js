@@ -7,24 +7,24 @@ const FindDogs = () => {
     let navigate = useNavigate();
 
     const ownerProfile = () => {
-        navigate("owner-profile")
+        navigate("/owner-profile")
     }
 
     const findDogs = () => {
-        navigate("find-dogs")
+        navigate("/find-dogs")
     }
 
     const [userLocation, setUserLocation] = useState({longitude: 0, latitude: 0});
 
-    const [dogsNearby, setDogsNearby] = useState([]);
+    const [requests, setRequests] = useState([]);
 
     return (
         <div className='dogRequests'>
             <Map />
             <button onClick={findDogs}>Petter Mode</button>
             <BsFillPersonFill onClick={ownerProfile}/>
-            <h4>Nearby Pets</h4>
-            { dogsNearby }
+            <h4>Petting Requests</h4>
+            { requests }
             {/* jsx map over each dog object in dogsNearby array
             and then display each object somehow... will figure that out later */}
             {/* jsx key attribute for each dog? */}
