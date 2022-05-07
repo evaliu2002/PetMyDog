@@ -112,7 +112,7 @@ public class Main {
                         pic_link = attributes.get("picture").toString();
                     }
                     if (!model.createUser(new DBUtils.User(user.getId(), username,
-                            null, email, null, pic_link, "1000-01-01 00:00:00"))) {
+                            null, email, null, pic_link, "1000-01-01 00:00:00", new ArrayList<>()))) {
                         response.redirect("/login", 500);
                     }
                 }
@@ -179,12 +179,15 @@ public class Main {
     private static String getUserProfile(Request request, Response response) {
         try {
             Gson gson = new Gson();
-            return gson.toJson(model.getUser(request.queryParams("uid")));
+            String uid = request.queryParams("uid");
+            DBUtils.User user = model.getUser(uid);
+            List<DBUtils.Dog> dogs = model.getDogsFromUserId(uid);
+            user.setDogs(dogs);
+            return gson.toJson(user);
         } catch (Exception e) {
             halt(500);
             return null;
         }
-
     }
 
     private static String createDogProfile(Request request, Response response) {

@@ -3,6 +3,7 @@ package mysql;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Sql2oModel implements DBUtils.Model {
@@ -14,12 +15,27 @@ public class Sql2oModel implements DBUtils.Model {
     }
 
     @Override
-    public DBUtils.User getUser(String uid) throws Exception {
+    public DBUtils.User getUser(String uid) {
         Connection conn = sql2o.open();
         DBUtils.User c = conn.createQuery("SELECT * FROM User WHERE uid = :uid;")
                 .addParameter("uid", uid)
                 .executeAndFetchFirst(DBUtils.User.class);
         return c;
+    }
+
+    @Override
+    public List<DBUtils.Dog> getDogsFromUserId(String uid) {
+        Connection conn = sql2o.open();
+        List<DBUtils.Dog> dogIDs = conn.createQuery("SELECT did FROM BelongTo WHERE uid = :uid;")
+                .addParameter("uid", uid)
+                .executeAndFetch(DBUtils.Dog.class);
+        List<DBUtils.Dog> dogs = new ArrayList<>();
+        for (DBUtils.Dog dog : dogIDs) {
+            dogs.add(conn.createQuery("SELECT * FROM Dog WHERE did = :did;")
+                    .addParameter("did", dog.getDid())
+                    .executeAndFetchFirst(DBUtils.Dog.class));
+        }
+        return dogs;
     }
 
     @Override
