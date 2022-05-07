@@ -51,4 +51,19 @@ public class DBUtils {
     public class ExistUserResult {
         private int exist;
     }
+
+    @Data
+    public class Location {
+        private double lng;
+        private double lat;
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class UserLocation {
+        private Location location;
+        private String uid;
+        private long timestamp;
+    }
 }
+
