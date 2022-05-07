@@ -14,7 +14,7 @@ const UploadImage = () => {
             </div>
 
         <br />
-            <div><i className="fa fa-plus" aria-hidden="true"></i></div>
+            <div><i className="fa fa-plus" aria-hidden="true"/></div>
 
         <input
             type="file"

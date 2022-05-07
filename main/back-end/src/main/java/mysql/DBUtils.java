@@ -9,10 +9,13 @@ public class DBUtils {
     public interface Model {
 
         boolean createUser(User user);
-
         void updateUser(String username, String bio, String uid);
-        User getUser(String uid) throws Exception;
+        User getUser(String uid);
         void createDog(Dog dog);
+
+        List<Dog> getDog(String did);
+
+        List<DBUtils.Dog> getDogsFromUserId(String uid);
     }
 
     @Data
@@ -25,6 +28,7 @@ public class DBUtils {
         private String bio;
         private String pic_link;
         private String last_ping;
+        private List<Dog> dogs;
     }
 
     @Data
@@ -35,6 +39,12 @@ public class DBUtils {
         private String gender;
         private String breed;
         private String pic_link;
+    }
+
+    @Data
+    public class BelongTo {
+        private String uid;
+        private String did;
     }
 
     @Data

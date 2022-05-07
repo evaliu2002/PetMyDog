@@ -156,7 +156,7 @@ public class Main {
                         pic_link = attributes.get("picture").toString();
                     }
                     if (!model.createUser(new DBUtils.User(user.getId(), username,
-                            null, email, null, pic_link, "1000-01-01 00:00:00"))) {
+                            null, email, null, pic_link, "1000-01-01 00:00:00", null))) {
                         response.redirect("/login", 500);
                     }
                 }
@@ -187,6 +187,8 @@ public class Main {
         });
 
         get("/profile", Main::getUserProfile);
+
+        get("/getDogProfile", Main::getDogProfile);
 
         post("/newDog", Main::createDogProfile);
 
@@ -267,18 +269,28 @@ public class Main {
     private static String getUserProfile(Request request, Response response) {
         try {
             Gson gson = new Gson();
-            return gson.toJson(model.getUser(request.queryParams("uid")));
+            String uid = request.queryParams("uid");
+            DBUtils.User user = model.getUser(uid);
+            List<DBUtils.Dog> dogs = model.getDogsFromUserId(uid);
+            user.setDogs(dogs);
+            return gson.toJson(user);
         } catch (Exception e) {
             halt(500);
             return null;
         }
-
     }
 
     private static String createDogProfile(Request request, Response response) {
         Gson gson = new Gson();
         model.createDog(gson.fromJson(request.body(), DBUtils.Dog.class));
         return gson.toJson("Success");
+    }
+
+    private static String getDogProfile(Request request, Response response) {
+        Gson gson = new Gson();
+        String body = request.body();
+        Map<String, String> bodyContent = gson.fromJson(body, Map.class);
+        return gson.toJson(model.getDog(bodyContent.get("dogId")));
     }
 
     private static String getUserId(Request request, Response response) {
@@ -290,4 +302,5 @@ public class Main {
         return null;
     }
     /****************************************   End utils   *****************************************/
+
 }

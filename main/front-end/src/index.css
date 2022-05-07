@@ -2,7 +2,6 @@ body {
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #E5737D;
 }
 
 .font-link {
@@ -31,11 +30,10 @@ h1 {
 }
 
 .google-login {
-    margin: 0;
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-right: -50%;
+    margin: 0 -50% 0 0;
     transform: translate(-50%, -50%);
 }
 
