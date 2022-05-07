@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BsFillPersonFill } from "react-icons/bs";
 import { useNavigate } from 'react-router';
 import "./FindDogs.css";
+import MapView from "../mapview/MapView";
 
 const FindDogs = () => {
     let navigate = useNavigate();
@@ -24,8 +25,8 @@ const FindDogs = () => {
 
     return (
         <div className='findDogs'>
-            <button onClick={dogRequests}>Petter Mode</button>
-            <BsFillPersonFill onClick={ownerProfile}/>
+            <button onClick={() => <MapView currentPage={"/dog-requests"}/>}>Petter Mode</button>
+            <BsFillPersonFill onClick={"/owner-profile"}/>
             <h4>Nearby Pets</h4>
             { dogsNearby }
             {/* jsx map over each dog object in dogsNearby array

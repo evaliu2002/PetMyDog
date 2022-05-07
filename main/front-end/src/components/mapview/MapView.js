@@ -1,19 +1,24 @@
 import React, {useState} from 'react';
 import Map from '../map/Map';
-import { useNavigate } from 'react-router';
+import {Route, useNavigate, Routes} from 'react-router';
 import FindDogs from "../finddogs/FindDogs";
-
+import DogRequests from "../DogRequests/DogRequests";
+import NavOwner from "../navowner/NavOwner";
+import SelectedDog from "../selecteddog/SelectedDog";
+import NavUser from "../navuser/NavUser";
 
 const MapView = () => {
-
-    let navigate = useNavigate();
-
-    const [activeComp, setActiveComp] = useState(<FindDogs />);
-
     return (
         <div>
-            <Map />
-            {activeComp}
+            <Map/>
+
+            <Routes>
+                <Route path="/find-dogs" element={<FindDogs />}/>
+                <Route path="/dog-requests" element={<DogRequests/>}/>
+                <Route path="/dog-requests/nav-owner" element={<NavOwner />}/>
+                <Route path="/selected-dog" element={<SelectedDog />}/>
+                <Route path="/selected-dog/nav-user" element={<NavUser />}/>
+            </Routes>
         </div>
     )
 }
