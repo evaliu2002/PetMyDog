@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { BsFillPersonFill } from "react-icons/bs";
 import { useNavigate } from 'react-router';
 import Map from '../map/Map';
-import "./FindDogs.css";
 
 const FindDogs = () => {
     let navigate = useNavigate();
@@ -11,12 +10,8 @@ const FindDogs = () => {
         navigate("owner-profile")
     }
 
-    const selectedDog = () => {
-        navigate("selected-dog")
-    }
-
-    const dogRequests = () => {
-        navigate("dog-requests")
+    const findDogs = () => {
+        navigate("find-dogs")
     }
 
     const [userLocation, setUserLocation] = useState({longitude: 0, latitude: 0});
@@ -24,9 +19,9 @@ const FindDogs = () => {
     const [dogsNearby, setDogsNearby] = useState([]);
 
     return (
-        <div className='findDogs'>
+        <div className='dogRequests'>
             <Map />
-            <button onClick={dogRequests}>Petter Mode</button>
+            <button onClick={findDogs}>Petter Mode</button>
             <BsFillPersonFill onClick={ownerProfile}/>
             <h4>Nearby Pets</h4>
             { dogsNearby }
