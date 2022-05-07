@@ -16,15 +16,17 @@ const App = () => {
         <div id='App'>
             <Routes>
                 <Route path="/" element={<Login />} />
-                <Route path="/map-view" element={<MapView />}/>
+                <Route path="/map-view" element={<MapView />}>
                     <Route path="/map-view/find-dogs" element={<FindDogs />}/>
                     <Route path="/map-view/dog-requests" element={<DogRequests/>}/>
-                    <Route path="/map-view/dog-requests/nav-owner" element={<NavOwner />}/>
+                    <Route path="/map-view/nav-owner" element={<NavOwner />}/>
                     <Route path="/map-view/selected-dog" element={<SelectedDog />}/>
-                    <Route path="/map-view/selected-dog/nav-user" element={<NavUser />}/>
-                <Route path="/owner-profile" element={<OwnerProfile />}/>
+                    <Route path="/map-view/nav-user" element={<NavUser />}/>
+                </Route>
+                <Route path="/owner-profile" element={<OwnerProfile />}>
                     <Route path="/owner-profile/view-dog-profile" element={<ViewDogProfile />}/>
                     <Route path="/owner-profile/create-dog-profile" element={<CreateDogProfile />}/>
+                </Route>
             </Routes>
         </div>
     );
