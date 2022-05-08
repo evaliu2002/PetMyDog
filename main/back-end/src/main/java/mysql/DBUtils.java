@@ -10,10 +10,16 @@ public class DBUtils {
 
         boolean createUser(User user);
         void updateUser(String username, String bio, String uid);
-        User getUser(String uid) throws Exception;
+        User getUser(String uid);
         void createDog(Dog dog);
 
         List<Dog> getDog(String did);
+
+        List<DBUtils.Dog> getDogsFromUserId(String uid);
+
+        MeetUp getMeetUp(String mid);
+        void updateMeetUp(String mid, String status);
+        void createMeetUp(MeetUp meetUp);
     }
 
     @Data
@@ -26,6 +32,16 @@ public class DBUtils {
         private String bio;
         private String pic_link;
         private String last_ping;
+        private List<Dog> dogs;
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class MeetUp {
+        private String mid;
+        private String sender;
+        private String receiver;
+        private String status;
     }
 
     @Data
@@ -39,7 +55,28 @@ public class DBUtils {
     }
 
     @Data
+    public class BelongTo {
+        private String uid;
+        private String did;
+    }
+
+    @Data
     public class ExistUserResult {
         private int exist;
     }
+
+    @Data
+    public class Location {
+        private double lng;
+        private double lat;
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class UserLocation {
+        private Location location;
+        private String uid;
+        private long timestamp;
+    }
 }
+
