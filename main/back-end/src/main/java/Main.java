@@ -72,7 +72,7 @@ public class Main {
         config.setHttpActionAdapter(new DemoHttpActionAdapter());
 
         // Set up call back end points
-        CallbackRoute callback = new CallbackRoute(config, "http://localhost:3000", true);
+        CallbackRoute callback = new CallbackRoute(config, "http://localhost:3000/map-view/find-dogs", true);
         get("/callback", callback);
         post("/callback", callback);
 
