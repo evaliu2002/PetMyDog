@@ -28,7 +28,7 @@ CREATE TABLE BelongTo(
 );
 
 CREATE TABLE MeetUp(
-    mid INT PRIMARY KEY,
+    mid VARCHAR(36) PRIMARY KEY,
     sender varchar(255) REFERENCES User,
     receiver varchar(255) REFERENCES User,
     status VARCHAR(20)

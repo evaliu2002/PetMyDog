@@ -71,6 +71,42 @@ public class Sql2oModel implements DBUtils.Model {
     }
 
     @Override
+    public DBUtils.MeetUp getMeetUp(String mid) {
+        try (Connection conn = sql2o.beginTransaction()) {
+            DBUtils.MeetUp c = conn.createQuery("SELECT * FROM MeetUp WHERE mid = :mid;")
+                    .addParameter("mid", mid)
+                    .executeAndFetchFirst(DBUtils.MeetUp.class);
+            return c;
+        }
+    }
+
+    @Override
+    public void updateMeetUp(String mid, String status) {
+        try (Connection conn = sql2o.beginTransaction()) {
+            conn.createQuery("UPDATE MeetUp SET status= :status WHERE mid = :mid")
+                    .addParameter("status", status)
+                    .addParameter("mid", mid)
+                    .executeUpdate();
+            conn.commit();
+        }
+    }
+
+    @Override
+    public void createMeetUp(DBUtils.MeetUp meetUp) {
+        String insert = "INSERT INTO MeetUp " +
+                "VALUES (:mid, :sender, :receiver, :status)";
+        try (Connection conn = sql2o.beginTransaction()) {
+            conn.createQuery(insert)
+                    .addParameter("mid", meetUp.getMid())
+                    .addParameter("sender", meetUp.getSender())
+                    .addParameter("receiver", meetUp.getReceiver())
+                    .addParameter("status", meetUp.getStatus())
+                    .executeUpdate();
+            conn.commit();
+        }
+    }
+
+    @Override
     public void createDog(DBUtils.Dog dog) {
         String insert = "INSERT INTO Dog " +
                 "VALUES (:did, :name, :age, :gender, :breed, :pic_link)";
