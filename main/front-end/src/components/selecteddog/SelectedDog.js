@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { BsArrowLeftSquare } from "react-icons/bs";
+import { useNavigate } from 'react-router';
+
 
 const SelectedDog = () => {
     const [selectedDog, setSelectedDog] = useState();
@@ -9,6 +12,13 @@ const SelectedDog = () => {
     const [dogLocation, setDogLocation] = useState({longitude: 0, latitude: 0});
     const [userLocation, setUserLocation] = useState({longitude: 0, latitude: 0});
     const [distanceLeft, setDistanceLeft] = useState(0);
+
+    let navigate = useNavigate();
+
+
+    const back = () => {
+        navigate(-1)
+    }
 
     return (
         <div>

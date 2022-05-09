@@ -1,8 +1,12 @@
 import React from 'react';
 import {Container, Form} from 'react-bootstrap';
 import UploadImage from "../uploadandisplayimage/UploadImage";
+import { BsArrowLeftSquare } from "react-icons/bs";
+import {useNavigate} from "react-router";
 
  function ViewDogProfile({name, age, breed, gender, bio, photolink}) {
+    const navigate = useNavigate();
+
 
         return (
             <Container>

@@ -49,8 +49,16 @@ workflows:
       - build
       - buildJest
       - test:
+          filters:
+            branches:
+              only:
+                - master
           requires:
             - build
       - testJest:
+          filters:
+            branches:
+              only:
+                - master
           requires:
             - buildJest

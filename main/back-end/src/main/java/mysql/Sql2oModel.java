@@ -3,6 +3,7 @@ package mysql;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Sql2oModel implements DBUtils.Model {
@@ -14,12 +15,27 @@ public class Sql2oModel implements DBUtils.Model {
     }
 
     @Override
-    public DBUtils.User getUser(String uid) throws Exception {
+    public DBUtils.User getUser(String uid) {
         Connection conn = sql2o.open();
         DBUtils.User c = conn.createQuery("SELECT * FROM User WHERE uid = :uid;")
                 .addParameter("uid", uid)
                 .executeAndFetchFirst(DBUtils.User.class);
         return c;
+    }
+
+    @Override
+    public List<DBUtils.Dog> getDogsFromUserId(String uid) {
+        Connection conn = sql2o.open();
+        List<DBUtils.Dog> dogIDs = conn.createQuery("SELECT did FROM BelongTo WHERE uid = :uid;")
+                .addParameter("uid", uid)
+                .executeAndFetch(DBUtils.Dog.class);
+        List<DBUtils.Dog> dogs = new ArrayList<>();
+        for (DBUtils.Dog dog : dogIDs) {
+            dogs.add(conn.createQuery("SELECT * FROM Dog WHERE did = :did;")
+                    .addParameter("did", dog.getDid())
+                    .executeAndFetchFirst(DBUtils.Dog.class));
+        }
+        return dogs;
     }
 
     @Override
@@ -49,6 +65,42 @@ public class Sql2oModel implements DBUtils.Model {
                     .addParameter("username", username)
                     .addParameter("bio", bio)
                     .addParameter("uid", uid)
+                    .executeUpdate();
+            conn.commit();
+        }
+    }
+
+    @Override
+    public DBUtils.MeetUp getMeetUp(String mid) {
+        try (Connection conn = sql2o.beginTransaction()) {
+            DBUtils.MeetUp c = conn.createQuery("SELECT * FROM MeetUp WHERE mid = :mid;")
+                    .addParameter("mid", mid)
+                    .executeAndFetchFirst(DBUtils.MeetUp.class);
+            return c;
+        }
+    }
+
+    @Override
+    public void updateMeetUp(String mid, String status) {
+        try (Connection conn = sql2o.beginTransaction()) {
+            conn.createQuery("UPDATE MeetUp SET status= :status WHERE mid = :mid")
+                    .addParameter("status", status)
+                    .addParameter("mid", mid)
+                    .executeUpdate();
+            conn.commit();
+        }
+    }
+
+    @Override
+    public void createMeetUp(DBUtils.MeetUp meetUp) {
+        String insert = "INSERT INTO MeetUp " +
+                "VALUES (:mid, :sender, :receiver, :status)";
+        try (Connection conn = sql2o.beginTransaction()) {
+            conn.createQuery(insert)
+                    .addParameter("mid", meetUp.getMid())
+                    .addParameter("sender", meetUp.getSender())
+                    .addParameter("receiver", meetUp.getReceiver())
+                    .addParameter("status", meetUp.getStatus())
                     .executeUpdate();
             conn.commit();
         }
