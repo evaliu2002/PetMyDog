@@ -219,6 +219,8 @@ public class Main {
 
         post("/rejectMeetup", Main::rejectMeetup);
 
+        post("/endMeetup", Main::endMeetup);
+
         get("/sql", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
@@ -323,7 +325,9 @@ public class Main {
         if (sender == null || receiver == null) {
             return gson.toJson("User not found");
         }
-
+        if (sender == receiver) {
+            return gson.toJson("Invalid request");
+        }
         // insert meeting information
         UUID id = UUID.randomUUID();
         model.createMeetUp(new DBUtils.MeetUp(id.toString(),
@@ -337,6 +341,10 @@ public class Main {
 
     private static String rejectMeetup(Request request, Response response) {
         return meetupRespond(request, "Rejected");
+    }
+
+    private static String endMeetup(Request request, Response response) {
+        return meetupRespond(request, "Ended");
     }
 
     private static String meetupRespond(Request request, String status) {

@@ -5,6 +5,8 @@ import org.sql2o.Sql2o;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 public class Sql2oModel implements DBUtils.Model {
 
@@ -104,6 +106,20 @@ public class Sql2oModel implements DBUtils.Model {
                     .executeUpdate();
             conn.commit();
         }
+    }
+
+    @Override
+    public boolean checkIfMeetUpExists(DBUtils.MeetUp meetUp) {
+        String dupeCheck = "SELECT sender FROM MeetUp";
+        String receiver = meetUp.getReceiver();
+        Connection conn = sql2o.open();
+        List<String> senders = conn.createQuery(dupeCheck).executeAndFetch(String.class);
+        for (String sender : senders) {
+            if (Objects.equals(sender, receiver)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
