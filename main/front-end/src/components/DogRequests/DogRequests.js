@@ -45,8 +45,11 @@ const DogRequests = () => {
             // .then(checkStatus)
             .then(() => {console.log("Received meetup request")})
             .then(async (response) => {
-
+                let reqArr = [];
+                let reqObj = (await response.json());
+                reqArr = reqArr.concat(reqObj)
             })
+            setRequests(reqArr)
             .catch(() => {console.log("Receiving meetup request failed")})
     }
 
