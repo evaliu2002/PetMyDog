@@ -6,7 +6,7 @@ const Login = () => {
     let navigate = useNavigate();
 
     const mapView = () => {
-        navigate("/map-view")
+        navigate("/map-view/find-dogs")
     }
 
     return (
