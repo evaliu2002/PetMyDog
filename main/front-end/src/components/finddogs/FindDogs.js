@@ -3,15 +3,20 @@ import { BsFillPersonFill } from "react-icons/bs";
 import { useNavigate } from 'react-router';
 import "./FindDogs.css";
 import MapView from "../mapview/MapView";
+import {forEach} from "react-bootstrap/ElementChildren";
 
-const FindDogs = () => {
+const FindDogs = ({changedDogObj}) => {
     let navigate = useNavigate();
+
     const ownerProfile = () => {
         navigate("/owner-profile")
     }
-    const selectedDog = (e) => {
+
+    const selectedDog = async (e) => {
+        await changedDogObj(JSON.parse(e.target.id));
         navigate("/map-view/selected-dog/" + e.target.id);
     }
+
     const dogRequests = () => {
         navigate("/dog-requests")
     }
@@ -90,6 +95,10 @@ const FindDogs = () => {
                             .then(async (response) => {
                                 let userObj = await response.json();
                                 console.log(userObj);
+                                let userDog = userObj.dogs;
+                                for (let i = 0; i < userDog.length; i++) {
+                                    userDog[i].ownerID = userObj.uid;
+                                }
                                 displayDogs = displayDogs.concat(userObj.dogs);
                                 console.log(userObj.dogs);
                             })
@@ -110,10 +119,9 @@ const FindDogs = () => {
     return (
         <div className='findDogs'>
             <button onClick={() => <MapView currentPage={"/dog-requests"}/>}>Petter Mode</button>
-            <BsFillPersonFill onClick={"/owner-profile"}/>
+            <BsFillPersonFill onClick={ownerProfile}/>
             <h4>Nearby Pets</h4>
-            {dogsNearby.map(dog => <div id={dog.did} onClick={selectedDog}>{dog.name}</div>)}
-
+            {dogsNearby.map(dog => <div id={JSON.stringify(dog)} onClick={selectedDog}>{dog.name}</div>)}
         </div>
     );
 }
