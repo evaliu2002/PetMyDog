@@ -17,7 +17,6 @@ const App = () => {
                 <Route path="owner-profile" element={<OwnerProfile />}/>
                 <Route path="view-dog-profile" element={<ViewDogProfile />}/>
                 <Route path="create-dog-profile" element={<CreateDogProfile />}/>
-
             </Routes>
         </div>
     );
