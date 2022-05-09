@@ -47,7 +47,6 @@ function Map(props) {
             zoom={3000}
             center={thisUser}
             onLoad={onLoad}
-
             onUnmount={onUnmount}
         >
         <Marker
