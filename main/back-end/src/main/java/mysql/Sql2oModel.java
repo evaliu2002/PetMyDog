@@ -75,29 +75,14 @@ public class Sql2oModel implements DBUtils.Model {
     @Override
     public boolean checkIfMeetUpExists(DBUtils.MeetUp meetUp) {
         Connection conn = sql2o.open();
-        DBUtils.MeetUp meetup = conn.createQuery("SELECT * FROM MeetUp WHERE mid = :mid")
-                .addParameter("mid", meetUp.getMid())
-                .executeAndFetchFirst(DBUtils.MeetUp.class);
         List<DBUtils.MeetUp> allReqs = new ArrayList<>();
-        if (meetup != null) {
+        if (meetUp != null) {
             allReqs = conn.createQuery("SELECT * from MeetUp WHERE sender = :sender OR sender = :receiver " +
                             "OR receiver = :sender OR receiver = :receiver AND status = :status")
                     .addParameter("sender", meetUp.getSender())
                     .addParameter("receiver", meetUp.getReceiver())
                     .addParameter("status", "Accepted")
                     .executeAndFetch(DBUtils.MeetUp.class);
-            /*for (DBUtils.MeetUp request : allReqs) {
-                if (meetup.getSender().equals(request.getSender()) || meetup.getSender().equals(request.getReceiver())) {
-                    if (request.getStatus().equals("Accepted")) {
-                        return true;
-                    }
-                }
-                if (meetup.getReceiver().equals(request.getSender()) || meetup.getReceiver().equals(request.getReceiver())) {
-                    if (request.getStatus().equals("Accepted")) {
-                        return true;
-                    }
-                }
-            }*/
         }
         return allReqs.size() > 0;
     }
