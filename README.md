@@ -19,21 +19,9 @@ All the code will be contained in the main directory. The main directory is divi
 and back end code, each in a sub directory. We will have our weekly reports in the Weekly Reports
 directory, which we will update every week to report our progress and action items.
 
-## Front-end:
-
-### Setup Instructions
-
-NPM
-
-1. Navigate to main/front-end.
-
-2. Run npm install.
-
-3. To run PetMyDog on localhost, run npm start.
-
 ## Back-end:
 
-### Setup Instructions (for use in IntelliJ):
+### Setup Instructions (for use in IntelliJ with Maven):
 
 #### Building and Running the project
 1. Build the project in IntelliJ by navigating to the Maven tab in IntelliJ, opening `Lifecycle` in the `back-end` tab, and clicking the
@@ -47,6 +35,20 @@ NPM
    https://www.elastic.co/downloads/elasticsearch
 2. Navigate to the Maven tab in IntelliJ, open `Lifecycle` in the `back-end` tab, and click the `Test` button to run the provided
    tests.
+3. Junit tests are located and can be added in main/back-end/src/test/java.
+4. Before running junit tests, make sure that Main.java is not running already. Otherwise, stop Main.java.
+
+## Front-end:
+
+### Setup Instructions
+
+NPM
+
+1. Navigate to main/front-end.
+
+2. Run npm install.
+
+3. To run PetMyDog on localhost, run npm start.
 
 ## Available Scripts
 
