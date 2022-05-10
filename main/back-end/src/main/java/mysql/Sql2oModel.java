@@ -80,8 +80,8 @@ public class Sql2oModel implements DBUtils.Model {
                 .executeAndFetchFirst(DBUtils.MeetUp.class);
         List<DBUtils.MeetUp> allReqs = new ArrayList<>();
         if (meetup != null) {
-            allReqs = conn.createQuery("SELECT * from MeetUp " +
-                            "WHERE sender = :sender OR receiver = :receiver AND status = :status")
+            allReqs = conn.createQuery("SELECT * from MeetUp WHERE sender = :sender OR sender = :receiver " +
+                            "OR receiver = :sender OR receiver = :receiver AND status = :status")
                     .addParameter("sender", meetUp.getSender())
                     .addParameter("receiver", meetUp.getReceiver())
                     .addParameter("status", "Accepted")
