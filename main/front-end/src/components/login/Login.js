@@ -1,12 +1,12 @@
 import React from 'react';
 import "./Login.css";
-import { useNavigate } from 'react-router';
+import {useNavigate} from 'react-router';
 
 const Login = () => {
     let navigate = useNavigate();
 
-    const findDogs = () => {
-        navigate("find-dogs")
+    const mapView = () => {
+        navigate("/map-view/find-dogs")
     }
 
     return (
@@ -17,7 +17,7 @@ const Login = () => {
                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
                 Login with Google
             </a>
-            <button id="reactButton" onClick={findDogs}>Temporary Button for React Router</button>
+            <button id="reactButton" onClick={mapView}>Temporary Button for React Router</button>
         </div>
     )
 }

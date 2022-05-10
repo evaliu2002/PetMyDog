@@ -16,6 +16,10 @@ public class DBUtils {
         List<Dog> getDog(String did);
 
         List<DBUtils.Dog> getDogsFromUserId(String uid);
+
+        MeetUp getMeetUp(String mid);
+        void updateMeetUp(String mid, String status);
+        void createMeetUp(MeetUp meetUp);
     }
 
     @Data
@@ -29,6 +33,15 @@ public class DBUtils {
         private String pic_link;
         private String last_ping;
         private List<Dog> dogs;
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class MeetUp {
+        private String mid;
+        private String sender;
+        private String receiver;
+        private String status;
     }
 
     @Data

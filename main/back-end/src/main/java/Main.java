@@ -213,6 +213,12 @@ public class Main {
 
         post("/newDog", Main::createDogProfile);
 
+        post("/requestMeetup", Main::requestMeetup);
+
+        post("/acceptMeetup", Main::acceptMeetup);
+
+        post("/rejectMeetup", Main::rejectMeetup);
+
         get("/sql", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
@@ -304,6 +310,45 @@ public class Main {
     private static String createDogProfile(Request request, Response response) {
         Gson gson = new Gson();
         model.createDog(gson.fromJson(request.body(), DBUtils.Dog.class));
+        return gson.toJson("Success");
+    }
+
+    private static String requestMeetup(Request request, Response response) {
+        Gson gson = new Gson();
+        String body = request.body();
+        Map<String, String> bodyContent = gson.fromJson(body, Map.class);
+        // check if users exist
+        DBUtils.User sender = model.getUser(bodyContent.get("sender"));
+        DBUtils.User receiver = model.getUser(bodyContent.get("receiver"));
+        if (sender == null || receiver == null) {
+            return gson.toJson("User not found");
+        }
+
+        // insert meeting information
+        UUID id = UUID.randomUUID();
+        model.createMeetUp(new DBUtils.MeetUp(id.toString(),
+                bodyContent.get("sender"), bodyContent.get("receiver"), "Pending"));
+        return gson.toJson(id.toString());
+    }
+
+    private static String acceptMeetup(Request request, Response response) {
+        return meetupRespond(request, "Accepted");
+    }
+
+    private static String rejectMeetup(Request request, Response response) {
+        return meetupRespond(request, "Rejected");
+    }
+
+    private static String meetupRespond(Request request, String status) {
+        Gson gson = new Gson();
+        String body = request.body();
+        Map<String, String> bodyContent = gson.fromJson(body, Map.class);
+        String mid = bodyContent.get("mid");
+        DBUtils.MeetUp m = model.getMeetUp(mid);
+        if (m == null) {
+            return gson.toJson("Meetup does not exist");
+        }
+        model.updateMeetUp(mid, status);
         return gson.toJson("Success");
     }
 
