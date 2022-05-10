@@ -73,6 +73,36 @@ public class Sql2oModel implements DBUtils.Model {
     }
 
     @Override
+    public boolean checkIfMeetUpExists(DBUtils.MeetUp meetUp) {
+        Connection conn = sql2o.open();
+        DBUtils.MeetUp meetup = conn.createQuery("SELECT * FROM MeetUp WHERE mid = :mid")
+                .addParameter("mid", meetUp.getMid())
+                .executeAndFetchFirst(DBUtils.MeetUp.class);
+        List<DBUtils.MeetUp> allReqs = new ArrayList<>();
+        if (meetup != null) {
+            allReqs = conn.createQuery("SELECT * from MeetUp " +
+                            "WHERE sender = :sender OR receiver = :receiver AND status = :status")
+                    .addParameter("sender", meetUp.getSender())
+                    .addParameter("receiver", meetUp.getReceiver())
+                    .addParameter("status", "Accepted")
+                    .executeAndFetch(DBUtils.MeetUp.class);
+            /*for (DBUtils.MeetUp request : allReqs) {
+                if (meetup.getSender().equals(request.getSender()) || meetup.getSender().equals(request.getReceiver())) {
+                    if (request.getStatus().equals("Accepted")) {
+                        return true;
+                    }
+                }
+                if (meetup.getReceiver().equals(request.getSender()) || meetup.getReceiver().equals(request.getReceiver())) {
+                    if (request.getStatus().equals("Accepted")) {
+                        return true;
+                    }
+                }
+            }*/
+        }
+        return allReqs.size() > 0;
+    }
+
+    @Override
     public DBUtils.MeetUp getMeetUp(String mid) {
         try (Connection conn = sql2o.beginTransaction()) {
             DBUtils.MeetUp c = conn.createQuery("SELECT * FROM MeetUp WHERE mid = :mid;")
@@ -106,20 +136,6 @@ public class Sql2oModel implements DBUtils.Model {
                     .executeUpdate();
             conn.commit();
         }
-    }
-
-    @Override
-    public boolean checkIfMeetUpExists(DBUtils.MeetUp meetUp) {
-        String dupeCheck = "SELECT sender FROM MeetUp";
-        String receiver = meetUp.getReceiver();
-        Connection conn = sql2o.open();
-        List<String> senders = conn.createQuery(dupeCheck).executeAndFetch(String.class);
-        for (String sender : senders) {
-            if (Objects.equals(sender, receiver)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     @Override

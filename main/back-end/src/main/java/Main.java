@@ -325,14 +325,18 @@ public class Main {
         if (sender == null || receiver == null) {
             return gson.toJson("User not found");
         }
-        if (sender == receiver) {
+        if (sender.equals(receiver)) {
             return gson.toJson("Invalid request");
         }
         // insert meeting information
         UUID id = UUID.randomUUID();
-        model.createMeetUp(new DBUtils.MeetUp(id.toString(),
-                bodyContent.get("sender"), bodyContent.get("receiver"), "Pending"));
-        return gson.toJson(id.toString());
+        DBUtils.MeetUp meetUp = new DBUtils.MeetUp(id.toString(),
+                bodyContent.get("sender"), bodyContent.get("receiver"), "Pending");
+        if (!model.checkIfMeetUpExists(meetUp)) {
+            model.createMeetUp(meetUp);
+            return gson.toJson(id.toString());
+        }
+        return gson.toJson("Meeting request has been canceled");
     }
 
     private static String acceptMeetup(Request request, Response response) {
