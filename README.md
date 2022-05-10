@@ -19,7 +19,7 @@ All the code will be contained in the main directory. The main directory is divi
 and back end code, each in a sub directory. We will have our weekly reports in the Weekly Reports
 directory, which we will update every week to report our progress and action items.
 
-##Front-end:
+## Front-end:
 
 ### Setup Instructions
 
@@ -31,11 +31,11 @@ NPM
 
 3. To run PetMyDog on localhost, run npm start.
 
-##Back-end:
+## Back-end:
 
-###Setup Instructions (for use in IntelliJ):
+### Setup Instructions (for use in IntelliJ):
 
-####Building and Running the project
+#### Building and Running the project
 1. Build the project in IntelliJ by navigating to the Maven tab in IntelliJ, opening `Lifecycle` in the `back-end` tab, and clicking the
    `Compile` button.
 2. Run Elasticsearch locally. Follow the instructions provided here:
