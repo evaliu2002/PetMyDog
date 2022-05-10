@@ -18,7 +18,7 @@ const DogRequests = () => {
         navigate("/nav-owner")
     }
 
-    const GET_REQ_URL = "http://localhost:4567/meetups";
+    const GET_REQ_URL = "http://petmydog.fun/meetups";
 
     const [requests, setRequests] = useState([]);
     let displayReq = [];

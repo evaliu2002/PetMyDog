@@ -24,7 +24,7 @@ const FindDogs = ({changedDogObj}) => {
 
     const [dogsNearby, setDogsNearby] = useState([]);
 
-    const LOCATION_URL = "http://localhost:4567/updateLocation";
+    const LOCATION_URL = "http://petmydog.fun/updateLocation";
     const UPDATE_EVERY = 15 * 1000;
 
     const updateLocation = () => {
@@ -59,11 +59,11 @@ const FindDogs = ({changedDogObj}) => {
     // setInterval(updateLocation, UPDATE_EVERY);
     // updateLocation();
 
-    const GET_NEARBY_USER_URL = "http://localhost:4567/getNearbyUser";
+    const GET_NEARBY_USER_URL = "http://petmydog.fun/getNearbyUser";
     let displayDogs = [];
     const UPDATE_EVERY_MIN = 60 * 1000;
 
-    const GET_USER_PROFILE_URL = "http://localhost:4567/profile";
+    const GET_USER_PROFILE_URL = "http://petmydog.fun/profile";
 
     const updateNearbyUsers = () => {
         navigator.geolocation.getCurrentPosition((position) => {
