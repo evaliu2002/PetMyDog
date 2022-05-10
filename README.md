@@ -42,7 +42,7 @@ NPM
    https://www.elastic.co/downloads/elasticsearch
 3. Run `Main.java` to launch the Spark server on localhost port 4567.
 
-####Testing the project
+#### Testing the project
 1. Run Elasticsearch locally before testing by following the instructions provided here:
    https://www.elastic.co/downloads/elasticsearch
 2. Navigate to the Maven tab in IntelliJ, open `Lifecycle` in the `back-end` tab, and click the `Test` button to run the provided
