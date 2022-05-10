@@ -1,3 +1,5 @@
+package sparkCode;
+
 import mysql.DBUtils;
 import mysql.Sql2oModel;
 import com.google.gson.Gson;
@@ -48,6 +50,8 @@ public class Main {
     private static final long LOCATION_EXPIRE_TIME = 1000 * 60 * 15;
 
     public static void main(String[] args) {
+        staticFileLocation("/public");
+        port(80); // Spark will run on port 80
         /*****************************************     Begin OAuth config     *****************************************/
 
         // Setup google oauth api configuration with pac4j
@@ -64,7 +68,7 @@ public class Main {
             profile.addRole("ROLE_ADMIN");
             return Optional.of(profile);
         });
-        oidcClient.setCallbackUrl("http://localhost:4567/callback");
+        oidcClient.setCallbackUrl("http://petmydog.fun/callback");
 
         // Security configuration using google client
         Config config = new Config(oidcClient);
@@ -72,7 +76,7 @@ public class Main {
         config.setHttpActionAdapter(new DemoHttpActionAdapter());
 
         // Set up call back end points
-        CallbackRoute callback = new CallbackRoute(config, "http://localhost:3000", true);
+        CallbackRoute callback = new CallbackRoute(config, "http://petmydog.fun/map-view/find-dogs", true);
         get("/callback", callback);
         post("/callback", callback);
 
@@ -171,29 +175,27 @@ public class Main {
 
         /********************************************   Start CORS config   *******************************************/
 
-        final Map<String, String> corsHeaders = new HashMap<>();
-        corsHeaders.put("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
-        corsHeaders.put("Access-Control-Allow-Origin", "*");
-        corsHeaders.put("Access-Control-Allow-Headers", "Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin,");
-        corsHeaders.put("Access-Control-Allow-Credentials", "true");
-
-        Filter filter = new Filter() {
-            @Override
-            public void handle(Request request, Response response) throws Exception {
-                corsHeaders.forEach((key, value) -> {
-                    response.header(key, value);
-                });
-            }
-        };
-        Spark.after(filter);
+//        final Map<String, String> corsHeaders = new HashMap<>();
+//        corsHeaders.put("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+//        corsHeaders.put("Access-Control-Allow-Origin", "*");
+//        corsHeaders.put("Access-Control-Allow-Headers", "Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin,");
+//        corsHeaders.put("Access-Control-Allow-Credentials", "true");
+//
+//        Filter filter = new Filter() {
+//            @Override
+//            public void handle(Request request, Response response) throws Exception {
+//                corsHeaders.forEach((key, value) -> {
+//                    response.header(key, value);
+//                });
+//            }
+//        };
+//        Spark.after(filter);
 
         /********************************************   End CORS config   *********************************************/
 
 
 
         /****************************************   Start Service end pints   *****************************************/
-
-        get("/hello", Main::getProfiles);
 
         get("/login", (req, res) -> {
             final SparkWebContext context = new SparkWebContext(req, res);
@@ -218,15 +220,6 @@ public class Main {
         post("/acceptMeetup", Main::acceptMeetup);
 
         post("/rejectMeetup", Main::rejectMeetup);
-
-        get("/sql", new Route() {
-            @Override
-            public Object handle(Request request, Response response) throws Exception {
-                model.updateUser("test2", "test2", "1234");
-                Gson gson = new Gson();
-                return gson.toJson("updated");
-            }
-        });
 
         post("/getNearbyUser", new Route() {
             @Override
