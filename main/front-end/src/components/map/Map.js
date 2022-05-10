@@ -60,7 +60,7 @@ function Map(props) {
             fillColor={"#FF0000"}
             fillOpacity={0.35}
             center={{lat: thisUser.lat, lng: thisUser.lng}}
-            radius={2000}
+            radius={300}
         />
         </GoogleMap>
     ) : <></>

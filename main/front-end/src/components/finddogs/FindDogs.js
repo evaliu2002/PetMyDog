@@ -18,7 +18,7 @@ const FindDogs = ({changedDogObj}) => {
     }
 
     const dogRequests = () => {
-        navigate("/dog-requests")
+        navigate("/map-view/dog-requests")
     }
     const [userLocation, setUserLocation] = useState({longitude: 0, latitude: 0});
 
@@ -118,7 +118,7 @@ const FindDogs = ({changedDogObj}) => {
 
     return (
         <div className='findDogs'>
-            <button onClick={() => <MapView currentPage={"/dog-requests"}/>}>Petter Mode</button>
+            <button onClick={dogRequests}>Owner Mode</button>
             <BsFillPersonFill onClick={ownerProfile}/>
             <h4>Nearby Pets</h4>
             {dogsNearby.map(dog => <div id={JSON.stringify(dog)} onClick={selectedDog}>{dog.name}</div>)}
