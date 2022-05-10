@@ -18,7 +18,7 @@ const DogRequests = () => {
         navigate("/nav-owner")
     }
 
-    const GET_REQ_URL = "http://localhost:4567/getRequests";
+    const GET_REQ_URL = "http://localhost:4567/meetups";
 
     const [requests, setRequests] = useState([]);
     let displayReq = [];
@@ -33,6 +33,7 @@ const DogRequests = () => {
     };
 
     const getRequest = () => {
+        let reqArr = [];
         fetch(GET_REQ_URL, {
             method: 'POST',
             mode: 'no-cors',
@@ -45,11 +46,10 @@ const DogRequests = () => {
             // .then(checkStatus)
             .then(() => {console.log("Received meetup request")})
             .then(async (response) => {
-                let reqArr = [];
                 let reqObj = (await response.json());
                 reqArr.concat(reqObj)
+                setRequests(reqArr)
             })
-            setRequests(reqArr)
             .catch(() => {console.log("Receiving meetup request failed")})
     }
 
