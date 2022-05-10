@@ -19,6 +19,8 @@ All the code will be contained in the main directory. The main directory is divi
 and back end code, each in a sub directory. We will have our weekly reports in the Weekly Reports
 directory, which we will update every week to report our progress and action items.
 
+##Front-end:
+
 ### Setup Instructions
 
 NPM
@@ -29,6 +31,22 @@ NPM
 
 3. To run PetMyDog on localhost, run npm start.
 
+##Back-end:
+
+###Setup Instructions (for use in IntelliJ):
+
+####Building and Running the project
+1. Build the project in IntelliJ by navigating to the Maven tab in IntelliJ, opening `Lifecycle` in the `back-end` tab, and clicking the
+   `Compile` button.
+2. Run Elasticsearch locally. Follow the instructions provided here:
+   https://www.elastic.co/downloads/elasticsearch
+3. Run `Main.java` to launch the Spark server on localhost port 4567.
+
+####Testing the project
+1. Run Elasticsearch locally before testing by following the instructions provided here:
+   https://www.elastic.co/downloads/elasticsearch
+2. Navigate to the Maven tab in IntelliJ, open `Lifecycle` in the `back-end` tab, and click the `Test` button to run the provided
+   tests.
 
 ## Available Scripts
 
@@ -67,6 +85,7 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
@@ -96,3 +115,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
