@@ -48,8 +48,8 @@ const DogRequests = () => {
                 let reqArr = [];
                 let reqObj = (await response.json());
                 reqArr.concat(reqObj)
+                setRequests(reqArr)
             })
-            setRequests(reqArr)
             .catch(() => {console.log("Receiving meetup request failed")})
     }
 
