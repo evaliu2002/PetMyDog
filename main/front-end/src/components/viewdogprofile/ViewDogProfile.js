@@ -1,8 +1,12 @@
 import React from 'react';
 import {Container, Form} from 'react-bootstrap';
 import UploadImage from "../uploadandisplayimage/UploadImage";
+import { BsArrowLeftSquare } from "react-icons/bs";
+import {useNavigate} from "react-router";
 
  function ViewDogProfile({name, age, breed, gender, bio, photolink}) {
+    const navigate = useNavigate();
+
 
         return (
             <Container>
@@ -10,7 +14,7 @@ import UploadImage from "../uploadandisplayimage/UploadImage";
 
                 <Form.Group>
                         <Form>
-                            <img className="circular-profile" src= {photolink} onClick={<UploadImage/>} alt="profile sample"/>
+                            <img className="circular-profile" src= {photolink} alt="profile sample"/>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                 <Form.Label>Dog's Name</Form.Label>
                                 <Form.Control

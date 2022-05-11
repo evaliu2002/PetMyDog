@@ -1,8 +1,15 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
 import UploadImage from "../uploadandisplayimage/UploadImage";
+import { useNavigate } from 'react-router';
+import { BsArrowLeftSquare } from "react-icons/bs";
 
 function CreateDogProfile () {
+    const navigate = useNavigate();
+
+    const ownerProfile = () => {
+        navigate("/owner-profile")
+    }
 
         return (
             <div>
@@ -38,7 +45,7 @@ function CreateDogProfile () {
                                     <Form.Label>Dog's Bio</Form.Label>
                                     <Form.Control type="text" placeholder="Your Dog's Bio Here" />
                                 </Form.Group>
-                                <button className="create-button">
+                                <button className="create-button" onClick={ownerProfile}>
                                     Create Profile
                                 </button>
                             </Form>

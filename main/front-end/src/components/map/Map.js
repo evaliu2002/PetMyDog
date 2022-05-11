@@ -31,8 +31,9 @@ function Map(props) {
     const [map, setMap] = React.useState(null)
 
     const onLoad = React.useCallback(function callback(map) {
-        const bounds = new window.google.maps.LatLngBounds(thisUser);
+        const bounds = new window.google.maps.LatLngBounds(thisUser)
         map.fitBounds(bounds);
+
         setMap(map)
     }, [])
 
@@ -43,8 +44,8 @@ function Map(props) {
     return isLoaded ? (
         <GoogleMap
             mapContainerStyle={containerStyle}
+            zoom={3000}
             center={thisUser}
-            zoom={10}
             onLoad={onLoad}
             onUnmount={onUnmount}
         >
@@ -59,7 +60,7 @@ function Map(props) {
             fillColor={"#FF0000"}
             fillOpacity={0.35}
             center={{lat: thisUser.lat, lng: thisUser.lng}}
-            radius={200}
+            radius={300}
         />
         </GoogleMap>
     ) : <></>

@@ -21,6 +21,7 @@ public class DBUtils {
         void updateMeetUp(String mid, String status);
         void createMeetUp(MeetUp meetUp);
         boolean checkIfMeetUpExists(MeetUp meetUp);
+        List<DBUtils.MeetUp> getMeetUpsForUser(String uid);
     }
 
     @Data
