@@ -15,11 +15,15 @@ function Map(props) {
     const [thatUser, setThatUser] = useState(props.thatUser);
 
     useEffect(() => {
-        navigator.geolocation.getCurrentPosition((position) => {
-            let lat = position.coords.latitude;
-            let lng = position.coords.longitude;
-            setThisUser({lat, lng});
-            console.log({lat, lng});
+        fetch("https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBmy8ljB-id0qugtedezLUAc5o07UO8uwE", {
+            method: 'POST',
+        }).then((res) => res.json())
+            .then((position) => {
+            // let lat = position.coords.latitude;
+            // let lng = position.coords.longitude;
+            // setThisUser({lat, lng});
+            setThisUser(position.location)
+            console.log(position.location);
         });
     }, []);
 

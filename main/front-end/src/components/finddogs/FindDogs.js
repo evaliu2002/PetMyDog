@@ -26,13 +26,16 @@ const FindDogs = ({changedDogObj}) => {
     const UPDATE_EVERY = 15 * 1000;
 
     const updateLocation = () => {
-        navigator.geolocation.getCurrentPosition((position) => {
-            let lat = position.coords.latitude;
-            let lng = position.coords.longitude;
-            let locationInfo = {lat, lng};
+        fetch("https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBmy8ljB-id0qugtedezLUAc5o07UO8uwE", {
+            method: 'POST',
+        }).then((res) => res.json())
+            .then((position) => {
+            // let lat = position.coords.latitude;
+            // let lng = position.coords.longitude;
+            let locationInfo = position.location;
             fetch(LOCATION_URL, {
                 method: 'POST',
-                mode: 'no-cors',
+                // mode: 'no-cors',
                 cache: 'no-cache',
                 credentials: 'include',
                 headers: {
@@ -41,7 +44,7 @@ const FindDogs = ({changedDogObj}) => {
                 body: JSON.stringify(locationInfo) // body data type must match "Content-Type" header
             })
                 .then(checkStatus)
-                .then(() => {console.log("Updated location: lat: " + lat + " lng: " + lng);})
+                // .then(() => {console.log("Updated location: lat: " + lat + " lng: " + lng);})
                 .catch(() => {console.log("Location not updated")});
         });
     };
@@ -54,8 +57,6 @@ const FindDogs = ({changedDogObj}) => {
         }
     };
 
-    // setInterval(updateLocation, UPDATE_EVERY);
-    // updateLocation();
 
     const GET_NEARBY_USER_URL = "http://petmydog.fun/getNearbyUser";
     let displayDogs = [];
@@ -64,13 +65,16 @@ const FindDogs = ({changedDogObj}) => {
     const GET_USER_PROFILE_URL = "http://petmydog.fun/profile";
 
     const updateNearbyUsers = () => {
-        navigator.geolocation.getCurrentPosition((position) => {
-            let lat = position.coords.latitude;
-            let lng = position.coords.longitude;
-            let locationInfo = {lat, lng};
+        fetch("https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBmy8ljB-id0qugtedezLUAc5o07UO8uwE", {
+            method: 'POST',
+        }).then((res) => res.json())
+            .then((position) => {
+            // let lat = position.coords.latitude;
+            // let lng = position.coords.longitude;
+            let locationInfo = position.location;
             fetch(GET_NEARBY_USER_URL, {
                 method: 'POST',
-                mode: 'no-cors',
+                // mode: 'no-cors',
                 cache: 'no-cache',
                 credentials: 'include',
                 headers: {
@@ -80,13 +84,13 @@ const FindDogs = ({changedDogObj}) => {
             })
                 // .then(checkStatus)
                 .then(async (response) => {
-                    // let uidArr = (await response.json());
-                    let uidArr = ["101836349121923215589"];
+                    let uidArr = (await response.json());
+                    // let uidArr = ["101836349121923215589"];
                     displayDogs = [];
                     let fetches = [];
                     for (let i = 0; i < uidArr.length; i++) {
                         let currentFetch = fetch(GET_USER_PROFILE_URL + "?uid=" + uidArr[i], {
-                            // credentials: 'include',
+                            credentials: 'include',
                         })
                             .then(checkStatus)
                             // .then(console.log)
@@ -110,9 +114,13 @@ const FindDogs = ({changedDogObj}) => {
         });
     };
 
-    useEffect(updateNearbyUsers, []);
-// setInterval(updateNearbyUsers, UPDATE_EVERY_MIN);
-//     updateNearbyUsers();
+    useEffect(() => {
+        console.log("finding dogs");
+        updateNearbyUsers();
+        updateLocation();
+        setInterval(updateNearbyUsers, UPDATE_EVERY);
+        setInterval(updateLocation, UPDATE_EVERY);
+    }, []);
 
     return (
         <div className='findDogs'>

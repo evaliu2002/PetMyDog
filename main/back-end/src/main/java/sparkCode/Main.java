@@ -15,7 +15,6 @@ import org.elasticsearch.client.indices.CreateIndexRequest;
 import org.elasticsearch.client.indices.PutMappingRequest;
 import org.elasticsearch.common.geo.GeoPoint;
 import org.elasticsearch.common.unit.DistanceUnit;
-import org.elasticsearch.index.mapper.ObjectMapper;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
@@ -36,7 +35,6 @@ import spark.*;
 import org.sql2o.Sql2o;
 
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.*;
 import static spark.Spark.*;
 
@@ -50,8 +48,12 @@ public class Main {
     private static final long LOCATION_EXPIRE_TIME = 1000 * 60 * 15;
 
     public static void main(String[] args) {
-        staticFileLocation("/public");
+//        staticFileLocation("./public");
+//        secure("/home/wenxuanliu/testing/ssl/keystore.jks", "password", null, null);
+        staticFiles.externalLocation("/home/wenxuanliu/testing/public");
+
         port(80); // Spark will run on port 80
+
         /*****************************************     Begin OAuth config     *****************************************/
 
         // Setup google oauth api configuration with pac4j
@@ -76,7 +78,7 @@ public class Main {
         config.setHttpActionAdapter(new DemoHttpActionAdapter());
 
         // Set up call back end points
-        CallbackRoute callback = new CallbackRoute(config, "http://petmydog.fun/map-view/find-dogs", true);
+        CallbackRoute callback = new CallbackRoute(config, "http://petmydog.fun", true);
         get("/callback", callback);
         post("/callback", callback);
 
