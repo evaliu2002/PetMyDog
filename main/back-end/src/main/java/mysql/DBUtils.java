@@ -20,6 +20,8 @@ public class DBUtils {
         MeetUp getMeetUp(String mid);
         void updateMeetUp(String mid, String status);
         void createMeetUp(MeetUp meetUp);
+
+        List<DBUtils.MeetUp> getMeetUpsForUser(String uid);
     }
 
     @Data
