@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { BsArrowLeftSquare, BsFillPersonFill } from "react-icons/bs";
 import { useNavigate } from 'react-router';
+import {Card,Button} from "react-bootstrap";
 
 const SelectedDog = ({dogObj}) => {
 

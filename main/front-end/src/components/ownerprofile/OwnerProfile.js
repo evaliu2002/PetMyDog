@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { BsArrowLeftSquare } from "react-icons/bs";
 import { useNavigate } from 'react-router';
+import {Card,Button,Container} from "react-bootstrap";
+
 
 const OwnerProfile = () => {
     const [ownerName, setOwnerName] = useState("Bob");
