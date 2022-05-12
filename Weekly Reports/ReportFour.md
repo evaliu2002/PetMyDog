@@ -22,17 +22,15 @@
 #### Individual Reports
 
 ###### Eva Liu: 
-     - Goals from last week: Figure out how we are going to navigate between pages in the web app. 
-                             Finish implementing the login and signup page for the web app.
-     - Progress and Issues: I finished implementing the login component. I also finished set up Jest and
-                            CircleCI testing for the front-end. I set up react-router for our web app
-                            pages. I had a few issues when setting up react router and got stuck with
-                            a few bugs but managed to fix the bugs after talking to the other front end
-                            developers. I didn't get stuck for anything this week, just a few issues that
+     - Goals from last week: Finishing implementing all the necessary components for the beta. 
+                             I also plan on implementing more tests to develop front end's test suite.  
+     - Progress and Issues: Finished implementing find dogs and selected dog. There were a few issues during
+                            the implementation, when we were stuck on changing how the routes worked.
+                            I didn't get stuck for anything this week, just a few issues that
                             were eventually fixed.
-     - Plans and Goals for the Next Week: My goal for the next week is finishing implementing all the
-                                          necessary components for the beta. I also plan on implementing
-                                           more tests to develop front end's test suite.  
+     - Plans and Goals for the Next Week: My goal for the next week is start making progress on the 
+                                          meetup request component and the rest of the front end components.
+                                          I also plan on implementing more tests to develop front end's test suite.
 
 ###### An Nguyen
 
