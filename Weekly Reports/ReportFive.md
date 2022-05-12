@@ -35,6 +35,15 @@
 
 
 ##### Kevin Kong
+    - Goals from last week: Continue to work on backend API calls. Write documentation.
+
+    - Progress and Issues: I implemented backend API. I also improved the README for backend.
+                            I also helped with the demo and beta release. I did not get to write
+                            documentations yet.
+
+    - Plans and Goals for the next week: I will write documentations. I can also add more tests
+                                        for backend. I will also work with others on coding and
+                                        debugging.
 
 ###### Anish Konanki
      - Goals from last week: Finish the big APIs for next week and set up for the beta release, and
