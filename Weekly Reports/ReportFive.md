@@ -1,0 +1,36 @@
+# **Report 5 5/11/2022**
+
+#### Team Report: Status Update and Project Meeting Agenda
+- Goals from last week:
+    - Front-end: Finish implementing the rest of our listed components. Add more tests
+      to develop our front end test suite.
+    - Back-end: Finish implemented the remaining APIs for the beta release, and work on
+      making an exhaustive test suite to make sure everything works well.
+    - Front&Back: Develop and figure out communication and responses between the front end components
+      and the APIs so that we're set up for the beta release.
+
+- What we did:
+
+- What we plan to do:
+
+#### Individual Reports
+
+###### Eva Liu:
+
+###### An Nguyen
+
+##### Kevin Kong
+
+###### Anish Konanki
+
+###### Steve Ma
+     - Goals from last week: Finish the APIs planned for next week, and figure out testing with the Spark Java server.
+     - Progress and Issues: I developed the three meetup APIs for 1) requesting meetup, 2) accepting meetup, and
+                            3) rejecting meetup. I worked with Anish on polishing those APIs and completed some
+                            extensive testing on those APIs. We also figured out the workflow for when a user can make a
+                            a request and wrote the SQL query for the conditions. We also had our beta release
+                            and I recorded two of the slides of our presentation.
+     - Plans and Goals for the Next Week: Complete the edit user profile feature and revise our beta release based on 
+                                          the feedback we have released.  
+
+###### Wenxuan Liu
