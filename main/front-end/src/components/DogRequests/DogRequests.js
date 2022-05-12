@@ -33,6 +33,7 @@ const DogRequests = () => {
     };
 
     const getRequest = () => {
+        let reqArr = [];
         fetch(GET_REQ_URL, {
             method: 'POST',
             mode: 'no-cors',
@@ -45,7 +46,7 @@ const DogRequests = () => {
             // .then(checkStatus)
             .then(() => {console.log("Received meetup request")})
             .then(async (response) => {
-                let reqArr = [];
+
                 let reqObj = (await response.json());
                 reqArr.concat(reqObj)
             })
