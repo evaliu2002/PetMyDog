@@ -10,14 +10,29 @@
       and the APIs so that we're set up for the beta release.
 
 - What we did:
+    - Front-end:
+    - Back-end:
+    - Front&Back:
 
 - What we plan to do:
+
+  -Finish implementing the rest of our listed components.
 
 #### Individual Reports
 
 ###### Eva Liu:
 
-###### An Nguyen
+###### An Nguyen:
+    - Goals from last week:
+    Build the remaining components and discuss the communication with back end.
+
+    - Progress and Issues: Replaced the 'Choose File button' by a new button and implemented 'click on 
+    current photo to upload new photo'.  Implemented a grid of cards to show the dogs in user's profile.
+    Made the selected dog from find dog shown in a card format. Joined the presentation on the demo.
+
+    - What we plan to do: Finish building 'owner-profile' and set up data fetching from the back end.
+                        Make the map zoom out to a larger area when finding user's location
+
 
 ##### Kevin Kong
 

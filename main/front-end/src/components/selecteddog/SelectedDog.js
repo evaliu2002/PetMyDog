@@ -38,19 +38,33 @@ const SelectedDog = ({dogObj}) => {
 
     return (
         <div>
-            <h3>{ dogObj.name }</h3>
 
             <BsArrowLeftSquare onClick={back}/>
 
             <BsFillPersonFill onClick={ownerProfile}/>
 
-            <h5>About { dogObj.name }</h5>
-            <p>Age: { dogObj.age }</p>
-            <p>Breed: { dogObj.breed }</p>
+            <Card style={{ width: '18rem' }}>
+                <Card.Img variant="top" src="https://www.pumpkin.care/dog-breeds/wp-content/uploads/2021/03/Husky-Hero.png" />
+                <Card.Body>
+                    <Card.Title> {dogObj.name}</Card.Title>
+                    <Card.Text>
+                        <p>Age: { dogObj.age }</p>
+                        <p>Breed: { dogObj.breed }</p>
+                    </Card.Text>
+                    <Button variant="primary" onClick={navUser}>Go to Dog</Button>
+                </Card.Body>
+            </Card>
+            {/*<h3>{ dogObj.name }</h3>*/}
+
+
+
+            {/*<h5>About { dogObj.name }</h5>*/}
+            {/*<p>Age: { dogObj.age }</p>*/}
+            {/*<p>Breed: { dogObj.breed }</p>*/}
 
             {/* <img></img> */}
 
-            <button onClick={navUser}>Go to Dog</button>
+            {/*<button onClick={navUser}>Go to Dog</button>*/}
         </div>
     );
 }
