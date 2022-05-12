@@ -22,6 +22,13 @@
 ##### Kevin Kong
 
 ###### Anish Konanki
+     - Goals from last week: Finish the big APIs for next week and set up for the beta release, and
+                            implement proper testing for the backend.
+     - Progress and Issues: I worked on the endMeetup and requestMeetup APIs and worked on refining and testing them 
+                            along with Steve. I also worked on writing up the README for building and testing the backend.
+                            I also recorded 3 slides of the presentation along with An for the reflection part of the presentation.
+     - Plans and Goals for the Next Week: Complete the editDogProfile API for next week, start building an exhaustive test suite,
+                                          and work on improving our old code based on given feedback.
 
 ###### Steve Ma
      - Goals from last week: Finish the APIs planned for next week, and figure out testing with the Spark Java server.
