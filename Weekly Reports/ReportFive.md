@@ -16,7 +16,6 @@
       sure the APIs worked for the beta release.
 
 - What we plan to do:
-
   -Finish implementing the rest of our listed components.
 
 #### Individual Reports
