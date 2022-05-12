@@ -56,3 +56,10 @@
                                           the feedback we have released.  
 
 ###### Wenxuan Liu
+    - Goals from last week: Finish findDogs component and updateLocation, getNearbyUser endpoints.
+    - Progress and Issues: Finished findDogs component with other developers. Finished updateLocation, getNearbyUser endpoints.
+                            Added dependencies to package backend code. Deployed backend code to server. Built front endcode
+                            and use server to serve static files. Bought a domain name and configured DNS service to redirect to
+                            server public ip. Current issue is chrome and other modern browsers refuse to provide geolocation to http
+                            sites, so we need to use https to get exact location.
+    - Plans and Goals for the Next Week: Make server run in https, put together front end with a few more endpoints.
