@@ -12,8 +12,8 @@
 - What we did:
     - Front-end: Finished implementing all the necessary components for the beta and started implementing
       requests to grab information from back end.
-    - Back-end:
-    - Front&Back: 
+    - Back-end: Finished implementing the APIs for the beta release, and tested them extensively to make
+      sure the APIs worked for the beta release.
 
 - What we plan to do:
 
