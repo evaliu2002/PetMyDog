@@ -10,9 +10,10 @@
       and the APIs so that we're set up for the beta release.
 
 - What we did:
-    - Front-end:
+    - Front-end: Finished implementing all the necessary components for the beta and started implementing
+      requests to grab information from back end.
     - Back-end:
-    - Front&Back:
+    - Front&Back: 
 
 - What we plan to do:
 
