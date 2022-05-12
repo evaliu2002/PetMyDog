@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BsArrowLeftSquare } from "react-icons/bs";
+import './OwnerProfile.css';
 import { useNavigate } from 'react-router';
 import {Card,Button,Container} from "react-bootstrap";
 
@@ -15,16 +16,17 @@ const OwnerProfile = () => {
     }
 
     const findDogs = () => {
-        navigate("/find-dogs")
+        navigate("/map-view/dog-requests")
     }
 
     return (
-        <div className='ownerProfile'>
-            <h1 style={{size: '40px', align: 'center'}}> Bob's Profile</h1>
-            <Button variant="primary" onClick={createDogProfile}>Add More</Button>
+        <div className="owner-profile">
+            <h2 className="font-link"> Bob's Profile </h2>
+
+            <button className="add-more"  onClick={createDogProfile}>add more</button>
 
             <Container fluid>
-                <div className= "row justify-content-center" >
+                <div className= "row justify-content-md-center" >
                     <Card style={{ width: '18rem', margin: '20px'}}>
                         <Card.Img variant="top" src="https://www.pumpkin.care/dog-breeds/wp-content/uploads/2021/03/Husky-Hero.png" />
                         <Card.Body>
