@@ -219,6 +219,8 @@ public class Main {
 
         post("/rejectMeetup", Main::rejectMeetup);
 
+        get("/meetups", Main::getMeetupRequests);
+
         get("/sql", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
@@ -351,6 +353,17 @@ public class Main {
         model.updateMeetUp(mid, status);
         return gson.toJson("Success");
     }
+
+    private static String getMeetupRequests(Request request, Response response) {
+        Gson gson = new Gson();
+        String uid = getUserId(request, response);
+        List<DBUtils.MeetUp> m = model.getMeetUpsForUser(uid);
+        if (m.isEmpty()) {
+            return gson.toJson("No meetups");
+        }
+        return gson.toJson(m);
+    }
+
 
     private static String getDogProfile(Request request, Response response) {
         Gson gson = new Gson();

@@ -13,11 +13,40 @@ pets by name. Some stretch goals we could implement include calling and messagin
 invitation system for meetups, a like system for owners and petters for safety precautions, filtering
 system, and redirection to other social media platforms (e.g., instagram, facebook).
 
+### Operational Use Case(s)
+
+The user can now login/sign up using Google Login. Once the user logs in/signs up, the user is redirected
+back to the login/sign up page where they can press the button to redirect their page to the find dogs
+page. The find dogs page displays a map with a marker of the user's current location, a 500 meter circle
+around the user's marker, and lists all the nearby dogs within 500 meters of the user's location. The 
+user can press the dog and is redirected to the selected dog page where information about the dog is displayed.
+
 ### Layout of the repository
 
 All the code will be contained in the main directory. The main directory is divided into front
 and back end code, each in a sub directory. We will have our weekly reports in the Weekly Reports
 directory, which we will update every week to report our progress and action items.
+
+## Back-end:
+
+### Setup Instructions (for use in IntelliJ with Maven):
+
+#### Building and Running the project
+1. Build the project in IntelliJ by navigating to the Maven tab in IntelliJ, opening `Lifecycle` in the `back-end` tab, and clicking the
+   `Compile` button.
+2. Run Elasticsearch locally. Follow the instructions provided here:
+   https://www.elastic.co/downloads/elasticsearch
+3. Run `Main.java` to launch the Spark server on localhost port 4567.
+
+#### Testing the project
+1. Run Elasticsearch locally before testing by following the instructions provided here:
+   https://www.elastic.co/downloads/elasticsearch
+2. Navigate to the Maven tab in IntelliJ, open `Lifecycle` in the `back-end` tab, and click the `Test` button to run the provided
+   tests.
+3. Junit tests are located and can be added in main/back-end/src/test/java.
+4. Before running junit tests, make sure that Main.java is not running already. Otherwise, stop Main.java.
+
+## Front-end:
 
 ### Setup Instructions
 
@@ -28,7 +57,6 @@ NPM
 2. Run npm install.
 
 3. To run PetMyDog on localhost, run npm start.
-
 
 ## Available Scripts
 
@@ -67,6 +95,7 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
@@ -96,3 +125,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
