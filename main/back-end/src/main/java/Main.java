@@ -264,36 +264,7 @@ public class Main {
          *  400 error if given lat or lng is not in (-90, 90) or (-180, 180).
          *  500 error if failed to get nearby user.
          */
-        post("/getNearbyUser", new Route() {
-            @Override
-            public Object handle(Request request, Response response) throws Exception {
-                Gson gson = new Gson();
-                DBUtils.Location loc = gson.fromJson(request.body(), DBUtils.Location.class);
-                SearchSourceBuilder srb = new SearchSourceBuilder();
-                QueryBuilder qb = QueryBuilders.geoDistanceQuery(INDEX)
-                        .point(loc.getLat(), loc.getLng())
-                        .distance("500", DistanceUnit.METERS);
-                srb.query(qb);
-
-                SearchRequest searchRequest = new SearchRequest(INDEX);
-                searchRequest.source(srb);
-                List<String> result = new ArrayList<>();
-                try {
-                    SearchResponse search = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
-                    SearchHits hits = search.getHits();
-                    for (SearchHit hit: hits) {
-                        String location = hit.getSourceAsString();
-                        DBUtils.UserLocation jsonObject = gson.fromJson(location, DBUtils.UserLocation.class);
-                        if (System.currentTimeMillis() - jsonObject.getTimestamp() < LOCATION_EXPIRE_TIME)
-                            result.add(jsonObject.getUid());
-                    }
-                } catch (IOException e) {
-                    System.out.println(e.getMessage());
-                    halt(500, "failed to get nearby user");
-                }
-                return gson.toJson(result);
-            }
-        });
+        post("/getNearbyUser", Main::getNearbyUser);
 
         /**
          * Endpoint path: /updateLocation
@@ -306,30 +277,7 @@ public class Main {
          *  400 error if parameters are invalid. TODO: throw
          *  500 error if server fail to update location.
          */
-        post("/updateLocation", new Route() {
-            @Override
-            public Object handle(Request request, Response response) throws Exception {
-                String uid = getUserId(request, response);
-                Gson gson = new Gson();
-                DBUtils.Location loc = gson.fromJson(request.body(), DBUtils.Location.class);
-
-                // Update ES location
-                long timestamp = System.currentTimeMillis();
-                Map<String,Object> jsonMap = new HashMap<>();
-                jsonMap.put("location", new GeoPoint(loc.getLat(), loc.getLng()));
-                jsonMap.put("uid", uid);
-                jsonMap.put("timestamp", timestamp);
-
-                IndexRequest indexRequest = new IndexRequest(INDEX).id(uid).source(jsonMap);
-                try {
-                    restHighLevelClient.index(indexRequest, RequestOptions.DEFAULT);
-                } catch (IOException e) {
-                    System.out.println(e.getMessage());
-                    halt(500, "failed to update");
-                }
-                return gson.toJson("updated");
-            }
-        });
+        post("/updateLocation", Main::updateLocation);
 
         /******************************************   End Service end pints   *****************************************/
     }
@@ -441,6 +389,58 @@ public class Main {
         }
         return null;
     }
+
+    private static String updateLocation(Request request, Response response) throws Exception {
+        String uid = getUserId(request, response);
+        Gson gson = new Gson();
+        DBUtils.Location loc = gson.fromJson(request.body(), DBUtils.Location.class);
+
+        // Update ES location
+        long timestamp = System.currentTimeMillis();
+        Map<String,Object> jsonMap = new HashMap<>();
+        jsonMap.put("location", new GeoPoint(loc.getLat(), loc.getLng()));
+        jsonMap.put("uid", uid);
+        jsonMap.put("timestamp", timestamp);
+
+        IndexRequest indexRequest = new IndexRequest(INDEX).id(uid).source(jsonMap);
+        try {
+            restHighLevelClient.index(indexRequest, RequestOptions.DEFAULT);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            halt(500, "failed to update");
+        }
+        return gson.toJson("updated");
+    }
+
+    private static String getNearbyUser(Request request, Response response) throws Exception {
+        Gson gson = new Gson();
+        DBUtils.Location loc = gson.fromJson(request.body(), DBUtils.Location.class);
+        SearchSourceBuilder srb = new SearchSourceBuilder();
+        QueryBuilder qb = QueryBuilders.geoDistanceQuery(INDEX)
+                .point(loc.getLat(), loc.getLng())
+                .distance("500", DistanceUnit.METERS);
+        srb.query(qb);
+
+        SearchRequest searchRequest = new SearchRequest(INDEX);
+        searchRequest.source(srb);
+        List<String> result = new ArrayList<>();
+        try {
+            SearchResponse search = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+            SearchHits hits = search.getHits();
+            for (SearchHit hit: hits) {
+                String location = hit.getSourceAsString();
+                DBUtils.UserLocation jsonObject = gson.fromJson(location, DBUtils.UserLocation.class);
+                if (System.currentTimeMillis() - jsonObject.getTimestamp() < LOCATION_EXPIRE_TIME)
+                    result.add(jsonObject.getUid());
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            halt(500, "failed to get nearby user");
+        }
+        return gson.toJson(result);
+    }
+}
+
     /****************************************   End utils   *****************************************/
 
 }
