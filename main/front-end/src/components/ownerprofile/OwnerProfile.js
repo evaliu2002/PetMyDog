@@ -60,8 +60,8 @@ const OwnerProfile = () => {
 
             <button className="add-more"  onClick={createDogProfile}>add more</button>
 
-            <Container fluid>
-                <div className= "row justify-content-md" >
+            <Container fluid >
+                <div className= "row justify-content-md-center" >
 
                     {dogProfiles.map(dog => <div id={JSON.stringify(dog)} key={JSON.stringify(dog)}  >
 
