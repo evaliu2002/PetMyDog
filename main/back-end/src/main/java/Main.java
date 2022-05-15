@@ -13,7 +13,6 @@ import org.elasticsearch.client.indices.CreateIndexRequest;
 import org.elasticsearch.client.indices.PutMappingRequest;
 import org.elasticsearch.common.geo.GeoPoint;
 import org.elasticsearch.common.unit.DistanceUnit;
-import org.elasticsearch.index.mapper.ObjectMapper;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
@@ -34,7 +33,6 @@ import spark.*;
 import org.sql2o.Sql2o;
 
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.*;
 import static spark.Spark.*;
 
@@ -48,6 +46,8 @@ public class Main {
     private static final long LOCATION_EXPIRE_TIME = 1000 * 60 * 15;
 
     public static void main(String[] args) {
+        secure("keystore.jks", "eq04aqOA", null, null);
+
         /*****************************************     Begin OAuth config     *****************************************/
 
         // Setup google oauth api configuration with pac4j
@@ -64,7 +64,7 @@ public class Main {
             profile.addRole("ROLE_ADMIN");
             return Optional.of(profile);
         });
-        oidcClient.setCallbackUrl("http://localhost:4567/callback");
+        oidcClient.setCallbackUrl("https://localhost:4567/callback");
 
         // Security configuration using google client
         Config config = new Config(oidcClient);
