@@ -14,6 +14,7 @@ const MapView = () => {
     return (
         <div>
             <Map/>
+            <button onClick={ () => { navigate("/owner-profile")}}> Profile </button>
             <Routes>
                 <Route path="/find-dogs" element={<FindDogs changedDogObj={setSelectedDog}/>}/>
                 <Route path="/dog-requests" element={<DogRequests/>}/>
