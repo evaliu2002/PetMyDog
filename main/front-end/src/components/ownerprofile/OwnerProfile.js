@@ -11,7 +11,7 @@ const OwnerProfile = () => {
     const [dogProfiles, setDogProfiles] = useState([]);
     const [selectedDog, setSelectedDog] = useState();
 
-    const GET_USER_PROFILE_URL = "http://localhost:4567/profile";
+    const GET_USER_PROFILE_URL = "http://localhost:4567/getMyProfile";
     let displayDogs= [];
     let navigate = useNavigate();
 
@@ -34,34 +34,18 @@ const OwnerProfile = () => {
 
     const updateOwnerProfile = () => {
         fetch(GET_USER_PROFILE_URL, {
-            method: 'POST',
-            mode: 'no-cors',
             cache: 'no-cache',
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify()
         })
             .then(async(response) =>{
-                let uidArr = ["101836349121923215589"];
-                displayDogs = [];
-                let fetches = [];
-                for (let i = 0; i <uidArr.length; i++) {
-                    let currentFetch = fetch(GET_USER_PROFILE_URL + "?uid=" + uidArr[i], {
-                    })
-                        .then(checkStatus)
-                        .then(async (response)=>{
-                            let userObj = await response.json();
-                            let userDog = userObj.dogs;
-                            for (let j = 0; j < userDog.length; j++) {
-                                userDog[j].ownerID = userObj.uid;
-                            }
-                            displayDogs = displayDogs.concat(userObj.dogs);
-                        })
-                    fetches.push(currentFetch);
-                }
-                await Promise.all(fetches);
+                console.log(await response.json());
+                let userObj = await response.json();
+                let userDog = userObj.dogs;
+
+
                 setDogProfiles(displayDogs);
                 console.log("Dogs displayed: " + JSON.stringify(displayDogs));
             })
@@ -81,10 +65,10 @@ const OwnerProfile = () => {
             <Container fluid>
                 <div className= "row justify-content-md-center" >
 
-                    {dogProfiles.map(dog => <div id={JSON.stringify(dog)} onClick={selectedDog}>
+                    {dogProfiles.map(dog => <div id={JSON.stringify(dog)} >
 
                         <Card style={{ width: '18rem', margin: '20px'}}>
-                            <Card.Img variant="top" src= dog.pic_link />
+                            <Card.Img variant="top" src= "https://www.pumpkin.care/dog-breeds/wp-content/uploads/2021/03/Husky-Hero.png"  />
                             <Card.Body>
                                 <Card.Title>dog.name</Card.Title>
                                 <Card.Text>

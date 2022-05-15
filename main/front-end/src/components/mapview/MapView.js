@@ -7,10 +7,11 @@ import NavOwner from "../navowner/NavOwner";
 import SelectedDog from "../selecteddog/SelectedDog";
 import NavUser from "../navuser/NavUser";
 
+
 const MapView = () => {
 
     const [selectedDog, setSelectedDog] = useState();
-
+    let navigate = useNavigate();
     return (
         <div>
             <Map/>
