@@ -171,9 +171,26 @@ public class Main {
 
         /********************************************   Start CORS config   *******************************************/
 
+
+        options("/*", (request, response) -> {
+
+            String accessControlRequestHeaders = request.headers("Access-Control-Request-Headers");
+            if (accessControlRequestHeaders != null) {
+                response.header("Access-Control-Allow-Headers", accessControlRequestHeaders);
+            }
+
+            String accessControlRequestMethod = request.headers("Access-Control-Request-Method");
+            if (accessControlRequestMethod != null) {
+                response.header("Access-Control-Allow-Methods", accessControlRequestMethod);
+            }
+
+            return "OK";
+        });
+
+
         final Map<String, String> corsHeaders = new HashMap<>();
         corsHeaders.put("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
-        corsHeaders.put("Access-Control-Allow-Origin", "*");
+        corsHeaders.put("Access-Control-Allow-Origin", "http://localhost:3000");
         corsHeaders.put("Access-Control-Allow-Headers", "Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin,");
         corsHeaders.put("Access-Control-Allow-Credentials", "true");
 
@@ -207,7 +224,9 @@ public class Main {
             return null;
         });
 
-        get("/profile", Main::getUserProfile);
+        get("/getUserProfile", Main::getUserProfile);
+
+        get("/getMyProfile", Main::getMyProfile);
 
         get("/getDogProfile", Main::getDogProfile);
 
@@ -309,6 +328,20 @@ public class Main {
         }
     }
 
+    private static String getMyProfile(Request request, Response response) {
+        try {
+            Gson gson = new Gson();
+            String uid = getUserId(request, response);
+            DBUtils.User user = model.getUser(uid);
+            List<DBUtils.Dog> dogs = model.getDogsFromUserId(uid);
+            user.setDogs(dogs);
+            return gson.toJson(user);
+        } catch (Exception e) {
+            halt(500);
+            return null;
+        }
+    }
+
     private static String createDogProfile(Request request, Response response) {
         Gson gson = new Gson();
         model.createDog(gson.fromJson(request.body(), DBUtils.Dog.class));
@@ -320,7 +353,8 @@ public class Main {
         String body = request.body();
         Map<String, String> bodyContent = gson.fromJson(body, Map.class);
         // check if users exist
-        DBUtils.User sender = model.getUser(bodyContent.get("sender"));
+        String uid = getUserId(request, response);
+        DBUtils.User sender = model.getUser(uid);
         DBUtils.User receiver = model.getUser(bodyContent.get("receiver"));
         if (sender == null || receiver == null) {
             return gson.toJson("User not found");
