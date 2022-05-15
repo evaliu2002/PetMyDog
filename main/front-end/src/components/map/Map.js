@@ -3,7 +3,11 @@ import {Circle, GoogleMap, Marker, useJsApiLoader} from '@react-google-maps/api'
 
 const containerStyle = {
     width: "auto",
-    height: "900px"
+    height: "600px"
+    // minWidth: "200px",
+    // width: "50%",
+    // minHeight: "200px",
+    // height: "80%",
 };
 
 function Map(props) {
