@@ -36,7 +36,6 @@ const FindDogs = ({changedDogObj}) => {
                 method: 'POST',
                 mode: 'no-cors',
                 cache: 'no-cache',
-                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json'
                 },
