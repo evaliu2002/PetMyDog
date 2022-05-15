@@ -9,10 +9,8 @@ import {Card,Button,Container} from "react-bootstrap";
 const OwnerProfile = () => {
     const [ownerName, setOwnerName] = useState("Bob");
     const [dogProfiles, setDogProfiles] = useState([]);
-    // const [selectedDog, setSelectedDog] = useState();
-
     const GET_USER_PROFILE_URL = "http://localhost:4567/getMyProfile";
-    let displayDogs= [];
+
     let navigate = useNavigate();
 
     const createDogProfile = () => {
@@ -72,7 +70,6 @@ const OwnerProfile = () => {
                         <Card.Text>
                         <p>Age: {dog.age}   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Gender: {dog.gender}  </p>
                         <p>Breed: {dog.breed}</p>
-                    {/*<p>Biography: dog.bio </p>*/}
                         </Card.Text>
                         <Button variant="primary" onClick={findDogs}>Go For A Walk</Button>
                         </Card.Body>
