@@ -207,7 +207,9 @@ public class Main {
             return null;
         });
 
-        get("/profile", Main::getUserProfile);
+        get("/getUserProfile", Main::getUserProfile);
+
+        get("/getMyProfile", Main::getMyProfile);
 
         get("/getDogProfile", Main::getDogProfile);
 
@@ -309,6 +311,20 @@ public class Main {
         }
     }
 
+    private static String getMyProfile(Request request, Response response) {
+        try {
+            Gson gson = new Gson();
+            String uid = getUserId(request, response);
+            DBUtils.User user = model.getUser(uid);
+            List<DBUtils.Dog> dogs = model.getDogsFromUserId(uid);
+            user.setDogs(dogs);
+            return gson.toJson(user);
+        } catch (Exception e) {
+            halt(500);
+            return null;
+        }
+    }
+
     private static String createDogProfile(Request request, Response response) {
         Gson gson = new Gson();
         model.createDog(gson.fromJson(request.body(), DBUtils.Dog.class));
@@ -320,7 +336,8 @@ public class Main {
         String body = request.body();
         Map<String, String> bodyContent = gson.fromJson(body, Map.class);
         // check if users exist
-        DBUtils.User sender = model.getUser(bodyContent.get("sender"));
+        String uid = getUserId(request, response);
+        DBUtils.User sender = model.getUser(uid);
         DBUtils.User receiver = model.getUser(bodyContent.get("receiver"));
         if (sender == null || receiver == null) {
             return gson.toJson("User not found");
