@@ -249,6 +249,21 @@ public class Main {
             }
         });
 
+        /**
+         * Endpoint path: /getNearbyUser
+         *
+         * Required parameters: {lat, lng}
+         *
+         * Return json in the format:
+         * [
+         *  12345678,
+         *  12349876,
+         *  ...,
+         * ]
+         *
+         *  400 error if given lat or lng is not in (-90, 90) or (-180, 180).
+         *  500 error if failed to get nearby user.
+         */
         post("/getNearbyUser", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
@@ -274,11 +289,23 @@ public class Main {
                     }
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
+                    halt(500, "failed to get nearby user");
                 }
                 return gson.toJson(result);
             }
         });
 
+        /**
+         * Endpoint path: /updateLocation
+         *
+         * Required parameters: {lat, lng}
+         *
+         * Return json in the format:
+         *  "updated"
+         *
+         *  400 error if parameters are invalid. TODO: throw
+         *  500 error if server fail to update location.
+         */
         post("/updateLocation", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
@@ -298,7 +325,7 @@ public class Main {
                     restHighLevelClient.index(indexRequest, RequestOptions.DEFAULT);
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
-                    return gson.toJson("failed to update");
+                    halt(500, "failed to update");
                 }
                 return gson.toJson("updated");
             }
