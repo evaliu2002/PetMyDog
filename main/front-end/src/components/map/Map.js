@@ -1,12 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import {Circle, GoogleMap, Marker, useJsApiLoader} from '@react-google-maps/api';
 
+// styling for map
 const containerStyle = {
     width: "auto",
-    height: "900px"
+    height: "600px"
+    // minWidth: "200px",
+    // width: "50%",
+    // minHeight: "200px",
+    // height: "80%",
 };
 
+/**
+ * A map which holds the position of the current user. Displays the user's coords
+ * with a marker and a circle indicating the 500m radius around the user.
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function Map(props) {
+    // Creating current user location state
     const [thisUser, setThisUser] = useState({
         lat: -3.745,
         lng: -38.523
@@ -14,6 +27,7 @@ function Map(props) {
 
     const [thatUser, setThatUser] = useState(props.thatUser);
 
+    // Getting the position of the current user
     useEffect(() => {
         navigator.geolocation.getCurrentPosition((position) => {
             let lat = position.coords.latitude;
