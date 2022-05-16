@@ -86,55 +86,6 @@ const DogRequests = () => {
             .catch(() => {console.log("Receiving meetup request failed")})
     }
 
-    const ACPT_MEET_URL = "http://localhost:4567/acceptMeetup";
-
-    const acceptRequest = () => {
-        let reqArr = [];
-        fetch(ACPT_MEET_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            cache: 'no-cache',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
-            // .then(checkStatus)
-            .then(() => {console.log("Accepted Meetup")})
-            .then(async (response) => {
-
-                let reqObj = (await response.json());
-                reqArr.concat(reqObj)
-                setRequests(reqArr)
-            })
-            .then(navOwner)
-            .catch(() => {console.log("Receiving meetup request failed")})
-    }
-
-    const ACPT_MEET_URL = "http://localhost:4567/acceptMeetup";
-
-    const acceptRequest = () => {
-        let reqArr = [];
-        fetch(ACPT_MEET_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            cache: 'no-cache',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
-            // .then(checkStatus)
-            .then(() => {console.log("Accepted Meetup")})
-            .then(async (response) => {
-
-                let reqObj = (await response.json());
-                reqArr.concat(reqObj)
-                setRequests(reqArr)
-            })
-            .catch(() => {console.log("Receiving meetup request failed")})
-    }
-
     const REJC_MEET_URL = "http://localhost:4567/rejectMeetup";
 
     const rejectMeetup = () => {
