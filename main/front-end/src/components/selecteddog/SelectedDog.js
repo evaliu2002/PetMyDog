@@ -4,15 +4,20 @@ import { useNavigate } from 'react-router';
 import {Card,Button} from "react-bootstrap";
 
 const SelectedDog = ({dogObj}) => {
-
+    // useNavigate for event handling to other web pages
     let navigate = useNavigate();
-
     const back = () => {
         navigate(-1)
+    }
+    const ownerProfile = () => {
+        navigate("/owner-profile")
     }
 
     const REQ_MEET_URL = "http://localhost:4567/requestMeetup";
 
+    /**
+     * Sending meetup request to the back end
+     */
     const navUser = () => {
         fetch(REQ_MEET_URL, {
             method: 'POST',
@@ -29,17 +34,12 @@ const SelectedDog = ({dogObj}) => {
         navigate("/nav-user")
     }
 
-    const ownerProfile = () => {
-        navigate("/owner-profile")
-    }
-
     useEffect(() => {
         console.log(dogObj);
     })
 
     return (
         <div>
-
             <BsArrowLeftSquare onClick={back}/>
 
             <BsFillPersonFill onClick={ownerProfile}/>

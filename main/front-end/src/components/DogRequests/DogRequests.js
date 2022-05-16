@@ -4,16 +4,14 @@ import { useNavigate } from 'react-router';
 import Map from '../map/Map';
 
 const DogRequests = () => {
+    // useNavigate for event handling to other web pages
     let navigate = useNavigate();
-
     const ownerProfile = () => {
         navigate("/owner-profile")
     }
-
     const findDogs = () => {
         navigate("/map-view/find-dogs")
     }
-
     const navOwner = () => {
         navigate("/nav-owner")
     }
@@ -24,6 +22,11 @@ const DogRequests = () => {
     let displayReq = [];
     const UPDATE_EVERY_MIN = 10 * 1000;
 
+    /**
+     * Get back-end response
+     * @param response
+     * @returns {Promise<never>|*}
+     */
     const checkStatus = (response) => {
         if (response.status >= 200 && response.status < 300 || response.status === 0) {
             return response;
@@ -32,6 +35,9 @@ const DogRequests = () => {
         }
     };
 
+    /**
+     * Getting requests from users from back-end endpoint
+     */
     const getRequest = () => {
         let reqArr = [];
         fetch(GET_REQ_URL, {
@@ -49,8 +55,8 @@ const DogRequests = () => {
 
                 let reqObj = (await response.json());
                 reqArr.concat(reqObj)
+                setRequests(reqArr)
             })
-            setRequests(reqArr)
             .catch(() => {console.log("Receiving meetup request failed")})
     }
 
