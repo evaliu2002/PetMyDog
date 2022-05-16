@@ -33,14 +33,14 @@ const DogRequests = () => {
         }
     };
 
-    const GET_MEET_URL = "http://localhost:4567/requestMeetup";
+    const REQ_MEET_URL = "http://localhost:4567/requestMeetup";
 
     /**
      * Getting requests from users from back-end endpoint
      */
     const requestMeetup = () => {
         let reqArr = [];
-        fetch(GET_MEET_URL, {
+        fetch(REQ_MEET_URL, {
             method: 'POST',
             mode: 'no-cors',
             cache: 'no-cache',

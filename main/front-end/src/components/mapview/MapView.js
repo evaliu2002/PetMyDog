@@ -7,15 +7,15 @@ import NavOwner from "../navowner/NavOwner";
 import SelectedDog from "../selecteddog/SelectedDog";
 import NavUser from "../navuser/NavUser";
 
-
 const MapView = () => {
 
     const [selectedDog, setSelectedDog] = useState();
-    let navigate = useNavigate();
+
     return (
         <div>
             <Map/>
-            <button onClick={ () => { navigate("/owner-profile")}}> Profile </button>
+            {/*<button onClick={ () => { navigate("/owner-profile")}}> Profile </button>*/}
+            {/*Routes for each web page*/}
             <Routes>
                 <Route path="/find-dogs" element={<FindDogs changedDogObj={setSelectedDog}/>}/>
                 <Route path="/dog-requests" element={<DogRequests/>}/>
