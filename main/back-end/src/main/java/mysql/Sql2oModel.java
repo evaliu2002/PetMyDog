@@ -5,6 +5,8 @@ import org.sql2o.Sql2o;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 public class Sql2oModel implements DBUtils.Model {
 
@@ -68,6 +70,21 @@ public class Sql2oModel implements DBUtils.Model {
                     .executeUpdate();
             conn.commit();
         }
+    }
+
+    @Override
+    public boolean checkIfMeetUpExists(DBUtils.MeetUp meetUp) {
+        Connection conn = sql2o.open();
+        List<DBUtils.MeetUp> allReqs = new ArrayList<>();
+        if (meetUp != null) {
+            allReqs = conn.createQuery("SELECT * from MeetUp WHERE sender = :sender OR sender = :receiver " +
+                            "OR receiver = :sender OR receiver = :receiver AND status = :status")
+                    .addParameter("sender", meetUp.getSender())
+                    .addParameter("receiver", meetUp.getReceiver())
+                    .addParameter("status", "Accepted")
+                    .executeAndFetch(DBUtils.MeetUp.class);
+        }
+        return allReqs.size() > 0;
     }
 
     @Override
