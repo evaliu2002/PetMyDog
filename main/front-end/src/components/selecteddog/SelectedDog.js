@@ -11,7 +11,7 @@ const SelectedDog = ({dogObj}) => {
         navigate(-1)
     }
 
-    const REQ_MEET_URL = "http://localhost:4567/requestMeetup";
+    const REQ_MEET_URL = "https://localhost:4567/requestMeetup";
 
     const navUser = () => {
         fetch(REQ_MEET_URL, {
