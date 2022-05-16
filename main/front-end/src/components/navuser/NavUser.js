@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BsFillTelephoneFill, BsFillPinMapFill, BsArrowUpCircleFill } from "react-icons/bs";
 
 const NavUser = () => {
+    // List of possible states
     const [selectedDog, setSelectedDog] = useState();
     const [userName, setUserName] = useState("");
     const [ownerName, setOwnerName] = useState("");
