@@ -16,6 +16,9 @@ const DogRequests = () => {
         navigate("/nav-owner")
     }
 
+
+    const GET_REQ_URL = "https://localhost:4567/getRequests";
+
     const [requests, setRequests] = useState([]);
     let displayReq = [];
     const UPDATE_EVERY_MIN = 10 * 1000;

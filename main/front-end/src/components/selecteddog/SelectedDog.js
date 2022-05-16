@@ -13,7 +13,7 @@ const SelectedDog = ({dogObj}) => {
         navigate("/owner-profile")
     }
 
-    const REQ_MEET_URL = "http://petmydog.fun/requestMeetup";
+    const REQ_MEET_URL = "https://localhost:4567/requestMeetup";
 
     /**
      * Sending meetup request to the back end
