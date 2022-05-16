@@ -6,7 +6,7 @@ import {Card,Button,Container} from "react-bootstrap";
 
 
 
-const OwnerProfile = () => {
+const OwnerProfile = ({changedDogObject}) => {
     const [ownerName, setOwnerName] = useState("Bob");
     const [dogProfiles, setDogProfiles] = useState([]);
     const GET_USER_PROFILE_URL = "http://localhost:4567/getMyProfile";
@@ -19,6 +19,12 @@ const OwnerProfile = () => {
 
     const findDogs = () => {
         navigate("/map-view/dog-requests")
+    }
+
+    const selectedDog = async(e) => {
+        console.log(e.currentTarget);
+        await changedDogObject(JSON.parse(e.currentTarget.id));
+        navigate("/view-dog-profile");
     }
 
     const checkStatus = (response) => {
@@ -61,9 +67,9 @@ const OwnerProfile = () => {
             <Container fluid >
                 <div className= "row justify-content-md-center" >
 
-                    {dogProfiles.map(dog => <div id={JSON.stringify(dog)} key={JSON.stringify(dog)}  >
+                    {dogProfiles.map(dog => <div id={JSON.stringify(dog)} key={JSON.stringify(dog)} onClick={selectedDog} >
 
-                        <Card style={{width: '18rem', margin: '20px'}}>
+                        <Card id={JSON.stringify(dog)} style={{width: '18rem', margin: '20px'}} >
                         <Card.Img variant="top" src= "https://www.pumpkin.care/dog-breeds/wp-content/uploads/2021/03/Husky-Hero.png"  />
                         <Card.Body>
                         <Card.Title> {dog.name}</Card.Title>

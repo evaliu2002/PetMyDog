@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Route, Routes} from "react-router";
 import Login from "./components/login/Login";
 import FindDogs from './components/finddogs/FindDogs'
@@ -12,6 +12,9 @@ import NavUser from "./components/navuser/NavUser";
 import NavOwner from "./components/navowner/NavOwner";
 
 const App = () => {
+
+    const [selectedDog, setSelectedDog] = useState();
+
     return (
         <div id='App'>
             <Routes>
@@ -23,8 +26,8 @@ const App = () => {
                     <Route path="/map-view/selected-dog/:id" element={<SelectedDog />}/>
                     <Route path="/map-view/nav-user" element={<NavUser />}/>
                 </Route>
-                <Route path="owner-profile" element={<OwnerProfile />}/>
-                <Route path="view-dog-profile" element={<ViewDogProfile />}/>
+                <Route path="owner-profile" element={<OwnerProfile changedDogObject={setSelectedDog} />}/>
+                <Route path="view-dog-profile" element={<ViewDogProfile dogProfile={selectedDog} />}/>
                 <Route path="create-dog-profile" element={<CreateDogProfile />}/>
             </Routes>
         </div>

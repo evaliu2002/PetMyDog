@@ -3,10 +3,9 @@ import {Container, Form} from 'react-bootstrap';
 
 import {useNavigate} from "react-router";
 
- const ViewDogProfile = () => {
+ const ViewDogProfile = ({dogProfile}) => {
      const navigate = useNavigate();
-     const [dogProfile, setDogProfile] = useState();
-     const GET_DOG_PROFILE_URL = "http://localhost:4567/getDogProfile";
+
 
      const checkStatus = (response) => {
          if (response.status >= 200 && response.status < 300 || response.status === 0) {
@@ -15,28 +14,6 @@ import {useNavigate} from "react-router";
              return Promise.reject(new Error(response.status + ": " + response.statusText));
          }
      };
-
-     const updateDogProfile = () => {
-         fetch(GET_DOG_PROFILE_URL, {
-             cache: 'no-cache',
-             credentials: 'include',
-             headers: {
-                 'Content-Type': 'application/json'
-             },
-         })
-             .then(async(response) =>{
-                 let dogObj = await response.json();
-                 console.log(dogObj);
-                 let dogName = dogObj.name;
-                 console.log(dogName);
-                 setDogProfile(dogObj);
-                 console.log("Dog displayed: " + JSON.stringify(dogObj));
-
-             })
-     }
-
-     useEffect(updateDogProfile,);
-
 
 
      return (
