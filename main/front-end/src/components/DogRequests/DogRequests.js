@@ -16,9 +16,6 @@ const DogRequests = () => {
         navigate("/nav-owner")
     }
 
-
-    const GET_REQ_URL = "https://localhost:4567/getRequests";
-
     const [requests, setRequests] = useState([]);
     let displayReq = [];
     const UPDATE_EVERY_MIN = 10 * 1000;
@@ -36,7 +33,7 @@ const DogRequests = () => {
         }
     };
 
-    const REQ_MEET_URL = "http://localhost:4567/requestMeetup";
+    const REQ_MEET_URL = "https://localhost:4567/requestMeetup";
 
     /**
      * Getting requests from users from back-end endpoint
