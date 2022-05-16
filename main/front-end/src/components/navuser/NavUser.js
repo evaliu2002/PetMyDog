@@ -9,7 +9,7 @@ const NavUser = () => {
     const [dogName, setDogName] = useState("");
     const [dogLocation, setDogLocation] = useState({longitude: 0, latitude: 0});
     const [userLocation, setUserLocation] = useState({longitude: 0, latitude: 0});
-    const [distanceLeft, setDistanceLeft] = useState(0)
+    const [distanceLeft, setDistanceLeft] = useState(0);
 
     return (
         <div>
