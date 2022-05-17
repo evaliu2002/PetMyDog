@@ -248,6 +248,17 @@ public class Main {
 
         post("/rejectMeetup", Main::rejectMeetup);
 
+        /**
+         * Endpoint path: /endMeetup
+         *
+         * Required parameters: {mid, sender, receiver, status}
+         *
+         * Return json in the format:
+         *  "Success"
+         *
+         *  400 error if the meetup does not exist.
+         *  500 error if failed to get meetup from database.
+         */
         post("/endMeetup", Main::endMeetup);
 
         get("/meetups", Main::getMeetupRequests);
