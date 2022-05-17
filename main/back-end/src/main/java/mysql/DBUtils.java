@@ -10,6 +10,11 @@ public class DBUtils {
 
         boolean createUser(User user);
         void updateUser(String username, String bio, String uid);
+        void updateUserUsername(String uid, String value);
+        void updateUserPhone(String uid, String value);
+        void updateUserEmail(String uid, String value);
+        void updateUserBio(String uid, String value);
+        void updateUserPic(String uid, String value);
         User getUser(String uid);
         void createDog(Dog dog);
 
