@@ -12,6 +12,9 @@ const SelectedDog = ({dogObj}) => {
     const ownerProfile = () => {
         navigate("/owner-profile")
     }
+    const dogRequests = () => {
+        navigate("/map-view/dog-requests")
+    }
 
     const REQ_MEET_URL = "https://localhost:4567/requestMeetup";
 
@@ -31,7 +34,7 @@ const SelectedDog = ({dogObj}) => {
         })
             .then(() => {console.log("Sent meetup request")})
             .catch(() => {console.log("Send meetup request failed")})
-        navigate("/nav-user")
+        navigate("/map-view/nav-user")
     }
 
     useEffect(() => {
@@ -52,7 +55,7 @@ const SelectedDog = ({dogObj}) => {
                         <p>Age: { dogObj.age }</p>
                         <p>Breed: { dogObj.breed }</p>
                     </Card.Text>
-                    <Button variant="primary" onClick={navUser}>Go to Dog</Button>
+                    <Button variant="primary" onClick={dogRequests}>Go to Dog</Button>
                 </Card.Body>
             </Card>
             {/*<h3>{ dogObj.name }</h3>*/}

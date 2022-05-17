@@ -33,7 +33,7 @@ const DogRequests = () => {
         }
     };
 
-    const REQ_MEET_URL = "https://localhost:4567/requestMeetup";
+    const REQ_MEET_URL = "https://localhost:4567/meetups";
 
     /**
      * Getting requests from users from back-end endpoint
@@ -41,27 +41,22 @@ const DogRequests = () => {
     const requestMeetup = () => {
         let reqArr = [];
         fetch(REQ_MEET_URL, {
-            method: 'POST',
-            mode: 'no-cors',
             cache: 'no-cache',
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
         })
-            // .then(checkStatus)
-            .then(() => {console.log("Received meetup request")})
+            .then(checkStatus)
             .then(async (response) => {
-
                 let reqObj = (await response.json());
-                reqArr.concat(reqObj)
-                setRequests(reqArr)
+                // setRequests(reqObj)
             })
-            .then(navOwner)
+            // .then(navOwner)
             .catch(() => {console.log("Receiving meetup request failed")})
     }
 
-    const ACPT_MEET_URL = "http://localhost:4567/acceptMeetup";
+    const ACPT_MEET_URL = "https://localhost:4567/acceptMeetup";
 
     const acceptRequest = () => {
         fetch(ACPT_MEET_URL, {
