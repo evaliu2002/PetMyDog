@@ -71,10 +71,53 @@ public class Sql2oModel implements DBUtils.Model {
     }
 
     @Override
-    public void updateUserProfile(String uid, String field, String value) {
+    public void updateUserUsername(String uid, String value) {
         try (Connection conn = sql2o.beginTransaction()) {
-            conn.createQuery("UPDATE User SET :field = :value WHERE uid = :uid")
-                    .addParameter("field", field)
+            conn.createQuery("UPDATE User SET username = :value WHERE uid = :uid")
+                    .addParameter("uid", uid)
+                    .addParameter("value", value)
+                    .executeUpdate();
+            conn.commit();
+        }
+    }
+
+    @Override
+    public void updateUserPhone(String uid, String value) {
+        try (Connection conn = sql2o.beginTransaction()) {
+            conn.createQuery("UPDATE User SET phone = :value WHERE uid = :uid")
+                    .addParameter("uid", uid)
+                    .addParameter("value", value)
+                    .executeUpdate();
+            conn.commit();
+        }
+    }
+
+    @Override
+    public void updateUserEmail(String uid, String value) {
+        try (Connection conn = sql2o.beginTransaction()) {
+            conn.createQuery("UPDATE User SET email = :value WHERE uid = :uid")
+                    .addParameter("uid", uid)
+                    .addParameter("value", value)
+                    .executeUpdate();
+            conn.commit();
+        }
+    }
+
+    @Override
+    public void updateUserBio(String uid, String value) {
+        try (Connection conn = sql2o.beginTransaction()) {
+            conn.createQuery("UPDATE User SET bio = :value WHERE uid = :uid")
+                    .addParameter("uid", uid)
+                    .addParameter("value", value)
+                    .executeUpdate();
+            conn.commit();
+        }
+    }
+
+    @Override
+    public void updateUserPic(String uid, String value) {
+        try (Connection conn = sql2o.beginTransaction()) {
+            conn.createQuery("UPDATE User SET pic_link = :value WHERE uid = :uid")
                     .addParameter("uid", uid)
                     .addParameter("value", value)
                     .executeUpdate();

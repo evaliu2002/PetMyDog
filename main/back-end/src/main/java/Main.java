@@ -318,8 +318,20 @@ public class Main {
         String uid = bodyContent.get("uid");
         String field = bodyContent.get("field");
         String newVal = bodyContent.get("newVal");
-        if (field.equals("username") || field.equals("phone") || field.equals("email") ||  field.equals("bio")) {
-            model.updateUserProfile(uid, field, newVal);
+        if (field.equals("username")) {
+            model.updateUserUsername(uid, newVal);
+            return gson.toJson("Updated");
+        } else if (field.equals("phone")) {
+            model.updateUserPhone(uid, newVal);
+            return gson.toJson("Updated");
+        } else if (field.equals("email")) {
+            model.updateUserEmail(uid, newVal);
+            return gson.toJson("Updated");
+        } else if (field.equals("bio")) {
+            model.updateUserBio(uid, newVal);
+            return gson.toJson("Updated");
+        } else if (field.equals("pic_link")) {
+            model.updateUserPic(uid, newVal);
             return gson.toJson("Updated");
         } else {
             return gson.toJson("Invalid field");
