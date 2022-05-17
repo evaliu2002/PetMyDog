@@ -29,6 +29,10 @@ directory, which we will update every week to report our progress and action ite
 within the front and back end sub directories, within the src sub directory (and the tests are in the test
 sub directory).
 
+### Building a release of the software
+
+Pushing to the main branch will automatically build the software, so there is no manual intervention needed.
+
 ## Back-end:
 
 ### Setup Instructions (for use in IntelliJ with Maven):
@@ -47,6 +51,13 @@ sub directory).
    tests.
 3. Junit tests are located and can be added in main/back-end/src/test/java.
 4. Before running junit tests, make sure that Main.java is not running already. Otherwise, stop Main.java.
+
+#### Adding new tests
+
+To add a new test, navigate to `main/back-end/src/test`, and add the test to the appropriate test file.
+
+For naming conventions, we name the test based on the use case it will be testing. Each test should go into the corresponding
+Java test file for the method it is testing (ex: for testing getUserProfile in Main.java, we add our test to GetUserProfileTest.java).
 
 ## Front-end:
 
