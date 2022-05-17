@@ -230,6 +230,8 @@ public class Main {
             }
         });
 
+        put("/editUserProfile", Main::editUserProfile);
+
         post("/getNearbyUser", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
@@ -306,6 +308,21 @@ public class Main {
         } catch (Exception e) {
             halt(500);
             return null;
+        }
+    }
+
+    private static String editUserProfile(Request request, Response response) {
+        Gson gson = new Gson();
+        String body = request.body();
+        Map<String, String> bodyContent = gson.fromJson(body, Map.class);
+        String uid = bodyContent.get("uid");
+        String field = bodyContent.get("field");
+        String newVal = bodyContent.get("newVal");
+        if (field.equals("username") || field.equals("phone") || field.equals("email") ||  field.equals("bio")) {
+            model.updateUserProfile(uid, field, newVal);
+            return gson.toJson("Updated");
+        } else {
+            return gson.toJson("Invalid field");
         }
     }
 

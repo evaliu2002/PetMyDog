@@ -71,6 +71,18 @@ public class Sql2oModel implements DBUtils.Model {
     }
 
     @Override
+    public void updateUserProfile(String uid, String field, String value) {
+        try (Connection conn = sql2o.beginTransaction()) {
+            conn.createQuery("UPDATE User SET :field = :value WHERE uid = :uid")
+                    .addParameter("field", field)
+                    .addParameter("uid", uid)
+                    .addParameter("value", value)
+                    .executeUpdate();
+            conn.commit();
+        }
+    }
+
+    @Override
     public DBUtils.MeetUp getMeetUp(String mid) {
         try (Connection conn = sql2o.beginTransaction()) {
             DBUtils.MeetUp c = conn.createQuery("SELECT * FROM MeetUp WHERE mid = :mid;")
