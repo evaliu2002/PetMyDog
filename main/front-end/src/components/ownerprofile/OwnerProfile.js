@@ -9,7 +9,7 @@ import {Card,Button,Container} from "react-bootstrap";
 const OwnerProfile = ({changedDogObject}) => {
     const [ownerName, setOwnerName] = useState("Bob");
     const [dogProfiles, setDogProfiles] = useState([]);
-    const GET_USER_PROFILE_URL = "http://localhost:4567/getMyProfile";
+    const GET_USER_PROFILE_URL = "https://localhost:4567/getMyProfile";
 
     let navigate = useNavigate();
 
