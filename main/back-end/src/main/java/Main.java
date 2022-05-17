@@ -229,6 +229,17 @@ public class Main {
 
         get("/getDogProfile", Main::getDogProfile);
 
+        /**
+         * Endpoint path: /newDog
+         *
+         * Required parameters: {name, age, gender, breed, pic_link}
+         *
+         * Return json in the format:
+         *  "Success"
+         *
+         *  400 error if the information given is incomplete.
+         *  500 error if failed to add dog profile.
+         */
         post("/newDog", Main::createDogProfile);
 
         post("/requestMeetup", Main::requestMeetup);
