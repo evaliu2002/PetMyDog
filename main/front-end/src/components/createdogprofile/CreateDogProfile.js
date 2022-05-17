@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router';
 import { BsArrowLeftSquare } from "react-icons/bs";
 
 function CreateDogProfile () {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const [name, setName] = useState();
     const [age, setAge] = useState();
     const [breed, setBreed] = useState();
@@ -17,8 +17,11 @@ function CreateDogProfile () {
     const onSubmit = () => {
 
         console.log(name);
+        // console.log(age);
+        // console.log(breed);
+        // console.log(gender);
 
-        navigate("/owner-profile")
+        // navigate("/owner-profile")
     }
 
 
@@ -38,27 +41,34 @@ function CreateDogProfile () {
                                     <Form.Control type="text"
                                                   placeholder="Your Dog's Name"
                                                   value={name}
-                                                  onChange={e => setName(e.target.name) }
+                                                  onChange={e => setName(e.target.value)}
                                     />
                                 </Form.Group>
 
-                                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                    <Form.Label>Dog's Age</Form.Label>
-                                    <Form.Control type="text"
-                                                  placeholder="Your Dog's Age Here"
-                                                  value={age}
-                                                  onChange={e => setAge(e.target.name) }/>
-                                </Form.Group>
+                                {/*<Form.Group className="mb-3" controlId="exampleForm.ControlInput1">*/}
+                                {/*    <Form.Label>Dog's Age</Form.Label>*/}
+                                {/*    <Form.Control type="number"*/}
+                                {/*                  placeholder="Your Dog's Age Here"*/}
+                                {/*                  value={age}*/}
+                                {/*                  onChange={e => setAge(e.target.value) }/>*/}
+                                {/*</Form.Group>*/}
 
-                                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                    <Form.Label>Dog's Breed</Form.Label>
-                                    <Form.Control type="text" placeholder="Your Dog's Breed Here" />
-                                </Form.Group>
+                                {/*<Form.Group className="mb-3" controlId="exampleForm.ControlInput1">*/}
+                                {/*    <Form.Label>Dog's Breed</Form.Label>*/}
+                                {/*    <Form.Control type="text"*/}
+                                {/*                  placeholder="Your Dog's Breed Here"*/}
+                                {/*                  value={breed}*/}
+                                {/*                  onChange={e => setBreed(e.target.value) }/>*/}
+                                {/*</Form.Group>*/}
 
-                                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                    <Form.Label>Dog's Gender</Form.Label>
-                                    <Form.Control type="text" placeholder="Your Dog's Gender Here" />
-                                </Form.Group>
+                                {/*<Form.Group className="mb-3" controlId="exampleForm.ControlInput1">*/}
+                                {/*    <Form.Label>Dog's Gender</Form.Label>*/}
+                                {/*    <Form.Control type="text" p*/}
+                                {/*                  laceholder="Your Dog's Gender Here"*/}
+                                {/*                  value={gender}*/}
+                                {/*                  onChange={e => setGender(e.target.value) }*/}
+                                {/*    />*/}
+                                {/*</Form.Group>*/}
 
                                 <button className="create-button" onClick={onSubmit}>
                                     Create Profile
