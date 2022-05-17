@@ -17,6 +17,7 @@ const App = () => {
 
     return (
         <div id='App'>
+            {/*Routes for each web page*/}
             <Routes>
                 <Route path="/" element={<Login />} />
                 <Route path="/map-view" element={<MapView />}>

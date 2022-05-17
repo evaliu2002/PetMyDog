@@ -5,6 +5,8 @@ import org.sql2o.Sql2o;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 public class Sql2oModel implements DBUtils.Model {
 
@@ -68,6 +70,75 @@ public class Sql2oModel implements DBUtils.Model {
                     .executeUpdate();
             conn.commit();
         }
+    }
+
+    @Override
+    public void updateUserUsername(String uid, String value) {
+        try (Connection conn = sql2o.beginTransaction()) {
+            conn.createQuery("UPDATE User SET username = :value WHERE uid = :uid")
+                    .addParameter("uid", uid)
+                    .addParameter("value", value)
+                    .executeUpdate();
+            conn.commit();
+        }
+    }
+
+    @Override
+    public void updateUserPhone(String uid, String value) {
+        try (Connection conn = sql2o.beginTransaction()) {
+            conn.createQuery("UPDATE User SET phone = :value WHERE uid = :uid")
+                    .addParameter("uid", uid)
+                    .addParameter("value", value)
+                    .executeUpdate();
+            conn.commit();
+        }
+    }
+
+    @Override
+    public void updateUserEmail(String uid, String value) {
+        try (Connection conn = sql2o.beginTransaction()) {
+            conn.createQuery("UPDATE User SET email = :value WHERE uid = :uid")
+                    .addParameter("uid", uid)
+                    .addParameter("value", value)
+                    .executeUpdate();
+            conn.commit();
+        }
+    }
+
+    @Override
+    public void updateUserBio(String uid, String value) {
+        try (Connection conn = sql2o.beginTransaction()) {
+            conn.createQuery("UPDATE User SET bio = :value WHERE uid = :uid")
+                    .addParameter("uid", uid)
+                    .addParameter("value", value)
+                    .executeUpdate();
+            conn.commit();
+        }
+    }
+
+    @Override
+    public void updateUserPic(String uid, String value) {
+        try (Connection conn = sql2o.beginTransaction()) {
+            conn.createQuery("UPDATE User SET pic_link = :value WHERE uid = :uid")
+                    .addParameter("uid", uid)
+                    .addParameter("value", value)
+                    .executeUpdate();
+            conn.commit();
+        }
+    }
+
+    public boolean checkIfMeetUpExists(DBUtils.MeetUp meetUp) {
+        Connection conn = sql2o.open();
+        List<DBUtils.MeetUp> allReqs = new ArrayList<>();
+        if (meetUp != null) {
+            allReqs = conn.createQuery("SELECT * from MeetUp WHERE sender = :sender OR sender = :receiver " +
+                            "OR receiver = :sender OR receiver = :receiver AND status = :status")
+                    .addParameter("sender", meetUp.getSender())
+                    .addParameter("receiver", meetUp.getReceiver())
+                    .addParameter("status", "Accepted")
+                    .executeAndFetch(DBUtils.MeetUp.class);
+        }
+        return allReqs.size() > 0;
     }
 
     @Override

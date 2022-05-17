@@ -13,7 +13,6 @@ import org.elasticsearch.client.indices.CreateIndexRequest;
 import org.elasticsearch.client.indices.PutMappingRequest;
 import org.elasticsearch.common.geo.GeoPoint;
 import org.elasticsearch.common.unit.DistanceUnit;
-import org.elasticsearch.index.mapper.ObjectMapper;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
@@ -34,7 +33,6 @@ import spark.*;
 import org.sql2o.Sql2o;
 
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.*;
 import static spark.Spark.*;
 
@@ -48,12 +46,14 @@ public class Main {
     private static final long LOCATION_EXPIRE_TIME = 1000 * 60 * 15;
 
     public static void main(String[] args) {
+        secure("keystore.jks", "eq04aqOA", null, null);
+
         /*****************************************     Begin OAuth config     *****************************************/
 
         // Setup google oauth api configuration with pac4j
         final OidcConfiguration oidcConfiguration = new OidcConfiguration();
-        oidcConfiguration.setClientId("205317701531-od80vq0biekitm7bq8irtfoen3fhpfo0.apps.googleusercontent.com");
-        oidcConfiguration.setSecret("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");
+        oidcConfiguration.setClientId("105609274397-09g7pjle8328kvqbrc088b71d1aluu69.apps.googleusercontent.com");
+        oidcConfiguration.setSecret("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");
         oidcConfiguration.setDiscoveryURI("https://accounts.google.com/.well-known/openid-configuration");
         oidcConfiguration.setUseNonce(true);
         oidcConfiguration.addCustomParam("prompt", "consent");
@@ -64,7 +64,7 @@ public class Main {
             profile.addRole("ROLE_ADMIN");
             return Optional.of(profile);
         });
-        oidcClient.setCallbackUrl("http://localhost:4567/callback");
+        oidcClient.setCallbackUrl("https://localhost:4567/callback");
 
         // Security configuration using google client
         Config config = new Config(oidcClient);
@@ -81,7 +81,7 @@ public class Main {
 
         /*****************************************     Begin SQL config     *****************************************/
 
-        Sql2o sql2o = new Sql2o("jdbc:mysql://34.70.199.136:3306/pmd", "root", "b4lIbLjGOvszgcLC");
+        Sql2o sql2o = new Sql2o("jdbc:mysql://104.154.216.86:3306/pmd", "root", "LG_.>.GHkoKM1P?Z");
         model = new Sql2oModel(sql2o);
 
         /*****************************************     END SQL config     *****************************************/
@@ -238,6 +238,8 @@ public class Main {
 
         post("/rejectMeetup", Main::rejectMeetup);
 
+        post("/endMeetup", Main::endMeetup);
+
         get("/meetups", Main::getMeetupRequests);
 
         get("/sql", new Route() {
@@ -248,6 +250,8 @@ public class Main {
                 return gson.toJson("updated");
             }
         });
+
+        put("/editUserProfile", Main::editUserProfile);
 
         post("/getNearbyUser", new Route() {
             @Override
@@ -328,6 +332,33 @@ public class Main {
         }
     }
 
+    private static String editUserProfile(Request request, Response response) {
+        Gson gson = new Gson();
+        String body = request.body();
+        Map<String, String> bodyContent = gson.fromJson(body, Map.class);
+        String uid = bodyContent.get("uid");
+        String field = bodyContent.get("field");
+        String newVal = bodyContent.get("newVal");
+        if (field.equals("username")) {
+            model.updateUserUsername(uid, newVal);
+            return gson.toJson("Updated");
+        } else if (field.equals("phone")) {
+            model.updateUserPhone(uid, newVal);
+            return gson.toJson("Updated");
+        } else if (field.equals("email")) {
+            model.updateUserEmail(uid, newVal);
+            return gson.toJson("Updated");
+        } else if (field.equals("bio")) {
+            model.updateUserBio(uid, newVal);
+            return gson.toJson("Updated");
+        } else if (field.equals("pic_link")) {
+            model.updateUserPic(uid, newVal);
+            return gson.toJson("Updated");
+        } else {
+            return gson.toJson("Invalid field");
+        }
+    }
+
     private static String getMyProfile(Request request, Response response) {
         try {
             Gson gson = new Gson();
@@ -359,12 +390,18 @@ public class Main {
         if (sender == null || receiver == null) {
             return gson.toJson("User not found");
         }
-
+        if (sender.equals(receiver)) {
+            return gson.toJson("Invalid request");
+        }
         // insert meeting information
         UUID id = UUID.randomUUID();
-        model.createMeetUp(new DBUtils.MeetUp(id.toString(),
-                bodyContent.get("sender"), bodyContent.get("receiver"), "Pending"));
-        return gson.toJson(id.toString());
+        DBUtils.MeetUp meetUp = new DBUtils.MeetUp(id.toString(),
+                uid, bodyContent.get("receiver"), "Pending");
+        if (!model.checkIfMeetUpExists(meetUp)) {
+            model.createMeetUp(meetUp);
+            return gson.toJson(id.toString());
+        }
+        return gson.toJson("Meeting request has been canceled");
     }
 
     private static String acceptMeetup(Request request, Response response) {
@@ -373,6 +410,10 @@ public class Main {
 
     private static String rejectMeetup(Request request, Response response) {
         return meetupRespond(request, "Rejected");
+    }
+
+    private static String endMeetup(Request request, Response response) {
+        return meetupRespond(request, "Ended");
     }
 
     private static String meetupRespond(Request request, String status) {

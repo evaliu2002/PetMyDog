@@ -1,5 +1,8 @@
 # PetMyDog
 
+[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)<br><br>
+[User Document](https://github.com/evaliu2002/PetMyDog/blob/main/USERDOC.md)
+
 ### Project Idea/Goal
 
 Pet My Dog will be a web app that allows dog owners to broadcast their location while
@@ -25,7 +28,13 @@ user can press the dog and is redirected to the selected dog page where informat
 
 All the code will be contained in the main directory. The main directory is divided into front
 and back end code, each in a sub directory. We will have our weekly reports in the Weekly Reports
-directory, which we will update every week to report our progress and action items.
+directory, which we will update every week to report our progress and action items. Our tests are contained
+within the front and back end sub directories, within the src sub directory (and the tests are in the test
+sub directory).
+
+### Building a release of the software
+
+Pushing to the main branch will automatically build the software, so there is no manual intervention needed.
 
 ## Back-end:
 
@@ -43,8 +52,15 @@ directory, which we will update every week to report our progress and action ite
    https://www.elastic.co/downloads/elasticsearch
 2. Navigate to the Maven tab in IntelliJ, open `Lifecycle` in the `back-end` tab, and click the `Test` button to run the provided
    tests.
-3. Junit tests are located and can be added in main/back-end/src/test/java.
-4. Before running junit tests, make sure that Main.java is not running already. Otherwise, stop Main.java.
+3. JUnit tests are located and can be added in main/back-end/src/test/java.
+4. Before running JUnit tests, make sure that Main.java is not running already. Otherwise, stop Main.java.
+
+#### Adding new tests
+
+To add a new test, navigate to `main/back-end/src/test`, and add the test to the appropriate test file.
+
+For naming conventions, we name the test based on the use case it will be testing. Each test should go into the corresponding
+Java test file for the method it is testing (ex: for testing getUserProfile in Main.java, we add our test to GetUserProfileTest.java).
 
 ## Front-end:
 
@@ -57,6 +73,11 @@ NPM
 2. Run npm install.
 
 3. To run PetMyDog on localhost, run npm start.
+
+
+#### Adding new tests
+
+To add a new test, navigate to `main/front-end/src/test`, and add the test to the appropriate test file.
 
 ## Available Scripts
 
