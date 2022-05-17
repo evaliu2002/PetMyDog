@@ -223,6 +223,26 @@ public class Main {
             return null;
         });
 
+        /**
+         * Endpoint path: /getUserProfile
+         *
+         * Required parameters: {uid}
+         *
+         * Return json in the format:
+         *  {
+         *  "uid":"1000",
+         *  "username":"someone",
+         *  "email":"someone@email.com",
+         *  "pic_link":"https://somepicture.com",
+         *  "last_ping":"1000-01-01T00:00",
+         *  "dogs":[
+         *  {"did":"1","name":"dogName1","age":0,"gender":"male","breed":"breed1","pic_link":"pic1"},
+         *  {"did":"2","name":"dogName2","age":1,"gender":"female","breed":"breed2","pic_link":"pic2"}
+         *  ]
+         *  }
+         *
+         *  400 error if no uid is given.
+         */
         get("/getUserProfile", Main::getUserProfile);
 
         get("/getMyProfile", Main::getMyProfile);
