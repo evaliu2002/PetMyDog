@@ -1,5 +1,8 @@
 # PetMyDog
 
+[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
+[User Document](https://github.com/evaliu2002/PetMyDog/blob/main/USERDOC.md)
+
 ### Project Idea/Goal
 
 Pet My Dog will be a web app that allows dog owners to broadcast their location while
