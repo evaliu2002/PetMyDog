@@ -248,6 +248,8 @@ public class Main {
 
         post("/rejectMeetup", Main::rejectMeetup);
 
+        post("/endMeetup", Main::endMeetup);
+
         get("/meetups", Main::getMeetupRequests);
 
         get("/sql", new Route() {
@@ -344,12 +346,18 @@ public class Main {
         if (sender == null || receiver == null) {
             return gson.toJson("User not found");
         }
-
+        if (sender.equals(receiver)) {
+            return gson.toJson("Invalid request");
+        }
         // insert meeting information
         UUID id = UUID.randomUUID();
-        model.createMeetUp(new DBUtils.MeetUp(id.toString(),
-                bodyContent.get("sender"), bodyContent.get("receiver"), "Pending"));
-        return gson.toJson(id.toString());
+        DBUtils.MeetUp meetUp = new DBUtils.MeetUp(id.toString(),
+                uid, bodyContent.get("receiver"), "Pending");
+        if (!model.checkIfMeetUpExists(meetUp)) {
+            model.createMeetUp(meetUp);
+            return gson.toJson(id.toString());
+        }
+        return gson.toJson("Meeting request has been canceled");
     }
 
     private static String acceptMeetup(Request request, Response response) {
@@ -358,6 +366,10 @@ public class Main {
 
     private static String rejectMeetup(Request request, Response response) {
         return meetupRespond(request, "Rejected");
+    }
+
+    private static String endMeetup(Request request, Response response) {
+        return meetupRespond(request, "Ended");
     }
 
     private static String meetupRespond(Request request, String status) {

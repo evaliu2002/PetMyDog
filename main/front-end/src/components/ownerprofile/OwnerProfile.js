@@ -11,7 +11,7 @@ const OwnerProfile = () => {
     const [dogProfiles, setDogProfiles] = useState([]);
     // const [selectedDog, setSelectedDog] = useState();
 
-    const GET_USER_PROFILE_URL = "http://localhost:4567/getMyProfile";
+    const GET_USER_PROFILE_URL = "https://localhost:4567/getMyProfile";
     let displayDogs= [];
     let navigate = useNavigate();
 
