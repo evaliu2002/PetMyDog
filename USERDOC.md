@@ -30,7 +30,7 @@ them to the login page of Pet My Dog. From there, users are
 then able to access and use the app as they please. <br>
 
 ### How to use the software
-The homepage of the app will contain a login with google button
+The homepage of the app will contain a login with Google button
 and a temporary second button for the users to direct themselves
 to the find-dogs path of the webpage. Dogs will then appear in
 the page. Users can click on the individual dogs and choose to
@@ -42,10 +42,21 @@ in find dogs labeled "Owner Mode" where they can receive requests
 for users who wish to meet with their dogs. Owners can choose to
 accept or reject the meeting requests.
 
-### Unfinished Functionalities
-<li></li>
+### Unfinished Functionalities (work in progress)
+<li>Front end: Displaying dog meeting requests sent from app user to pet
+owner (Planned completion by end of Wednesday)</li>
+<li>Front end: Allow owners to accept requests</li>
+<li>Front end: Redirect petters to the navigation page when their request is approved</li>
+<li>Front end: Show the user helpful message when error occur</li>
+<li>Back end: Give the petters and owners location of each other by adding an api /activeMeetup</li>
+<li>Back end: Validate request parameters and through correct error code to frond end</li>
 
 ### How to report a bug
-
+An example of a bug report looks like this: 
+[Bug Report Example](https://github.com/evaliu2002/PetMyDog/issues/47) <br>
+Best Practices for Bug Reporting: [Best Bug Reporting Practices](https://rewind.com/blog/best-practices-for-using-github-issues/)
 
 ### Known Bugs
+Sometimes each nearby dog is displayed twice on the page.
+No input validation on back end, so unexpected inputs will cause undefined behavior on back end. For example, out of bound longitude/latitude are not handled.
+
