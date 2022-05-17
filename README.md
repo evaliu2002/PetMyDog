@@ -25,7 +25,9 @@ user can press the dog and is redirected to the selected dog page where informat
 
 All the code will be contained in the main directory. The main directory is divided into front
 and back end code, each in a sub directory. We will have our weekly reports in the Weekly Reports
-directory, which we will update every week to report our progress and action items.
+directory, which we will update every week to report our progress and action items. Our tests are contained
+within the front and back end sub directories, within the src sub directory (and the tests are in the test
+sub directory).
 
 ## Back-end:
 
