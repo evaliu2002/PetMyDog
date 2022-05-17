@@ -251,6 +251,8 @@ public class Main {
             }
         });
 
+        put("/editUserProfile", Main::editUserProfile);
+
         post("/getNearbyUser", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
@@ -327,6 +329,33 @@ public class Main {
         } catch (Exception e) {
             halt(500);
             return null;
+        }
+    }
+
+    private static String editUserProfile(Request request, Response response) {
+        Gson gson = new Gson();
+        String body = request.body();
+        Map<String, String> bodyContent = gson.fromJson(body, Map.class);
+        String uid = bodyContent.get("uid");
+        String field = bodyContent.get("field");
+        String newVal = bodyContent.get("newVal");
+        if (field.equals("username")) {
+            model.updateUserUsername(uid, newVal);
+            return gson.toJson("Updated");
+        } else if (field.equals("phone")) {
+            model.updateUserPhone(uid, newVal);
+            return gson.toJson("Updated");
+        } else if (field.equals("email")) {
+            model.updateUserEmail(uid, newVal);
+            return gson.toJson("Updated");
+        } else if (field.equals("bio")) {
+            model.updateUserBio(uid, newVal);
+            return gson.toJson("Updated");
+        } else if (field.equals("pic_link")) {
+            model.updateUserPic(uid, newVal);
+            return gson.toJson("Updated");
+        } else {
+            return gson.toJson("Invalid field");
         }
     }
 
