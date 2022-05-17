@@ -19,17 +19,22 @@ const containerStyle = {
  * @constructor
  */
 function Map(ownerObj) {
+    const { isLoaded } = useJsApiLoader({
+        id: 'google-map-script',
+        googleMapsApiKey: "AIzaSyB3i1uDupa_wlGSIrkv9Wfzj0Wfhx4dgxA"
+    })
+
     // Creating current user location state
     const [thisUser, setThisUser] = useState({
         lat: -3.745,
         lng: -38.523
     });
 
-    const [thatUser, setThatUser] = useState(ownerObj);
-    // const [thatUser, setThatUser] = useState({
-    //     lat: 47.662563,
-    //     lng: -122.297353
-    // });
+    // const [thatUser, setThatUser] = useState(ownerObj);
+    const [thatUser, setThatUser] = useState({
+        lat: 47.662563,
+        lng: -122.297353
+    });
     const [dir, setDir] = useState();
 
     // Getting the position of the current user
@@ -42,7 +47,7 @@ function Map(ownerObj) {
     }, []);
 
     useEffect(() => {
-        if (thatUser) {
+        if (thatUser && isLoaded) {
             const directionsService = new window.google.maps.DirectionsService();
             directionsService.route(
                 {
@@ -59,12 +64,7 @@ function Map(ownerObj) {
                 }
             );
         }
-    }, [thisUser]);
-
-    const { isLoaded } = useJsApiLoader({
-        id: 'google-map-script',
-        googleMapsApiKey: "AIzaSyBmy8ljB-id0qugtedezLUAc5o07UO8uwE"
-    })
+    }, [thisUser, thatUser]);
 
     const [map, setMap] = React.useState(null)
 

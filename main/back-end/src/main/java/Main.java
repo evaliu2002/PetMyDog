@@ -52,8 +52,8 @@ public class Main {
 
         // Setup google oauth api configuration with pac4j
         final OidcConfiguration oidcConfiguration = new OidcConfiguration();
-        oidcConfiguration.setClientId("205317701531-od80vq0biekitm7bq8irtfoen3fhpfo0.apps.googleusercontent.com");
-        oidcConfiguration.setSecret("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");
+        oidcConfiguration.setClientId("105609274397-09g7pjle8328kvqbrc088b71d1aluu69.apps.googleusercontent.com");
+        oidcConfiguration.setSecret("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");
         oidcConfiguration.setDiscoveryURI("https://accounts.google.com/.well-known/openid-configuration");
         oidcConfiguration.setUseNonce(true);
         oidcConfiguration.addCustomParam("prompt", "consent");
@@ -81,7 +81,7 @@ public class Main {
 
         /*****************************************     Begin SQL config     *****************************************/
 
-        Sql2o sql2o = new Sql2o("jdbc:mysql://34.70.199.136:3306/pmd", "root", "b4lIbLjGOvszgcLC");
+        Sql2o sql2o = new Sql2o("jdbc:mysql://104.154.216.86:3306/pmd", "root", "LG_.>.GHkoKM1P?Z");
         model = new Sql2oModel(sql2o);
 
         /*****************************************     END SQL config     *****************************************/
@@ -251,6 +251,8 @@ public class Main {
             }
         });
 
+        put("/editUserProfile", Main::editUserProfile);
+
         post("/getNearbyUser", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
@@ -327,6 +329,33 @@ public class Main {
         } catch (Exception e) {
             halt(500);
             return null;
+        }
+    }
+
+    private static String editUserProfile(Request request, Response response) {
+        Gson gson = new Gson();
+        String body = request.body();
+        Map<String, String> bodyContent = gson.fromJson(body, Map.class);
+        String uid = bodyContent.get("uid");
+        String field = bodyContent.get("field");
+        String newVal = bodyContent.get("newVal");
+        if (field.equals("username")) {
+            model.updateUserUsername(uid, newVal);
+            return gson.toJson("Updated");
+        } else if (field.equals("phone")) {
+            model.updateUserPhone(uid, newVal);
+            return gson.toJson("Updated");
+        } else if (field.equals("email")) {
+            model.updateUserEmail(uid, newVal);
+            return gson.toJson("Updated");
+        } else if (field.equals("bio")) {
+            model.updateUserBio(uid, newVal);
+            return gson.toJson("Updated");
+        } else if (field.equals("pic_link")) {
+            model.updateUserPic(uid, newVal);
+            return gson.toJson("Updated");
+        } else {
+            return gson.toJson("Invalid field");
         }
     }
 
