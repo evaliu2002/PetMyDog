@@ -3,8 +3,8 @@ import { BsArrowLeftSquare } from "react-icons/bs";
 import {useNavigate} from 'react-router';
 
 const Logout = () => {
+    // useNavigate for event handling to other web pages
     let navigate = useNavigate();
-
     const login = () => {
         navigate("/")
     }
@@ -12,7 +12,8 @@ const Logout = () => {
     return (
         <div className='logout'>
             <h1 className='font-link'>Pet My Dog</h1>
-            <a className="btn btn-outline-dark" href="http://localhost:4567/logout" role="button" style={{textTransform: "none"}}>
+            {/*Google Logout Button*/}
+            <a className="btn btn-outline-dark" href="https://localhost:4567/logout" role="button" style={{textTransform: "none"}}>
                 <img width="20px" style={{marginBlock: "3px", marginRight: "5px"}} alt="Google sign-out"
                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
                 Logout from Google

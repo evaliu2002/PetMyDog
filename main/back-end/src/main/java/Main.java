@@ -13,7 +13,6 @@ import org.elasticsearch.client.indices.CreateIndexRequest;
 import org.elasticsearch.client.indices.PutMappingRequest;
 import org.elasticsearch.common.geo.GeoPoint;
 import org.elasticsearch.common.unit.DistanceUnit;
-import org.elasticsearch.index.mapper.ObjectMapper;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
@@ -34,7 +33,6 @@ import spark.*;
 import org.sql2o.Sql2o;
 
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.*;
 import static spark.Spark.*;
 
@@ -48,6 +46,8 @@ public class Main {
     private static final long LOCATION_EXPIRE_TIME = 1000 * 60 * 15;
 
     public static void main(String[] args) {
+        secure("keystore.jks", "eq04aqOA", null, null);
+
         /*****************************************     Begin OAuth config     *****************************************/
 
         // Setup google oauth api configuration with pac4j
@@ -64,7 +64,7 @@ public class Main {
             profile.addRole("ROLE_ADMIN");
             return Optional.of(profile);
         });
-        oidcClient.setCallbackUrl("http://localhost:4567/callback");
+        oidcClient.setCallbackUrl("https://localhost:4567/callback");
 
         // Security configuration using google client
         Config config = new Config(oidcClient);
@@ -171,9 +171,26 @@ public class Main {
 
         /********************************************   Start CORS config   *******************************************/
 
+
+        options("/*", (request, response) -> {
+
+            String accessControlRequestHeaders = request.headers("Access-Control-Request-Headers");
+            if (accessControlRequestHeaders != null) {
+                response.header("Access-Control-Allow-Headers", accessControlRequestHeaders);
+            }
+
+            String accessControlRequestMethod = request.headers("Access-Control-Request-Method");
+            if (accessControlRequestMethod != null) {
+                response.header("Access-Control-Allow-Methods", accessControlRequestMethod);
+            }
+
+            return "OK";
+        });
+
+
         final Map<String, String> corsHeaders = new HashMap<>();
         corsHeaders.put("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
-        corsHeaders.put("Access-Control-Allow-Origin", "*");
+        corsHeaders.put("Access-Control-Allow-Origin", "http://localhost:3000");
         corsHeaders.put("Access-Control-Allow-Headers", "Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin,");
         corsHeaders.put("Access-Control-Allow-Credentials", "true");
 
@@ -207,7 +224,9 @@ public class Main {
             return null;
         });
 
-        get("/profile", Main::getUserProfile);
+        get("/getUserProfile", Main::getUserProfile);
+
+        get("/getMyProfile", Main::getMyProfile);
 
         get("/getDogProfile", Main::getDogProfile);
 
@@ -218,6 +237,8 @@ public class Main {
         post("/acceptMeetup", Main::acceptMeetup);
 
         post("/rejectMeetup", Main::rejectMeetup);
+
+        post("/endMeetup", Main::endMeetup);
 
         get("/meetups", Main::getMeetupRequests);
 
@@ -338,6 +359,20 @@ public class Main {
         }
     }
 
+    private static String getMyProfile(Request request, Response response) {
+        try {
+            Gson gson = new Gson();
+            String uid = getUserId(request, response);
+            DBUtils.User user = model.getUser(uid);
+            List<DBUtils.Dog> dogs = model.getDogsFromUserId(uid);
+            user.setDogs(dogs);
+            return gson.toJson(user);
+        } catch (Exception e) {
+            halt(500);
+            return null;
+        }
+    }
+
     private static String createDogProfile(Request request, Response response) {
         Gson gson = new Gson();
         model.createDog(gson.fromJson(request.body(), DBUtils.Dog.class));
@@ -349,17 +384,24 @@ public class Main {
         String body = request.body();
         Map<String, String> bodyContent = gson.fromJson(body, Map.class);
         // check if users exist
-        DBUtils.User sender = model.getUser(bodyContent.get("sender"));
+        String uid = getUserId(request, response);
+        DBUtils.User sender = model.getUser(uid);
         DBUtils.User receiver = model.getUser(bodyContent.get("receiver"));
         if (sender == null || receiver == null) {
             return gson.toJson("User not found");
         }
-
+        if (sender.equals(receiver)) {
+            return gson.toJson("Invalid request");
+        }
         // insert meeting information
         UUID id = UUID.randomUUID();
-        model.createMeetUp(new DBUtils.MeetUp(id.toString(),
-                bodyContent.get("sender"), bodyContent.get("receiver"), "Pending"));
-        return gson.toJson(id.toString());
+        DBUtils.MeetUp meetUp = new DBUtils.MeetUp(id.toString(),
+                uid, bodyContent.get("receiver"), "Pending");
+        if (!model.checkIfMeetUpExists(meetUp)) {
+            model.createMeetUp(meetUp);
+            return gson.toJson(id.toString());
+        }
+        return gson.toJson("Meeting request has been canceled");
     }
 
     private static String acceptMeetup(Request request, Response response) {
@@ -368,6 +410,10 @@ public class Main {
 
     private static String rejectMeetup(Request request, Response response) {
         return meetupRespond(request, "Rejected");
+    }
+
+    private static String endMeetup(Request request, Response response) {
+        return meetupRespond(request, "Ended");
     }
 
     private static String meetupRespond(Request request, String status) {
