@@ -25,11 +25,11 @@ function Map(ownerObj) {
         lng: -38.523
     });
 
-    const [thatUser, setThatUser] = useState(ownerObj);
-    // const [thatUser, setThatUser] = useState({
-    //     lat: 47.662563,
-    //     lng: -122.297353
-    // });
+    // const [thatUser, setThatUser] = useState(ownerObj);
+    const [thatUser, setThatUser] = useState({
+        lat: 47.662563,
+        lng: -122.297353
+    });
     const [dir, setDir] = useState();
 
     // Getting the position of the current user
@@ -63,7 +63,7 @@ function Map(ownerObj) {
 
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
-        googleMapsApiKey: "AIzaSyBmy8ljB-id0qugtedezLUAc5o07UO8uwE"
+        googleMapsApiKey: "AIzaSyB3i1uDupa_wlGSIrkv9Wfzj0Wfhx4dgxA"
     })
 
     const [map, setMap] = React.useState(null)
