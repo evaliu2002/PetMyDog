@@ -71,6 +71,11 @@ NPM
 
 3. To run PetMyDog on localhost, run npm start.
 
+
+#### Adding new tests
+
+To add a new test, navigate to `main/front-end/src/test`, and add the test to the appropriate test file.
+
 ## Available Scripts
 
 In the project directory, you can run:
