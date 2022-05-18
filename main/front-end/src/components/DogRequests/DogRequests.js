@@ -41,6 +41,7 @@ const DogRequests = () => {
      */
     const requestMeetup = () => {
         let reqArr = [];
+        let dogArr = [];
         fetch(REQ_MEET_URL, {
             cache: 'no-cache',
             credentials: 'include',
@@ -51,12 +52,14 @@ const DogRequests = () => {
             .then(checkStatus)
             .then(async (response) => {
                 let reqObj = (await response.json());
-                if (reqObj.isString()) {
-                    setNoMeetUp(reqObj);
-                } else {
-                    reqArr.concat(reqObj)
-                    setRequests(reqObj)
+                console.log(reqObj)
+                for (let i = 0; i < reqObj.length; i++) {
+                    // reqObj.receiver
+
                 }
+
+                // reqArr.concat(JSON.stringify(reqObj))
+                setRequests(reqArr)
             })
             // .then(navOwner)
             .catch(() => {console.log("Receiving meetup request failed")})
