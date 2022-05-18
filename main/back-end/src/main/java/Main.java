@@ -46,6 +46,7 @@ public class Main {
     private static final long LOCATION_EXPIRE_TIME = 1000 * 60 * 15;
 
     public static void main(String[] args) {
+        secure("keystore.jks", "eq04aqOA", null, null);
 
         /*****************************************     Begin OAuth config     *****************************************/
 
@@ -63,7 +64,7 @@ public class Main {
             profile.addRole("ROLE_ADMIN");
             return Optional.of(profile);
         });
-        oidcClient.setCallbackUrl("http://localhost:4567/callback");
+        oidcClient.setCallbackUrl("https://localhost:4567/callback");
 
         // Security configuration using google client
         Config config = new Config(oidcClient);
