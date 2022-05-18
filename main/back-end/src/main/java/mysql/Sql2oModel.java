@@ -127,6 +127,61 @@ public class Sql2oModel implements DBUtils.Model {
         }
     }
 
+    @Override
+    public void updateDogName(String did, String value) {
+        try (Connection conn = sql2o.beginTransaction()) {
+            conn.createQuery("UPDATE Dog SET name = :value WHERE did = :did")
+                    .addParameter("did", did)
+                    .addParameter("value", value)
+                    .executeUpdate();
+            conn.commit();
+        }
+    }
+
+    @Override
+    public void updateDogAge(String did, String value) {
+        try (Connection conn = sql2o.beginTransaction()) {
+            conn.createQuery("UPDATE Dog SET age = :value WHERE did = :did")
+                    .addParameter("did", did)
+                    .addParameter("value", value)
+                    .executeUpdate();
+            conn.commit();
+        }
+    }
+
+    @Override
+    public void updateDogGender(String did, String value) {
+        try (Connection conn = sql2o.beginTransaction()) {
+            conn.createQuery("UPDATE Dog SET gender = :value WHERE did = :did")
+                    .addParameter("did", did)
+                    .addParameter("value", value)
+                    .executeUpdate();
+            conn.commit();
+        }
+    }
+
+    @Override
+    public void updateDogBreed(String did, String value) {
+        try (Connection conn = sql2o.beginTransaction()) {
+            conn.createQuery("UPDATE Dog SET breed = :value WHERE did = :did")
+                    .addParameter("did", did)
+                    .addParameter("value", value)
+                    .executeUpdate();
+            conn.commit();
+        }
+    }
+
+    @Override
+    public void updateDogPic(String did, String value) {
+        try (Connection conn = sql2o.beginTransaction()) {
+            conn.createQuery("UPDATE Dog SET pic_link = :value WHERE did = :did")
+                    .addParameter("did", did)
+                    .addParameter("value", value)
+                    .executeUpdate();
+            conn.commit();
+        }
+    }
+
     public boolean checkIfMeetUpExists(DBUtils.MeetUp meetUp) {
         Connection conn = sql2o.open();
         List<DBUtils.MeetUp> allReqs = new ArrayList<>();
