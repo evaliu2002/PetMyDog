@@ -249,6 +249,18 @@ public class Main {
 
         get("/getDogProfile", Main::getDogProfile);
 
+        /*
+         * Endpoint path: /deleteDogProfile
+         *
+         * Required parameters: {did}
+         *
+         * Return json in the format:
+         *  "success"
+         *
+         *  400 error if no did is given.
+         */
+        post("/deleteDogProfile", Main::deleteDogProfile);
+
         /**
          * Endpoint path: /newDog
          *
@@ -461,6 +473,12 @@ public class Main {
         String body = request.body();
         Map<String, String> bodyContent = gson.fromJson(body, Map.class);
         return gson.toJson(model.getDog(bodyContent.get("dogId")));
+    }
+
+    private static String deleteDogProfile(Request request, Response response) {
+        Gson gson = new Gson();
+        model.deleteDog(gson.fromJson(request.body(), DBUtils.Dog.class).getDid());
+        return gson.toJson("Success");
     }
 
     private static String getUserId(Request request, Response response) {
