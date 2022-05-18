@@ -72,7 +72,7 @@ public class Main {
         config.setHttpActionAdapter(new DemoHttpActionAdapter());
 
         // Set up call back end points
-        CallbackRoute callback = new CallbackRoute(config, "http://localhost:3000", true);
+        CallbackRoute callback = new CallbackRoute(config, "https://localhost:3000", true);
         get("/callback", callback);
         post("/callback", callback);
 
@@ -190,7 +190,7 @@ public class Main {
 
         final Map<String, String> corsHeaders = new HashMap<>();
         corsHeaders.put("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
-        corsHeaders.put("Access-Control-Allow-Origin", "http://localhost:3000");
+        corsHeaders.put("Access-Control-Allow-Origin", "https://localhost:3000");
         corsHeaders.put("Access-Control-Allow-Headers", "Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin,");
         corsHeaders.put("Access-Control-Allow-Credentials", "true");
 
