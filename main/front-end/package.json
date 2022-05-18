@@ -46,6 +46,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.4",
     "jest": "^28.0.3"
   }
 }

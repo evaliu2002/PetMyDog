@@ -16,6 +16,7 @@ const DogRequests = () => {
         navigate("/nav-owner")
     }
 
+    const [noMeetUp, setNoMeetUp] = useState("");
     const [requests, setRequests] = useState([]);
     let displayReq = [];
     const UPDATE_EVERY_MIN = 10 * 1000;
@@ -50,7 +51,12 @@ const DogRequests = () => {
             .then(checkStatus)
             .then(async (response) => {
                 let reqObj = (await response.json());
-                // setRequests(reqObj)
+                if (reqObj.isString()) {
+                    setNoMeetUp(reqObj);
+                } else {
+                    reqArr.concat(reqObj)
+                    setRequests(reqObj)
+                }
             })
             // .then(navOwner)
             .catch(() => {console.log("Receiving meetup request failed")})
@@ -74,7 +80,7 @@ const DogRequests = () => {
             .catch(() => {console.log("Accepting meetup failed")})
     }
 
-    const REJC_MEET_URL = "http://localhost:4567/rejectMeetup";
+    const REJC_MEET_URL = "https://localhost:4567/rejectMeetup";
 
     const rejectMeetup = () => {
         fetch(REJC_MEET_URL, {
@@ -99,12 +105,17 @@ const DogRequests = () => {
             <button onClick={findDogs}>Petter Mode</button>
             <BsFillPersonFill onClick={ownerProfile}/>
             <h4>Petting Requests</h4>
-            {requests.map(req =>
-                <div id={JSON.stringify(req)}>
-                    {req}
-                    <button onClick={acceptRequest}>Yes</button>
-                    <button onClick={rejectMeetup}>No</button>
-                </div>)}
+            <div id={JSON.stringify(noMeetUp)}>
+                <p>{JSON.stringify(noMeetUp)}</p>
+                <button onClick={acceptRequest}>Yes</button>
+                <button onClick={rejectMeetup}>No</button>
+            </div>
+            {/*{requests.map(req =>*/}
+            {/*    <div id={JSON.stringify(req)}>*/}
+            {/*        {req}*/}
+            {/*        <button onClick={acceptRequest}>Yes</button>*/}
+            {/*        <button onClick={rejectMeetup}>No</button>*/}
+            {/*    </div>)}*/}
         </div>
     );
 }
