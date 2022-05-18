@@ -41,7 +41,14 @@
                         ViewMyDog and OwnerProfile
   - Plans and Goals for the Next Week: Test the CreateDogProfile post request to the back end. Create test suite for
                         front-end components. Edit styling to fit mobile page. Make the map zoom out to a larger area.
+
 - ##### Kevin Kong
+    - Goals from last week: I will write documentations. I can also add more tests
+      for backend. I will also work with others on coding and debugging.
+
+    - Progress and Issues: I implemented backend API. I also helped write the specs for backend API.
+
+    - Plans and Goals for the next week: I will continue finishing up some backend APIs. I can write test cases and debug any issues in the code.
 
 - ##### Anish Konanki
   - Goals from last week: Complete the editDogProfile API for next week, start building an exhaustive test suite, 
