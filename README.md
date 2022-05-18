@@ -52,8 +52,8 @@ Pushing to the main branch will automatically build the software, so there is no
    https://www.elastic.co/downloads/elasticsearch
 2. Navigate to the Maven tab in IntelliJ, open `Lifecycle` in the `back-end` tab, and click the `Test` button to run the provided
    tests.
-3. Junit tests are located and can be added in main/back-end/src/test/java.
-4. Before running junit tests, make sure that Main.java is not running already. Otherwise, stop Main.java.
+3. JUnit tests are located and can be added in main/back-end/src/test/java.
+4. Before running JUnit tests, make sure that Main.java is not running already. Otherwise, stop Main.java.
 
 #### Adding new tests
 
