@@ -4,7 +4,7 @@ import {Container, Form} from 'react-bootstrap';
 import {useNavigate} from "react-router";
 
  const ViewDogProfile = ({dogProfile}) => {
-     const navigate = useNavigate();
+
 
 
      const checkStatus = (response) => {

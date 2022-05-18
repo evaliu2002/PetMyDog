@@ -26,7 +26,7 @@ const UploadImage = () => {
             alignItems: "center",
             justifyContent: "center"
         }}>
-            <label for="imgInput" className="create-button">
+            <label htmlFor="imgInput" className="create-button">
                 Add Profile Photo
             </label>
             <input

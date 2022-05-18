@@ -35,7 +35,12 @@
                                        test suite.
 
 - ##### An Nguyen
-
+  - Goals from laste week:  Finish building 'owner-profile' and set up data fetching from the back end.
+                            Make the map zoom out to a larger area when finding user's location
+  - Progress and Issues: Finished building 'owner-profile' and set up data fetching from the back end on
+                        ViewMyDog and OwnerProfile
+  - Plans and Goals for the Next Week: Test the CreateDogProfile post request to the back end. Create test suite for
+                        front-end components. Edit styling to fit mobile page. Make the map zoom out to a larger area.
 - ##### Kevin Kong
 
 - ##### Anish Konanki
