@@ -17,7 +17,7 @@
 
 - What we plan to do:
   - Front-end: Finish implementing the rest of our listed components and develop more of our test suite.
-  - Back-end: 
+  - Back-end: Added three more API and added comments to existing ones.
 
 #### Individual Reports
 
@@ -49,3 +49,10 @@
 - ##### Steve Ma
 
 - ##### Wenxuan Liu
+  - Goals from last week: Make server run in https, put together front end with a few more endpoints.
+  - Progress and Issues: Applied SSL and configured both backend and front end to run in HTTPS. Learned how to use GCP
+                        Directions API to get path between geolocations and used React to display the path on the map. 
+                        Worked with other front end members to get data from back-end. Identified necessary changes to
+                        back-end. 
+  - Plans and Goals for the Next Week: Finish /theOtherUserLocation: make a new endpoint that will return the sender’s 
+                        location to the receiver or return the receiver’s location to the sender.
