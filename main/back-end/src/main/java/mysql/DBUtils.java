@@ -27,6 +27,7 @@ public class DBUtils {
         void createMeetUp(MeetUp meetUp);
         boolean checkIfMeetUpExists(MeetUp meetUp);
         List<DBUtils.MeetUp> getMeetUpsForUser(String uid);
+        void deleteDog(String did);
     }
 
     @Data

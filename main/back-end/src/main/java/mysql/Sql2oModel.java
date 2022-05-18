@@ -213,6 +213,19 @@ public class Sql2oModel implements DBUtils.Model {
         }
     }
 
+    @Override
+    public void deleteDog(String did) {
+        try (Connection conn = sql2o.beginTransaction()) {
+            conn.createQuery("DELETE FROM Dog WHERE did=:did")
+                    .addParameter("did", did)
+                    .executeUpdate();
+            conn.createQuery("DELETE FROM BelongTo WHERE did=:did")
+                    .addParameter("did", did)
+                    .executeUpdate();
+            conn.commit();
+        }
+    }
+
 //    @Override
 //    public List<DBUtils.User> getUser(String uid) {
 //        String sql = "SELECT * FROM User WHERE uid = " + uid;

@@ -46,7 +46,6 @@ public class Main {
     private static final long LOCATION_EXPIRE_TIME = 1000 * 60 * 15;
 
     public static void main(String[] args) {
-        secure("keystore.jks", "eq04aqOA", null, null);
 
         /*****************************************     Begin OAuth config     *****************************************/
 
@@ -64,7 +63,7 @@ public class Main {
             profile.addRole("ROLE_ADMIN");
             return Optional.of(profile);
         });
-        oidcClient.setCallbackUrl("https://localhost:4567/callback");
+        oidcClient.setCallbackUrl("http://localhost:4567/callback");
 
         // Security configuration using google client
         Config config = new Config(oidcClient);
@@ -72,7 +71,7 @@ public class Main {
         config.setHttpActionAdapter(new DemoHttpActionAdapter());
 
         // Set up call back end points
-        CallbackRoute callback = new CallbackRoute(config, "http://localhost:3000", true);
+        CallbackRoute callback = new CallbackRoute(config, "https://localhost:3000", true);
         get("/callback", callback);
         post("/callback", callback);
 
@@ -190,7 +189,7 @@ public class Main {
 
         final Map<String, String> corsHeaders = new HashMap<>();
         corsHeaders.put("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
-        corsHeaders.put("Access-Control-Allow-Origin", "http://localhost:3000");
+        corsHeaders.put("Access-Control-Allow-Origin", "https://localhost:3000");
         corsHeaders.put("Access-Control-Allow-Headers", "Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin,");
         corsHeaders.put("Access-Control-Allow-Credentials", "true");
 
@@ -224,12 +223,55 @@ public class Main {
             return null;
         });
 
+        /**
+         * Endpoint path: /getUserProfile
+         *
+         * Required parameters: {uid}
+         *
+         * Return json in the format:
+         *  {
+         *  "uid":"1000",
+         *  "username":"someone",
+         *  "email":"someone@email.com",
+         *  "pic_link":"https://somepicture.com",
+         *  "last_ping":"1000-01-01T00:00",
+         *  "dogs":[
+         *  {"did":"1","name":"dogName1","age":0,"gender":"male","breed":"breed1","pic_link":"pic1"},
+         *  {"did":"2","name":"dogName2","age":1,"gender":"female","breed":"breed2","pic_link":"pic2"}
+         *  ]
+         *  }
+         *
+         *  400 error if no uid is given.
+         */
         get("/getUserProfile", Main::getUserProfile);
 
         get("/getMyProfile", Main::getMyProfile);
 
         get("/getDogProfile", Main::getDogProfile);
 
+        /*
+         * Endpoint path: /deleteDogProfile
+         *
+         * Required parameters: {did}
+         *
+         * Return json in the format:
+         *  "success"
+         *
+         *  400 error if no did is given.
+         */
+        post("/deleteDogProfile", Main::deleteDogProfile);
+
+        /**
+         * Endpoint path: /newDog
+         *
+         * Required parameters: {name, age, gender, breed, pic_link}
+         *
+         * Return json in the format:
+         *  "Success"
+         *
+         *  400 error if the information given is incomplete.
+         *  500 error if failed to add dog profile.
+         */
         post("/newDog", Main::createDogProfile);
 
         post("/requestMeetup", Main::requestMeetup);
@@ -238,6 +280,17 @@ public class Main {
 
         post("/rejectMeetup", Main::rejectMeetup);
 
+        /**
+         * Endpoint path: /endMeetup
+         *
+         * Required parameters: {mid, sender, receiver, status}
+         *
+         * Return json in the format:
+         *  "Success"
+         *
+         *  400 error if the meetup does not exist.
+         *  500 error if failed to get meetup from database.
+         */
         post("/endMeetup", Main::endMeetup);
 
         get("/meetups", Main::getMeetupRequests);
@@ -251,62 +304,37 @@ public class Main {
             }
         });
 
+        /**
+         * Endpoint path: /getNearbyUser
+         *
+         * Required parameters: {lat, lng}
+         *
+         * Return json in the format:
+         * [
+         *  12345678,
+         *  12349876,
+         *  ...,
+         * ]
+         *
+         *  400 error if given lat or lng is not in (-90, 90) or (-180, 180).
+         *  500 error if failed to get nearby user.
+         */
+        post("/getNearbyUser", Main::getNearbyUser);
+
+        /**
+         * Endpoint path: /updateLocation
+         *
+         * Required parameters: {lat, lng}
+         *
+         * Return json in the format:
+         *  "updated"
+         *
+         *  400 error if parameters are invalid. TODO: throw
+         *  500 error if server fail to update location.
+         */
+        post("/updateLocation", Main::updateLocation);
+
         put("/editUserProfile", Main::editUserProfile);
-
-        post("/getNearbyUser", new Route() {
-            @Override
-            public Object handle(Request request, Response response) throws Exception {
-                Gson gson = new Gson();
-                DBUtils.Location loc = gson.fromJson(request.body(), DBUtils.Location.class);
-                SearchSourceBuilder srb = new SearchSourceBuilder();
-                QueryBuilder qb = QueryBuilders.geoDistanceQuery(INDEX)
-                        .point(loc.getLat(), loc.getLng())
-                        .distance("500", DistanceUnit.METERS);
-                srb.query(qb);
-
-                SearchRequest searchRequest = new SearchRequest(INDEX);
-                searchRequest.source(srb);
-                List<String> result = new ArrayList<>();
-                try {
-                    SearchResponse search = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
-                    SearchHits hits = search.getHits();
-                    for (SearchHit hit: hits) {
-                        String location = hit.getSourceAsString();
-                        DBUtils.UserLocation jsonObject = gson.fromJson(location, DBUtils.UserLocation.class);
-                        if (System.currentTimeMillis() - jsonObject.getTimestamp() < LOCATION_EXPIRE_TIME)
-                            result.add(jsonObject.getUid());
-                    }
-                } catch (IOException e) {
-                    System.out.println(e.getMessage());
-                }
-                return gson.toJson(result);
-            }
-        });
-
-        post("/updateLocation", new Route() {
-            @Override
-            public Object handle(Request request, Response response) throws Exception {
-                String uid = getUserId(request, response);
-                Gson gson = new Gson();
-                DBUtils.Location loc = gson.fromJson(request.body(), DBUtils.Location.class);
-
-                // Update ES location
-                long timestamp = System.currentTimeMillis();
-                Map<String,Object> jsonMap = new HashMap<>();
-                jsonMap.put("location", new GeoPoint(loc.getLat(), loc.getLng()));
-                jsonMap.put("uid", uid);
-                jsonMap.put("timestamp", timestamp);
-
-                IndexRequest indexRequest = new IndexRequest(INDEX).id(uid).source(jsonMap);
-                try {
-                    restHighLevelClient.index(indexRequest, RequestOptions.DEFAULT);
-                } catch (IOException e) {
-                    System.out.println(e.getMessage());
-                    return gson.toJson("failed to update");
-                }
-                return gson.toJson("updated");
-            }
-        });
 
         /******************************************   End Service end pints   *****************************************/
     }
@@ -447,6 +475,12 @@ public class Main {
         return gson.toJson(model.getDog(bodyContent.get("dogId")));
     }
 
+    private static String deleteDogProfile(Request request, Response response) {
+        Gson gson = new Gson();
+        model.deleteDog(gson.fromJson(request.body(), DBUtils.Dog.class).getDid());
+        return gson.toJson("Success");
+    }
+
     private static String getUserId(Request request, Response response) {
         List<UserProfile> users = getProfiles(request, response);
         if (users.size() == 1) {
@@ -455,6 +489,56 @@ public class Main {
         }
         return null;
     }
-    /****************************************   End utils   *****************************************/
 
+    private static String updateLocation(Request request, Response response) throws Exception {
+        String uid = getUserId(request, response);
+        Gson gson = new Gson();
+        DBUtils.Location loc = gson.fromJson(request.body(), DBUtils.Location.class);
+
+        // Update ES location
+        long timestamp = System.currentTimeMillis();
+        Map<String,Object> jsonMap = new HashMap<>();
+        jsonMap.put("location", new GeoPoint(loc.getLat(), loc.getLng()));
+        jsonMap.put("uid", uid);
+        jsonMap.put("timestamp", timestamp);
+
+        IndexRequest indexRequest = new IndexRequest(INDEX).id(uid).source(jsonMap);
+        try {
+            restHighLevelClient.index(indexRequest, RequestOptions.DEFAULT);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            halt(500, "failed to update");
+        }
+        return gson.toJson("updated");
+    }
+
+    private static String getNearbyUser(Request request, Response response) throws Exception {
+        Gson gson = new Gson();
+        DBUtils.Location loc = gson.fromJson(request.body(), DBUtils.Location.class);
+        SearchSourceBuilder srb = new SearchSourceBuilder();
+        QueryBuilder qb = QueryBuilders.geoDistanceQuery(INDEX)
+                .point(loc.getLat(), loc.getLng())
+                .distance("500", DistanceUnit.METERS);
+        srb.query(qb);
+
+        SearchRequest searchRequest = new SearchRequest(INDEX);
+        searchRequest.source(srb);
+        List<String> result = new ArrayList<>();
+        try {
+            SearchResponse search = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+            SearchHits hits = search.getHits();
+            for (SearchHit hit: hits) {
+                String location = hit.getSourceAsString();
+                DBUtils.UserLocation jsonObject = gson.fromJson(location, DBUtils.UserLocation.class);
+                if (System.currentTimeMillis() - jsonObject.getTimestamp() < LOCATION_EXPIRE_TIME)
+                    result.add(jsonObject.getUid());
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            halt(500, "failed to get nearby user");
+        }
+        return gson.toJson(result);
+    }
 }
+
+    /****************************************   End utils   *****************************************/
