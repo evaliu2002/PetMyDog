@@ -12,7 +12,8 @@
 - What we did:
     - Front-end: Made progress on implementing requests from dog requests, create dog profile,
                  and view dog profile component. Started on the nav user and nav owner components.
-    - Back-end: 
+    - Back-end: Implemented the remaining APIs (editUserProfile, editDogProfile, deleteDogProfile).
+                Started working on refining APIs for more optimization and security.
 
 - What we plan to do:
   - Front-end: Finish implementing the rest of our listed components and develop more of our test suite.
@@ -32,3 +33,19 @@
                          modify the APIs so I can continue working on my front end component.
   - Plans and Goals for the Next Week: Finish implementing dog requests component and developing front end's
                                        test suite.
+
+- ##### An Nguyen
+
+- ##### Kevin Kong
+
+- ##### Anish Konanki
+  - Goals from last week: Complete the editDogProfile API for next week, start building an exhaustive test suite, 
+                          and work on improving our old code based on given feedback.
+  - Progress and Issues: I finished working on the editDogProfile API, and did some testing on my own to make sure it
+                         it is working as intended. I also worked on the developer documentation for this week with Steve
+                         and finished the backend portions of it. We also discussed potential improvements to the APIs.
+  - Plans and Goals for the Next Week: Work on refining APIs based on feedback and test them thoroughly.
+
+- ##### Steve Ma
+
+- ##### Wenxuan Liu
