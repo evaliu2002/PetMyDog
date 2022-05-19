@@ -272,7 +272,6 @@ public class Main {
          *  "Success"
          *
          *  400 error if the meetup does not exist.
-         *  500 error if failed to get meetup from database.
          */
         post("/endMeetup", Main::endMeetup);
 
@@ -319,6 +318,18 @@ public class Main {
 
         put("/editUserProfile", Main::editUserProfile);
 
+        /**
+         * Endpoint path: /editDogProfile
+         *
+         * Required parameters: {did, field, value}
+         *
+         * Return json in the format:
+         *  "Updated"
+         *
+         *  400 error if no did, field, or value is given.
+         */
+        put("/editDogProfile", Main::editDogProfile);
+      
         /**
          * Endpoint path: /getOtherUserLocation
          *
@@ -381,6 +392,33 @@ public class Main {
             return gson.toJson("Updated");
         } else {
             return gson.toJson("Invalid field");
+        }
+    }
+
+    private static String editDogProfile(Request request, Response response) {
+        Gson gson = new Gson();
+        Map<String, String> bodyContent = gson.fromJson(request.body(), Map.class);
+        String did = bodyContent.get("did");
+        String field = bodyContent.get("field");
+        String value = bodyContent.get("value");
+        switch (field) {
+            default:
+                return gson.toJson("Invalid field");
+            case "name":
+                model.updateDogName(did, value);
+                return gson.toJson("Updated");
+            case "age":
+                model.updateDogAge(did, value);
+                return gson.toJson("Updated");
+            case "gender":
+                model.updateDogGender(did, value);
+                return gson.toJson("Updated");
+            case "breed":
+                model.updateDogBreed(did, value);
+                return gson.toJson("Updated");
+            case "pic_link":
+                model.updateDogPic(did, value);
+                return gson.toJson("Updated");
         }
     }
 
