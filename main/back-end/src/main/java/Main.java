@@ -421,7 +421,7 @@ public class Main {
         // insert meeting information
         UUID id = UUID.randomUUID();
         DBUtils.MeetUp meetUp = new DBUtils.MeetUp(id.toString(),
-                uid, bodyContent.get("receiver"), "Pending");
+                uid, bodyContent.get("receiver"), "Pending", null, null);
         if (!model.checkIfMeetUpExists(meetUp)) {
             model.createMeetUp(meetUp);
             return gson.toJson(id.toString());

@@ -52,6 +52,8 @@ public class DBUtils {
         private String sender;
         private String receiver;
         private String status;
+        private User senderProfile;
+        private User receiverProfile;
     }
 
     @Data
