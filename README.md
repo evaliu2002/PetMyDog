@@ -3,6 +3,12 @@
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)<br><br>
 [User Document](https://github.com/evaliu2002/PetMyDog/blob/main/USERDOC.md)
 
+<img width="284" alt="image" src="https://user-images.githubusercontent.com/69877857/169405947-e56490a4-6a40-45c2-b817-35abd105f87f.png">
+<img width="286" alt="image" src="https://user-images.githubusercontent.com/69877857/169406030-94fdac2e-f9c0-4ca4-96e7-6f86320f6e55.png">
+<img width="284" alt="image" src="https://user-images.githubusercontent.com/69877857/169406065-392f572e-d51f-44ac-b4bb-ccea7d50aa15.png">
+<img width="283" alt="image" src="https://user-images.githubusercontent.com/69877857/169406213-db67b0e3-8da3-48e1-ac72-c76135c3e225.png">
+
+
 ### Project Idea/Goal
 
 Pet My Dog will be a web app that allows dog owners to broadcast their location while
