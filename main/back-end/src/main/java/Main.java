@@ -293,13 +293,14 @@ public class Main {
          * Required parameters: {lat, lng}
          *
          * Return json in the format:
-         * {
-         *  lat: 12345678,
-         *  lng: 12349876
-         * }
+         * [
+         *  12345678,
+         *  12349876,
+         *  ...,
+         * ]
          *
-         *  400 error if the person has no corresponding sender or receiver.
-         *  500 error if server fails.
+         *  400 error if given lat or lng is not in (-90, 90) or (-180, 180).
+         *  500 error if failed to get nearby user.
          */
         post("/getNearbyUser", Main::getNearbyUser);
 
@@ -322,10 +323,13 @@ public class Main {
          * Endpoint path: /getOtherUserLocation
          *
          * Return json in the format:
-         *  "updated"
+         *  {
+         *  lat: 12345678,
+         *  lng: 12349876
+         * }
          *
-         *  400 error if parameters are invalid. TODO: throw
-         *  500 error if server fail to update location.
+         *  400 error if no corresponding meeting is accepted.
+         *  500 error if server fails.
          */
         get("/getOtherUserLocation", Main::getOtherUserLocation);
 
