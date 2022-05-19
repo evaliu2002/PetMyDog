@@ -59,12 +59,12 @@
   - Plans and Goals for the Next Week: Work on refining APIs based on feedback and test them thoroughly.
 
 - ##### Steve Ma
-- Goals from last week: Complete the edit user profile feature and revise our beta release based on 
-                        the feedback we have released. 
-- Progress and Issues: I finished working on the edit user profile API and completed testing with Postman to make sure it works.
-                       I also worked on the developer documentation with Anish this week and the backend portion of it. I am currently
-                       working on modifying the Meetup APIs to return user ID for verification.
-- Plans and Goals for the Next Week: Completed modifying the Meetup APIs to meet new frontend requirements.
+    - Goals from last week: Complete the edit user profile feature and revise our beta release based on 
+                            the feedback we have released. 
+    - Progress and Issues: I finished working on the edit user profile API and completed testing with Postman to make sure it works.
+                           I also worked on the developer documentation with Anish this week and the backend portion of it. I am currently
+                           working on modifying the Meetup APIs to return user ID for verification.
+    - Plans and Goals for the Next Week: Completed modifying the Meetup APIs to meet new frontend requirements.
 
 - ##### Wenxuan Liu
   - Goals from last week: Make server run in https, put together front end with a few more endpoints.
