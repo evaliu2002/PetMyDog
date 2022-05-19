@@ -5,8 +5,6 @@ import org.sql2o.Sql2o;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
 
 public class Sql2oModel implements DBUtils.Model {
 
@@ -209,9 +207,13 @@ public class Sql2oModel implements DBUtils.Model {
     @Override
     public List<DBUtils.MeetUp> getMeetUpsForUser(String uid) {
         try (Connection conn = sql2o.beginTransaction()) {
-            List<DBUtils.MeetUp> c = conn.createQuery("SELECT * FROM MeetUp WHERE receiver = :uid;")
+            List<DBUtils.MeetUp> c = conn.createQuery("SELECT * FROM MeetUp WHERE receiver = :uid OR sender = :uid;")
                     .addParameter("uid", uid)
                     .executeAndFetch(DBUtils.MeetUp.class);
+            for (DBUtils.MeetUp m : c) {
+                m.setSenderProfile(getUser(m.getSender()));
+                m.setReceiverProfile(getUser(m.getReceiver()));
+            }
             return c;
         }
     }
@@ -281,12 +283,14 @@ public class Sql2oModel implements DBUtils.Model {
         }
     }
 
-//    @Override
-//    public List<DBUtils.User> getUser(String uid) {
-//        String sql = "SELECT * FROM User WHERE uid = " + uid;
-
-//        try(Connection con = sql2o.open()) {
-//            return con.createQuery(sql).executeAndFetch(DBUtils.User.class);
-//        }
-//    }
+    @Override
+    public DBUtils.MeetUp getMyAcceptedMeetUp(String uid) throws Exception {
+        Connection conn = sql2o.beginTransaction();
+        String query = "SELECT * FROM MeetUp WHERE (sender=:sender or receiver=:receiver) and status='Accepted';";
+        DBUtils.MeetUp c = conn.createQuery(query)
+                .addParameter("sender", uid)
+                .addParameter("receiver", uid)
+                .executeAndFetchFirst(DBUtils.MeetUp.class);
+        return c;
+    }
 }

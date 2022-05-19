@@ -33,6 +33,8 @@ public class DBUtils {
         boolean checkIfMeetUpExists(MeetUp meetUp);
         List<DBUtils.MeetUp> getMeetUpsForUser(String uid);
         void deleteDog(String did);
+
+        MeetUp getMyAcceptedMeetUp(String mid) throws Exception;
     }
 
     @Data
@@ -55,6 +57,8 @@ public class DBUtils {
         private String sender;
         private String receiver;
         private String status;
+        private User senderProfile;
+        private User receiverProfile;
     }
 
     @Data

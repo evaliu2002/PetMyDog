@@ -3,6 +3,8 @@ import mysql.Sql2oModel;
 import com.google.gson.Gson;
 import org.apache.http.HttpHost;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
+import org.elasticsearch.action.get.GetRequest;
+import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
@@ -46,6 +48,7 @@ public class Main {
     private static final long LOCATION_EXPIRE_TIME = 1000 * 60 * 15;
 
     public static void main(String[] args) {
+        secure("keystore.jks", "eq04aqOA", null, null);
 
         /*****************************************     Begin OAuth config     *****************************************/
 
@@ -63,7 +66,7 @@ public class Main {
             profile.addRole("ROLE_ADMIN");
             return Optional.of(profile);
         });
-        oidcClient.setCallbackUrl("http://localhost:4567/callback");
+        oidcClient.setCallbackUrl("https://localhost:4567/callback");
 
         // Security configuration using google client
         Config config = new Config(oidcClient);
@@ -130,11 +133,12 @@ public class Main {
         /***************************************   End Elasticsearch config   *****************************************/
 
 
-
         /*******************************************   Start Security Guard   *****************************************/
+        CorsFilter.apply();
 
-        before("/hello", new SecurityFilter(config, "GoogleClient"));
-        before("/updateLocation", new SecurityFilter(config, "GoogleClient"));
+//        before("/hello", new SecurityFilter(config, "GoogleClient"));
+//        before("/getNearbyUser", new SecurityFilter(config, "GoogleClient"));
+//        before("/updateLocation", new SecurityFilter(config, "GoogleClient"));
 
         after("/callback", (Request request, Response response) -> {
             List<UserProfile> users = getProfiles(request, response);
@@ -169,8 +173,6 @@ public class Main {
 
 
         /********************************************   Start CORS config   *******************************************/
-
-
         options("/*", (request, response) -> {
 
             String accessControlRequestHeaders = request.headers("Access-Control-Request-Headers");
@@ -185,26 +187,7 @@ public class Main {
 
             return "OK";
         });
-
-
-        final Map<String, String> corsHeaders = new HashMap<>();
-        corsHeaders.put("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
-        corsHeaders.put("Access-Control-Allow-Origin", "https://localhost:3000");
-        corsHeaders.put("Access-Control-Allow-Headers", "Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin,");
-        corsHeaders.put("Access-Control-Allow-Credentials", "true");
-
-        Filter filter = new Filter() {
-            @Override
-            public void handle(Request request, Response response) throws Exception {
-                corsHeaders.forEach((key, value) -> {
-                    response.header(key, value);
-                });
-            }
-        };
-        Spark.after(filter);
-
         /********************************************   End CORS config   *********************************************/
-
 
 
         /****************************************   Start Service end pints   *****************************************/
@@ -346,6 +329,20 @@ public class Main {
          *  400 error if no did, field, or value is given.
          */
         put("/editDogProfile", Main::editDogProfile);
+      
+        /**
+         * Endpoint path: /getOtherUserLocation
+         *
+         * Return json in the format:
+         *  {
+         *  lat: 12345678,
+         *  lng: 12349876
+         * }
+         *
+         *  400 error if no corresponding meeting is accepted.
+         *  500 error if server fails.
+         */
+        get("/getOtherUserLocation", Main::getOtherUserLocation);
 
         /******************************************   End Service end pints   *****************************************/
     }
@@ -462,7 +459,7 @@ public class Main {
         // insert meeting information
         UUID id = UUID.randomUUID();
         DBUtils.MeetUp meetUp = new DBUtils.MeetUp(id.toString(),
-                uid, bodyContent.get("receiver"), "Pending");
+                uid, bodyContent.get("receiver"), "Pending", null, null);
         if (!model.checkIfMeetUpExists(meetUp)) {
             model.createMeetUp(meetUp);
             return gson.toJson(id.toString());
@@ -576,6 +573,24 @@ public class Main {
             halt(500, "failed to get nearby user");
         }
         return gson.toJson(result);
+    }
+
+    private static String getOtherUserLocation(Request request, Response response) {
+        try {
+            Gson gson = new Gson();
+            String uid = getUserId(request, response);
+            DBUtils.MeetUp meetup = model.getMyAcceptedMeetUp(uid);
+            String thatUid = uid.equals(meetup.getSender()) ? meetup.getReceiver() : meetup.getSender();
+            GetResponse thatUser = restHighLevelClient.get(new GetRequest(INDEX, thatUid), RequestOptions.DEFAULT);
+            Map<String, Object> sourceAsMap = thatUser.getSourceAsMap();
+            if (System.currentTimeMillis() - (long)sourceAsMap.get("timestamp") < LOCATION_EXPIRE_TIME)
+                return gson.toJson(sourceAsMap.get("location"));
+
+            halt(400, "The other user has left!");
+        } catch (Exception e) {
+            halt(500, "Server error");
+        }
+        return null;
     }
 }
 
