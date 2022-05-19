@@ -28,6 +28,8 @@ public class DBUtils {
         boolean checkIfMeetUpExists(MeetUp meetUp);
         List<DBUtils.MeetUp> getMeetUpsForUser(String uid);
         void deleteDog(String did);
+
+        MeetUp getMyAcceptedMeetUp(String mid) throws Exception;
     }
 
     @Data

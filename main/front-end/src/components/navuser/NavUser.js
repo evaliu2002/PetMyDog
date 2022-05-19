@@ -10,7 +10,26 @@ const NavUser = () => {
     const [dogName, setDogName] = useState("");
     const [dogLocation, setDogLocation] = useState({longitude: 0, latitude: 0});
     const [userLocation, setUserLocation] = useState({longitude: 0, latitude: 0});
-    const [distanceLeft, setDistanceLeft] = useState(0)
+    const [distanceLeft, setDistanceLeft] = useState(0);
+
+
+    const OTHER_USER_LOCATION_URL = "https://localhost:4567/getOtherUserLocation";
+
+    const updateThatUserLocation = () => {
+        fetch(OTHER_USER_LOCATION_URL, {
+            method: 'GET',
+            cache: 'no-cache',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(checkStatus)
+            .then(async (response) => {
+                console.log(await response.json());
+            })
+            .catch(() => {console.log("Location not updated")});
+    };
 
     return (
         <div>
