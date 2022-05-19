@@ -2,8 +2,6 @@ import React, {useEffect, useState} from 'react';
 import { BsFillPersonFill } from "react-icons/bs";
 import { useNavigate } from 'react-router';
 import "./FindDogs.css";
-import MapView from "../mapview/MapView";
-import {forEach} from "react-bootstrap/ElementChildren";
 
 const FindDogs = ({changedDogObj}) => {
     // useNavigate for event handling to other web pages
@@ -38,8 +36,8 @@ const FindDogs = ({changedDogObj}) => {
             let locationInfo = {lat, lng};
             fetch(LOCATION_URL, {
                 method: 'POST',
-                mode: 'no-cors',
                 cache: 'no-cache',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -83,7 +81,6 @@ const FindDogs = ({changedDogObj}) => {
             let locationInfo = {lat, lng};
             fetch(GET_NEARBY_USER_URL, {
                 method: 'POST',
-                mode: 'no-cors',
                 cache: 'no-cache',
                 credentials: 'include',
                 headers: {
@@ -124,8 +121,7 @@ const FindDogs = ({changedDogObj}) => {
     };
 
     useEffect(updateNearbyUsers, []);
-// setInterval(updateNearbyUsers, UPDATE_EVERY_MIN);
-//     updateNearbyUsers();
+    useEffect(updateLocation, []);
 
     return (
         <div className='findDogs'>

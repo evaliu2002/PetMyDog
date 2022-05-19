@@ -12,6 +12,37 @@ const NavUser = () => {
     const [userLocation, setUserLocation] = useState({longitude: 0, latitude: 0});
     const [distanceLeft, setDistanceLeft] = useState(0);
 
+    const OTHER_USER_LOCATION_URL = "https://localhost:4567/getOtherUserLocation";
+
+    /**
+     * Get back-end response
+     * @param response
+     * @returns {Promise<never>|*}
+     */
+    const checkStatus = (response) => {
+        if (response.status >= 200 && response.status < 300 || response.status === 0) {
+            return response;
+        } else {
+            return Promise.reject(new Error(response.status + ": " + response.statusText));
+        }
+    };
+
+    const updateThatUserLocation = () => {
+        fetch(OTHER_USER_LOCATION_URL, {
+            method: 'GET',
+            cache: 'no-cache',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(checkStatus)
+            .then(async (response) => {
+                console.log(await response.json());
+            })
+            .catch(() => {console.log("Location not updated")});
+    };
+
     return (
         <div>
             {/* map */}

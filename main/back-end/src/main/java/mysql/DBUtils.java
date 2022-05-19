@@ -15,6 +15,11 @@ public class DBUtils {
         void updateUserEmail(String uid, String value);
         void updateUserBio(String uid, String value);
         void updateUserPic(String uid, String value);
+        void updateDogName(String did, String value);
+        void updateDogAge(String did, String value);
+        void updateDogGender(String did, String value);
+        void updateDogBreed(String did, String value);
+        void updateDogPic(String did, String value);
         User getUser(String uid);
         void createDog(Dog dog);
 
@@ -27,6 +32,9 @@ public class DBUtils {
         void createMeetUp(MeetUp meetUp);
         boolean checkIfMeetUpExists(MeetUp meetUp);
         List<DBUtils.MeetUp> getMeetUpsForUser(String uid);
+        void deleteDog(String did);
+
+        MeetUp getMyAcceptedMeetUp(String mid) throws Exception;
     }
 
     @Data
@@ -49,13 +57,15 @@ public class DBUtils {
         private String sender;
         private String receiver;
         private String status;
+        private User senderProfile;
+        private User receiverProfile;
     }
 
     @Data
     public class Dog {
         private String did;
         private String name;
-        private int age;
+        private String age;
         private String gender;
         private String breed;
         private String pic_link;
