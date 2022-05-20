@@ -18,9 +18,8 @@ const containerStyle = {
  * @returns {JSX.Element}
  * @constructor
  */
-function Map(prop) {
+function Map(props) {
     const WAIT_15_SECONDS = 1000 * 15;
-    const OTHER_USER_LOCATION_URL = "https://localhost:4567/getOtherUserLocation";
 
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
@@ -32,38 +31,7 @@ function Map(prop) {
         lat: 47.659057,
         lng: -122.308705
     });
-    const [thatUser, setThatUser] = useState();
     const [dir, setDir] = useState();
-
-    const updateThatUserLocation = () => {
-        if (prop.thatUser) {
-            fetch(OTHER_USER_LOCATION_URL, {
-                cache: 'no-cache',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            })
-                .then(checkStatus)
-                .then(async (response) => {
-                    setThatUser(await response.json());
-                })
-                .catch(() => {alert("Owner user's location is unavailable!")});
-        }
-    };
-
-    /**
-     * Get back-end response
-     * @param response
-     * @returns {Promise<never>|*}
-     */
-    const checkStatus = (response) => {
-        if (response.status >= 200 && response.status < 300 || response.status === 0) {
-            return response;
-        } else {
-            return Promise.reject(new Error(response.status + ": " + response.statusText));
-        }
-    };
 
     const updateThisUserLocation = () => {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -75,18 +43,16 @@ function Map(prop) {
     // Getting the position of the current user
     useEffect(() => {
         updateThisUserLocation();
-        updateThatUserLocation();
         setInterval(updateThisUserLocation, WAIT_15_SECONDS);
-        setInterval(updateThatUserLocation, WAIT_15_SECONDS);
     }, []);
 
     useEffect(() => {
-        if (thatUser && isLoaded) {
+        if (props.thatUserLocation && props.thatUser && isLoaded) {
             const directionsService = new window.google.maps.DirectionsService();
             directionsService.route(
                 {
                     origin: thisUser,
-                    destination: thatUser,
+                    destination: props.thatUserLocation,
                     travelMode: window.google.maps.TravelMode.WALKING
                 },
                 (result, status) => {
@@ -98,7 +64,7 @@ function Map(prop) {
                 }
             );
         }
-    }, [thisUser, thatUser]);
+    }, [thisUser]);
 
     const [map, setMap] = React.useState(null)
 
@@ -132,7 +98,7 @@ function Map(prop) {
             fillColor={"#FF0000"}
             fillOpacity={0.35}
             center={{lat: thisUser.lat, lng: thisUser.lng}}
-            radius={300}
+            radius={500}
         />
         <DirectionsRenderer
             directions={dir}

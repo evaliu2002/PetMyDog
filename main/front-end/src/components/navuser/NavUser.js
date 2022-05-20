@@ -1,18 +1,53 @@
 import React, { useState } from 'react';
 import { BsFillTelephoneFill, BsFillPinMapFill, BsArrowUpCircleFill } from "react-icons/bs";
+import {useNavigate} from "react-router";
 
-const NavUser = (prop) => {
+const NavUser = (props) => {
+
+    const OTHER_USER_LOCATION_URL = "https://localhost:4567/getOtherUserLocation";
+    const navigate = useNavigate();
+
+    const updateThatUserLocation = () => {
+        fetch(OTHER_USER_LOCATION_URL, {
+            cache: 'no-cache',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(checkStatus)
+            .then(async (response) => {
+                props.setThatUserLocation(await response.json());
+            })
+            .catch(() => {alert("Owner's location is unavailable!")});
+    };
+
+    /**
+     * Get back-end response
+     * @param response
+     * @returns {Promise<never>|*}
+     */
+    const checkStatus = (response) => {
+        if (response.status >= 200 && response.status < 300 || response.status === 0) {
+            return response;
+        } else {
+            return Promise.reject(new Error(response.status + ": " + response.statusText));
+        }
+    };
 
     return (
         <div>
-            <h3> You are heading to { prop.thatUser.username }</h3>
+            <button onClick={ () => navigate("/map-view/find-dogs") }>Return to search dogs</button>
+            <button onClick={ () => navigate("/owner-profile") }>View profile</button>
 
-            <h5> { prop.thatUser.username } </h5> <br />
+            <h3> You are heading to { props.thatUser.username }</h3>
+
+            <h5> { props.thatUser.username } </h5> <br />
             <p> Dog Owner contact: </p>
 
             <BsFillTelephoneFill />
-            <h4> { prop.thatUser.phone } </h4>
-            <h4> { prop.thatUser.email } </h4>
+            <h4> { props.thatUser.phone } </h4>
+            <h4> { props.thatUser.email } </h4>
 
             <BsFillPinMapFill />
             <p>
@@ -20,6 +55,7 @@ const NavUser = (prop) => {
                 It is possible for the owner's location to be unavailable. If you do not want to wait until it becomes
                 available, go back to request list and cancel this meet up.
             </p>
+            <button onClick={updateThatUserLocation}>Refresh location and suggested path.</button>
         </div>
     );
 }
