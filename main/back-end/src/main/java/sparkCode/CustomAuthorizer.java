@@ -1,3 +1,5 @@
+package sparkCode;
+
 import org.pac4j.core.authorization.authorizer.ProfileAuthorizer;
 import org.pac4j.core.context.WebContext;
 import org.pac4j.core.context.session.SessionStore;
