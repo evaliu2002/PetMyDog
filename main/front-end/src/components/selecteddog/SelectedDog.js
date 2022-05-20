@@ -58,17 +58,6 @@ const SelectedDog = ({dogObj}) => {
                     <Button variant="primary" onClick={dogRequests}>Go to Dog</Button>
                 </Card.Body>
             </Card>
-            {/*<h3>{ dogObj.name }</h3>*/}
-
-
-
-            {/*<h5>About { dogObj.name }</h5>*/}
-            {/*<p>Age: { dogObj.age }</p>*/}
-            {/*<p>Breed: { dogObj.breed }</p>*/}
-
-            {/* <img></img> */}
-
-            {/*<button onClick={navUser}>Go to Dog</button>*/}
         </div>
     );
 }

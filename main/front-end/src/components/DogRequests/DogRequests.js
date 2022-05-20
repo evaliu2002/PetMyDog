@@ -13,12 +13,11 @@ const DogRequests = () => {
         navigate("/map-view/find-dogs")
     }
     const navOwner = () => {
-        navigate("/nav-owner")
+        navigate("/map-view/nav-owner")
     }
 
     const [noMeetUp, setNoMeetUp] = useState("");
     const [requests, setRequests] = useState([]);
-    let displayReq = [];
     const UPDATE_EVERY_MIN = 10 * 1000;
 
     /**
@@ -36,13 +35,16 @@ const DogRequests = () => {
 
     const REQ_MEET_URL = "https://localhost:4567/meetups";
 
+    const MY_PROF_URL = "https://localhost:4567/getMyProfile"
+
     /**
      * Getting requests from users from back-end endpoint
      */
     const requestMeetup = () => {
+        let userProfileUID;
         let reqArr = [];
         let dogArr = [];
-        fetch(REQ_MEET_URL, {
+        fetch(MY_PROF_URL, {
             cache: 'no-cache',
             credentials: 'include',
             headers: {
@@ -51,17 +53,32 @@ const DogRequests = () => {
         })
             .then(checkStatus)
             .then(async (response) => {
-                let reqObj = (await response.json());
-                console.log(reqObj)
-                for (let i = 0; i < reqObj.length; i++) {
-                    // reqObj.receiver
-
-                }
-
-                // reqArr.concat(JSON.stringify(reqObj))
-                setRequests(reqArr)
+                let userProfile = (await response.json());
+                userProfileUID = userProfile.uid;
+                console.log("uid: " + JSON.stringify(userProfileUID))
             })
-            // .then(navOwner)
+        fetch(REQ_MEET_URL, {
+            cache: 'no-cache',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userProfileUID)
+        })
+            .then(checkStatus)
+            .then(async (response) => {
+                let reqObj = (await response.json());
+                console.log("reqObj: " + reqObj)
+                if (reqObj !== "No meetups") {
+                    for (let i = 0; i < reqObj.length; i++) {
+                        dogArr.push(JSON.stringify(reqObj[i]))
+                    }
+                }
+                console.log("dogArr: " + dogArr)
+                reqArr.concat(JSON.stringify(reqObj))
+                setRequests(dogArr)
+                console.log("requests: " + requests);
+            })
             .catch(() => {console.log("Receiving meetup request failed")})
     }
 
@@ -108,17 +125,18 @@ const DogRequests = () => {
             <button onClick={findDogs}>Petter Mode</button>
             <BsFillPersonFill onClick={ownerProfile}/>
             <h4>Petting Requests</h4>
-            <div id={JSON.stringify(noMeetUp)}>
-                <p>{JSON.stringify(noMeetUp)}</p>
-                <button onClick={acceptRequest}>Yes</button>
-                <button onClick={rejectMeetup}>No</button>
-            </div>
-            {/*{requests.map(req =>*/}
-            {/*    <div id={JSON.stringify(req)}>*/}
-            {/*        {req}*/}
-            {/*        <button onClick={acceptRequest}>Yes</button>*/}
-            {/*        <button onClick={rejectMeetup}>No</button>*/}
-            {/*    </div>)}*/}
+            {/*<div id={JSON.stringify(noMeetUp)}>*/}
+            {/*    <p>{JSON.stringify(noMeetUp)}</p>*/}
+            {/*    <button onClick={acceptRequest}>Yes</button>*/}
+            {/*    <button onClick={rejectMeetup}>No</button>*/}
+            {/*</div>*/}
+                {requests.map(req =>
+                    <div id={JSON.stringify(req)}>
+                        {JSON.stringify(req)}
+                        <button onClick={acceptRequest}>Yes</button>
+                        <button onClick={rejectMeetup}>No</button>
+                    </div>)}
+                {console.log(requests)}
         </div>
     );
 }
