@@ -1,55 +1,25 @@
 import React, { useState } from 'react';
 import { BsFillTelephoneFill, BsFillPinMapFill, BsArrowUpCircleFill } from "react-icons/bs";
 
-const NavUser = () => {
-    // List of possible states
-    const [selectedDog, setSelectedDog] = useState();
-    const [userName, setUserName] = useState("");
-    const [ownerName, setOwnerName] = useState("");
-    const [ownerPhoneNum, setOwnerPhoneNum] = useState("");
-    const [dogName, setDogName] = useState("");
-    const [dogLocation, setDogLocation] = useState({longitude: 0, latitude: 0});
-    const [userLocation, setUserLocation] = useState({longitude: 0, latitude: 0});
-    const [distanceLeft, setDistanceLeft] = useState(0);
-
-
-    const OTHER_USER_LOCATION_URL = "https://localhost:4567/getOtherUserLocation";
-
-    const updateThatUserLocation = () => {
-        fetch(OTHER_USER_LOCATION_URL, {
-            method: 'GET',
-            cache: 'no-cache',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
-            .then(checkStatus)
-            .then(async (response) => {
-                console.log(await response.json());
-            })
-            .catch(() => {console.log("Location not updated")});
-    };
+const NavUser = (prop) => {
 
     return (
         <div>
-            {/* map */}
-            <h3> { userName } is heading to { ownerName }</h3>
+            <h3> You are heading to { prop.thatUser.username }</h3>
 
-            <h5> { ownerName } </h5> <br />
-            <p> Dog Owner </p>
+            <h5> { prop.thatUser.username } </h5> <br />
+            <p> Dog Owner contact: </p>
 
             <BsFillTelephoneFill />
-            <h4> { ownerPhoneNum } </h4>
+            <h4> { prop.thatUser.phone } </h4>
+            <h4> { prop.thatUser.email } </h4>
 
             <BsFillPinMapFill />
-            <p> Location of { dogName }:
-            { dogLocation.longitude }, { dogLocation.latitude }</p>
-
-            <BsArrowUpCircleFill />
-            <p> Distance Left: { distanceLeft } </p>
-
-            <button>Cancel the Meeting</button>
+            <p>
+                Location: You will see a Pin on map and path to that Pin when the owner's location is available.
+                It is possible for the owner's location to be unavailable. If you do not want to wait until it becomes
+                available, go back to request list and cancel this meet up.
+            </p>
         </div>
     );
 }

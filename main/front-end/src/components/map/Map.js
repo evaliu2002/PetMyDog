@@ -18,32 +18,66 @@ const containerStyle = {
  * @returns {JSX.Element}
  * @constructor
  */
-function Map(ownerObj) {
+function Map(prop) {
+    const WAIT_15_SECONDS = 1000 * 15;
+    const OTHER_USER_LOCATION_URL = "https://localhost:4567/getOtherUserLocation";
+
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
         googleMapsApiKey: "AIzaSyB3i1uDupa_wlGSIrkv9Wfzj0Wfhx4dgxA"
     })
 
-    // Creating current user location state
+    // Creating current user location state, that user location state, and path to that user.
     const [thisUser, setThisUser] = useState({
-        lat: -3.745,
-        lng: -38.523
+        lat: 47.659057,
+        lng: -122.308705
     });
-
-    // const [thatUser, setThatUser] = useState(ownerObj);
-    const [thatUser, setThatUser] = useState({
-        lat: 47.662563,
-        lng: -122.297353
-    });
+    const [thatUser, setThatUser] = useState();
     const [dir, setDir] = useState();
 
-    // Getting the position of the current user
-    useEffect(() => {
+    const updateThatUserLocation = () => {
+        if (prop.thatUser) {
+            fetch(OTHER_USER_LOCATION_URL, {
+                cache: 'no-cache',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+                .then(checkStatus)
+                .then(async (response) => {
+                    setThatUser(await response.json());
+                })
+                .catch(() => {alert("Owner user's location is unavailable!")});
+        }
+    };
+
+    /**
+     * Get back-end response
+     * @param response
+     * @returns {Promise<never>|*}
+     */
+    const checkStatus = (response) => {
+        if (response.status >= 200 && response.status < 300 || response.status === 0) {
+            return response;
+        } else {
+            return Promise.reject(new Error(response.status + ": " + response.statusText));
+        }
+    };
+
+    const updateThisUserLocation = () => {
         navigator.geolocation.getCurrentPosition((position) => {
             let lat = position.coords.latitude;
             let lng = position.coords.longitude;
             setThisUser({lat, lng});
         });
+    }
+    // Getting the position of the current user
+    useEffect(() => {
+        updateThisUserLocation();
+        updateThatUserLocation();
+        setInterval(updateThisUserLocation, WAIT_15_SECONDS);
+        setInterval(updateThatUserLocation, WAIT_15_SECONDS);
     }, []);
 
     useEffect(() => {
