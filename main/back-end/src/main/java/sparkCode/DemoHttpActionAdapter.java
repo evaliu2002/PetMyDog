@@ -1,3 +1,5 @@
+package sparkCode;
+
 import org.pac4j.core.context.HttpConstants;
 import org.pac4j.core.context.WebContext;
 import org.pac4j.core.exception.TechnicalException;

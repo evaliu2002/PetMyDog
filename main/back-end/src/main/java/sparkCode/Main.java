@@ -1,3 +1,5 @@
+package sparkCode;
+
 import mysql.DBUtils;
 import mysql.Sql2oModel;
 import com.google.gson.Gson;
@@ -28,7 +30,6 @@ import org.pac4j.jee.context.session.JEESessionStore;
 import org.pac4j.oidc.client.OidcClient;
 import org.pac4j.oidc.config.OidcConfiguration;
 import org.pac4j.sparkjava.CallbackRoute;
-import org.pac4j.sparkjava.SecurityFilter;
 import org.pac4j.sparkjava.SparkHttpActionAdapter;
 import org.pac4j.sparkjava.SparkWebContext;
 import spark.*;
@@ -53,7 +54,7 @@ public class Main {
 
         if (DEPLOYMENT) {
             staticFiles.externalLocation("/home/wenxuanliu/testing/public");
-            port(80); // Spark will run on port 80
+            port(443);
         }
 
         /*****************************************     Begin OAuth config     *****************************************/
@@ -73,7 +74,7 @@ public class Main {
             return Optional.of(profile);
         });
         if (DEPLOYMENT) {
-            oidcClient.setCallbackUrl("http://petmydog.fun/callback");
+            oidcClient.setCallbackUrl("https://petmydog.fun/callback");
         } else {
             oidcClient.setCallbackUrl("https://localhost:4567/callback");
         }
