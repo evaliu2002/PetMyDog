@@ -1,23 +1,14 @@
 import React, { useState } from 'react';
 import { BsFillTelephoneFill, BsFillPinMapFill, BsArrowUpCircleFill } from "react-icons/bs";
+import {useNavigate} from "react-router";
 
-const NavUser = () => {
-    // List of possible states
-    const [selectedDog, setSelectedDog] = useState();
-    const [userName, setUserName] = useState("");
-    const [ownerName, setOwnerName] = useState("");
-    const [ownerPhoneNum, setOwnerPhoneNum] = useState("");
-    const [dogName, setDogName] = useState("");
-    const [dogLocation, setDogLocation] = useState({longitude: 0, latitude: 0});
-    const [userLocation, setUserLocation] = useState({longitude: 0, latitude: 0});
-    const [distanceLeft, setDistanceLeft] = useState(0);
-
+const NavUser = (props) => {
 
     const OTHER_USER_LOCATION_URL = "https://localhost:4567/getOtherUserLocation";
+    const navigate = useNavigate();
 
     const updateThatUserLocation = () => {
         fetch(OTHER_USER_LOCATION_URL, {
-            method: 'GET',
             cache: 'no-cache',
             credentials: 'include',
             headers: {
@@ -26,30 +17,45 @@ const NavUser = () => {
         })
             .then(checkStatus)
             .then(async (response) => {
-                console.log(await response.json());
+                props.setThatUserLocation(await response.json());
             })
-            .catch(() => {console.log("Location not updated")});
+            .catch(() => {alert("Owner's location is unavailable!")});
+    };
+
+    /**
+     * Get back-end response
+     * @param response
+     * @returns {Promise<never>|*}
+     */
+    const checkStatus = (response) => {
+        if (response.status >= 200 && response.status < 300 || response.status === 0) {
+            return response;
+        } else {
+            return Promise.reject(new Error(response.status + ": " + response.statusText));
+        }
     };
 
     return (
         <div>
-            {/* map */}
-            <h3> { userName } is heading to { ownerName }</h3>
+            <button onClick={ () => navigate("/map-view/find-dogs") }>Return to search dogs</button>
+            <button onClick={ () => navigate("/owner-profile") }>View profile</button>
 
-            <h5> { ownerName } </h5> <br />
-            <p> Dog Owner </p>
+            <h3> You are heading to { props.thatUser.username }</h3>
+
+            <h5> { props.thatUser.username } </h5> <br />
+            <p> Dog Owner contact: </p>
 
             <BsFillTelephoneFill />
-            <h4> { ownerPhoneNum } </h4>
+            <h4> { props.thatUser.phone } </h4>
+            <h4> { props.thatUser.email } </h4>
 
             <BsFillPinMapFill />
-            <p> Location of { dogName }:
-            { dogLocation.longitude }, { dogLocation.latitude }</p>
-
-            <BsArrowUpCircleFill />
-            <p> Distance Left: { distanceLeft } </p>
-
-            <button>Cancel the Meeting</button>
+            <p>
+                Location: You will see a Pin on map and path to that Pin when the owner's location is available.
+                It is possible for the owner's location to be unavailable. If you do not want to wait until it becomes
+                available, go back to request list and cancel this meet up.
+            </p>
+            <button onClick={updateThatUserLocation}>Refresh location and suggested path.</button>
         </div>
     );
 }
