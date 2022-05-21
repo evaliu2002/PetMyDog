@@ -21,7 +21,7 @@ public class DBUtils {
         void updateDogBreed(String did, String value);
         void updateDogPic(String did, String value);
         User getUser(String uid);
-        void createDog(Dog dog);
+        void createDog(String did, Dog dog);
 
         List<Dog> getDog(String did);
 

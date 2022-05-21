@@ -438,7 +438,8 @@ public class Main {
 
     private static String createDogProfile(Request request, Response response) {
         Gson gson = new Gson();
-        model.createDog(gson.fromJson(request.body(), DBUtils.Dog.class));
+        UUID did = UUID.randomUUID();
+        model.createDog(did.toString(), gson.fromJson(request.body(), DBUtils.Dog.class));
         return gson.toJson("Success");
     }
 

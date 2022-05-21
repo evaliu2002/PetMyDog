@@ -245,12 +245,12 @@ public class Sql2oModel implements DBUtils.Model {
     }
 
     @Override
-    public void createDog(DBUtils.Dog dog) {
+    public void createDog(String did, DBUtils.Dog dog) {
         String insert = "INSERT INTO Dog " +
                 "VALUES (:did, :name, :age, :gender, :breed, :pic_link)";
         try (Connection conn = sql2o.beginTransaction()) {
             conn.createQuery(insert)
-                    .addParameter("did", dog.getDid())
+                    .addParameter("did", did)
                     .addParameter("name", dog.getName())
                     .addParameter("age", dog.getAge())
                     .addParameter("gender", dog.getGender())
