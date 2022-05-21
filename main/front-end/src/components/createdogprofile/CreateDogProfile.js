@@ -11,7 +11,7 @@ function CreateDogProfile () {
     const [breed, setBreed] = useState("");
     const [gender, setGender] = useState("");
     const [piclink, setpicLink] = useState("https://www.pumpkin.care/dog-breeds/wp-content/uploads/2021/03/Husky-Hero.png");
-    const [id, setID] = useState("id");
+    const [did, setDid] = useState(15);
 
 
 
@@ -20,7 +20,7 @@ function CreateDogProfile () {
 
 
     const onSubmit = () => {
-        let dogObject = {id, name, age, breed, gender, piclink};
+        let dogObject = {did, name, age, breed, gender, piclink};
         fetch(CREATE_DOG_PROFILE, {
             method: 'POST',
             cache: 'no-cache',
@@ -31,7 +31,7 @@ function CreateDogProfile () {
         })
             .then(checkStatus)
             .then(() => {console.log("Name: " + name + "Age: "+ age + "Breed: " +
-                breed + "Gender: " + gender + "Id: " + id + "Piclink: "+ piclink);})
+                breed + "Gender: " + gender + "Id: " + 15 + "Piclink: "+ piclink);})
             .catch(() => {console.log("Dog's info not updated")} )
 
         navigate("/owner-profile")
