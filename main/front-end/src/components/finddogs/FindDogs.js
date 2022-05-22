@@ -102,13 +102,11 @@ const FindDogs = ({changedDogObj}) => {
                             // .then(console.log)
                             .then(async (response) => {
                                 let userObj = await response.json();
-                                console.log(userObj);
                                 let userDog = userObj.dogs;
                                 for (let i = 0; i < userDog.length; i++) {
                                     userDog[i].ownerID = userObj.uid;
                                 }
                                 displayDogs = displayDogs.concat(userObj.dogs);
-                                console.log(userObj.dogs);
                             })
                         fetches.push(currentFetch);
                     }

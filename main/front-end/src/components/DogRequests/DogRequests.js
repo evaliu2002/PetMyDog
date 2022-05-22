@@ -16,8 +16,9 @@ const DogRequests = () => {
         navigate("/map-view/nav-owner")
     }
 
-    const [noMeetUp, setNoMeetUp] = useState("");
     const [requests, setRequests] = useState([]);
+    const [sender, setSender] = useState([]);
+    const [receiver, setReceiver] = useState([]);
     const UPDATE_EVERY_MIN = 10 * 1000;
 
     /**
@@ -43,7 +44,6 @@ const DogRequests = () => {
     const requestMeetup = () => {
         let userProfileUID;
         let reqArr = [];
-        let dogArr = [];
         fetch(MY_PROF_URL, {
             cache: 'no-cache',
             credentials: 'include',
@@ -55,7 +55,6 @@ const DogRequests = () => {
             .then(async (response) => {
                 let userProfile = (await response.json());
                 userProfileUID = userProfile.uid;
-                console.log("uid: " + JSON.stringify(userProfileUID))
             })
         fetch(REQ_MEET_URL, {
             cache: 'no-cache',
@@ -68,23 +67,22 @@ const DogRequests = () => {
             .then(checkStatus)
             .then(async (response) => {
                 let reqObj = (await response.json());
-                console.log("reqObj: " + reqObj)
                 if (reqObj !== "No meetups") {
                     for (let i = 0; i < reqObj.length; i++) {
-                        dogArr.push(JSON.stringify(reqObj[i]))
+                        reqArr.push(reqObj[i].senderProfile.username +
+                            " would like to request to pet " +
+                            reqObj[i].receiverProfile.username +
+                        "'s dog")
                     }
                 }
-                console.log("dogArr: " + dogArr)
-                reqArr.concat(JSON.stringify(reqObj))
-                setRequests(dogArr)
-                console.log("requests: " + requests);
+                setRequests(reqArr)
             })
             .catch(() => {console.log("Receiving meetup request failed")})
     }
 
     const ACPT_MEET_URL = "https://localhost:4567/acceptMeetup";
 
-    const acceptRequest = () => {
+    function acceptRequest ({mid}) {
         fetch(ACPT_MEET_URL, {
             method: 'POST',
             mode: 'no-cors',
@@ -93,9 +91,10 @@ const DogRequests = () => {
             headers: {
                 'Content-Type': 'application/json'
             },
+            body: JSON.stringify(mid)
         })
             .then(checkStatus)
-            .then(navOwner)
+            .then(() => navOwner)
             .then(() => {console.log("Accepted Meetup")})
             .catch(() => {console.log("Accepting meetup failed")})
     }
@@ -125,18 +124,13 @@ const DogRequests = () => {
             <button onClick={findDogs}>Petter Mode</button>
             <BsFillPersonFill onClick={ownerProfile}/>
             <h4>Petting Requests</h4>
-            {/*<div id={JSON.stringify(noMeetUp)}>*/}
-            {/*    <p>{JSON.stringify(noMeetUp)}</p>*/}
-            {/*    <button onClick={acceptRequest}>Yes</button>*/}
-            {/*    <button onClick={rejectMeetup}>No</button>*/}
-            {/*</div>*/}
-                {requests.map(req =>
-                    <div id={JSON.stringify(req)}>
-                        {JSON.stringify(req)}
-                        <button onClick={acceptRequest}>Yes</button>
-                        <button onClick={rejectMeetup}>No</button>
-                    </div>)}
-                {console.log(requests)}
+            {requests.map(req =>
+                <div>
+                    {req}
+                    <br />
+                    <button onClick={acceptRequest({mid: req.mid})}>Yes</button>
+                    <button onClick={rejectMeetup}>No</button>
+                </div>)}
         </div>
     );
 }
