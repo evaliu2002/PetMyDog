@@ -18,41 +18,41 @@ const containerStyle = {
  * @returns {JSX.Element}
  * @constructor
  */
-function Map(ownerObj) {
+function Map(props) {
+    const WAIT_15_SECONDS = 1000 * 15;
+
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
         googleMapsApiKey: "AIzaSyB3i1uDupa_wlGSIrkv9Wfzj0Wfhx4dgxA"
     })
 
-    // Creating current user location state
+    // Creating current user location state, that user location state, and path to that user.
     const [thisUser, setThisUser] = useState({
-        lat: -3.745,
-        lng: -38.523
-    });
-
-    // const [thatUser, setThatUser] = useState(ownerObj);
-    const [thatUser, setThatUser] = useState({
-        lat: 47.662563,
-        lng: -122.297353
+        lat: 47.659057,
+        lng: -122.308705
     });
     const [dir, setDir] = useState();
 
-    // Getting the position of the current user
-    useEffect(() => {
+    const updateThisUserLocation = () => {
         navigator.geolocation.getCurrentPosition((position) => {
             let lat = position.coords.latitude;
             let lng = position.coords.longitude;
             setThisUser({lat, lng});
         });
+    }
+    // Getting the position of the current user
+    useEffect(() => {
+        updateThisUserLocation();
+        setInterval(updateThisUserLocation, WAIT_15_SECONDS);
     }, []);
 
     useEffect(() => {
-        if (thatUser && isLoaded) {
+        if (props.thatUserLocation && props.thatUser && isLoaded) {
             const directionsService = new window.google.maps.DirectionsService();
             directionsService.route(
                 {
                     origin: thisUser,
-                    destination: thatUser,
+                    destination: props.thatUserLocation,
                     travelMode: window.google.maps.TravelMode.WALKING
                 },
                 (result, status) => {
@@ -64,7 +64,7 @@ function Map(ownerObj) {
                 }
             );
         }
-    }, [thisUser, thatUser]);
+    }, [thisUser]);
 
     const [map, setMap] = React.useState(null)
 
@@ -97,7 +97,7 @@ function Map(ownerObj) {
             fillColor={"#FF0000"}
             fillOpacity={0.35}
             center={{lat: thisUser.lat, lng: thisUser.lng}}
-            radius={300}
+            radius={500}
         />
         <DirectionsRenderer
             directions={dir}

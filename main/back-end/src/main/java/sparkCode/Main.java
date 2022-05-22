@@ -1,3 +1,5 @@
+package sparkCode;
+
 import mysql.DBUtils;
 import mysql.Sql2oModel;
 import com.google.gson.Gson;
@@ -28,7 +30,6 @@ import org.pac4j.jee.context.session.JEESessionStore;
 import org.pac4j.oidc.client.OidcClient;
 import org.pac4j.oidc.config.OidcConfiguration;
 import org.pac4j.sparkjava.CallbackRoute;
-import org.pac4j.sparkjava.SecurityFilter;
 import org.pac4j.sparkjava.SparkHttpActionAdapter;
 import org.pac4j.sparkjava.SparkWebContext;
 import spark.*;
@@ -46,9 +47,15 @@ public class Main {
     private static final String INDEX = "location";
     private static RestHighLevelClient restHighLevelClient;
     private static final long LOCATION_EXPIRE_TIME = 1000 * 60 * 15;
+    private static final boolean DEPLOYMENT = false;
 
     public static void main(String[] args) {
         secure("keystore.jks", "eq04aqOA", null, null);
+
+        if (DEPLOYMENT) {
+            staticFiles.externalLocation("/home/wenxuanliu/testing/public");
+            port(443);
+        }
 
         /*****************************************     Begin OAuth config     *****************************************/
 
@@ -66,7 +73,11 @@ public class Main {
             profile.addRole("ROLE_ADMIN");
             return Optional.of(profile);
         });
-        oidcClient.setCallbackUrl("https://localhost:4567/callback");
+        if (DEPLOYMENT) {
+            oidcClient.setCallbackUrl("https://petmydog.fun/callback");
+        } else {
+            oidcClient.setCallbackUrl("https://localhost:4567/callback");
+        }
 
         // Security configuration using google client
         Config config = new Config(oidcClient);
@@ -74,7 +85,12 @@ public class Main {
         config.setHttpActionAdapter(new DemoHttpActionAdapter());
 
         // Set up call back end points
-        CallbackRoute callback = new CallbackRoute(config, "https://localhost:3000", true);
+        CallbackRoute callback = null;
+        if (DEPLOYMENT) {
+            callback = new CallbackRoute(config, "https://petmydog.fun", true);
+        } else {
+            callback = new CallbackRoute(config, "https://localhost:3000", true);
+        }
         get("/callback", callback);
         post("/callback", callback);
 
@@ -89,6 +105,7 @@ public class Main {
         /*****************************************     END SQL config     *****************************************/
 
         /*************************************   Start Elasticsearch config   *****************************************/
+
         restHighLevelClient = new RestHighLevelClient(RestClient.builder(new HttpHost(HOST, PORT_ONE, SCHEME)));
 
         DeleteIndexRequest deleteIndexRequest = new DeleteIndexRequest(INDEX);
@@ -133,8 +150,29 @@ public class Main {
         /***************************************   End Elasticsearch config   *****************************************/
 
 
+        /********************************************   Start CORS config   *******************************************/
+        if (!DEPLOYMENT) {
+            CorsFilter.apply();
+
+            options("/*", (request, response) -> {
+
+                String accessControlRequestHeaders = request.headers("Access-Control-Request-Headers");
+                if (accessControlRequestHeaders != null) {
+                    response.header("Access-Control-Allow-Headers", accessControlRequestHeaders);
+                }
+
+                String accessControlRequestMethod = request.headers("Access-Control-Request-Method");
+                if (accessControlRequestMethod != null) {
+                    response.header("Access-Control-Allow-Methods", accessControlRequestMethod);
+                }
+
+                return "OK";
+            });
+        }
+        /********************************************   End CORS config   *********************************************/
+
+
         /*******************************************   Start Security Guard   *****************************************/
-        CorsFilter.apply();
 
 //        before("/hello", new SecurityFilter(config, "GoogleClient"));
 //        before("/getNearbyUser", new SecurityFilter(config, "GoogleClient"));
@@ -172,27 +210,7 @@ public class Main {
         /******************************************    End Security Guard     *****************************************/
 
 
-        /********************************************   Start CORS config   *******************************************/
-        options("/*", (request, response) -> {
-
-            String accessControlRequestHeaders = request.headers("Access-Control-Request-Headers");
-            if (accessControlRequestHeaders != null) {
-                response.header("Access-Control-Allow-Headers", accessControlRequestHeaders);
-            }
-
-            String accessControlRequestMethod = request.headers("Access-Control-Request-Method");
-            if (accessControlRequestMethod != null) {
-                response.header("Access-Control-Allow-Methods", accessControlRequestMethod);
-            }
-
-            return "OK";
-        });
-        /********************************************   End CORS config   *********************************************/
-
-
         /****************************************   Start Service end pints   *****************************************/
-
-        get("/hello", Main::getProfiles);
 
         get("/login", (req, res) -> {
             final SparkWebContext context = new SparkWebContext(req, res);
@@ -592,6 +610,8 @@ public class Main {
         }
         return null;
     }
-}
 
     /****************************************   End utils   *****************************************/
+
+}
+
