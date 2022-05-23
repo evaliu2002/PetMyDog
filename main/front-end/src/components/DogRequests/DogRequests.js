@@ -92,7 +92,7 @@ const DogRequests = () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(mid.mid)
+            body: JSON.stringify(mid)
         })
             .then(checkStatus)
             .then(navOwner)
@@ -116,7 +116,7 @@ const DogRequests = () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(mid.mid)
+            body: JSON.stringify(mid)
         })
             .then(checkStatus)
             .then(navOwner)
@@ -136,8 +136,8 @@ const DogRequests = () => {
                 <div>
                     {req}
                     <br />
-                    <button onClick={() => {acceptRequest(req.mid)}}>Yes</button>
-                    <button onClick={() => {rejectMeetup(req.mid)}}>No</button>
+                    <button onClick={() => {acceptRequest(req.mid);}}>Yes</button>
+                    <button onClick={() => {rejectMeetup(req.mid);}}>No</button>
                 </div>)}
         </div>
     );
