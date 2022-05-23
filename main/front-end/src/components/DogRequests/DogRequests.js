@@ -92,7 +92,7 @@ const DogRequests = () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(mid)
+            body: JSON.stringify({mid: mid})
         })
             .then(checkStatus)
             .then(navOwner)
@@ -116,7 +116,7 @@ const DogRequests = () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(mid)
+            body: JSON.stringify({mid: mid})
         })
             .then(checkStatus)
             .then(navOwner)
