@@ -98,7 +98,7 @@ const DogRequests = () => {
             .then(navOwner)
             .then(() => {console.log("Accepted Meetup")})
             .catch(() => {console.log("Accepting meetup failed")})
-        return mid.mid;
+        return mid;
     }
 
     const REJC_MEET_URL = "https://localhost:4567/rejectMeetup";
@@ -122,7 +122,7 @@ const DogRequests = () => {
             .then(navOwner)
             .then(() => {console.log("Rejected Meetup")})
             .catch(() => {console.log("Rejecting meetup failed")})
-        return mid.mid;
+        return mid;
     }
 
     useEffect(requestMeetup, []);
