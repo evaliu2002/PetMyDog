@@ -82,7 +82,7 @@ const DogRequests = () => {
 
     const ACPT_MEET_URL = "https://localhost:4567/acceptMeetup";
 
-    const acceptRequest  = (mid)  => {
+    const acceptRequest = (mid)  => {
         fetch(ACPT_MEET_URL, {
             method: 'POST',
             mode: 'no-cors',
@@ -102,7 +102,7 @@ const DogRequests = () => {
 
     const REJC_MEET_URL = "https://localhost:4567/rejectMeetup";
 
-    const rejectMeetup = () => {
+    const rejectMeetup = (mid) => {
         fetch(REJC_MEET_URL, {
             method: 'POST',
             mode: 'no-cors',
@@ -111,11 +111,13 @@ const DogRequests = () => {
             headers: {
                 'Content-Type': 'application/json'
             },
+            body: JSON.stringify(mid.mid)
         })
             .then(checkStatus)
             .then(navOwner)
             .then(() => {console.log("Rejected Meetup")})
             .catch(() => {console.log("Rejecting meetup failed")})
+        return mid.mid;
     }
 
     useEffect(requestMeetup, []);
@@ -130,7 +132,7 @@ const DogRequests = () => {
                     {req}
                     <br />
                     <button onClick={acceptRequest({mid: req.mid})}>Yes</button>
-                    <button onClick={rejectMeetup}>No</button>
+                    <button onClick={rejectMeetup({mid: req.mid})}>No</button>
                 </div>)}
         </div>
     );
