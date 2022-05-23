@@ -78,7 +78,11 @@ const DogRequests = () => {
     }
 
     const ACPT_MEET_URL = "https://localhost:4567/acceptMeetup";
-
+    /**
+     * Accepting meetup requests
+     * @param mid
+     * @returns {string}
+     */
     const acceptRequest = (mid)  => {
         fetch(ACPT_MEET_URL, {
             method: 'POST',
@@ -98,7 +102,11 @@ const DogRequests = () => {
     }
 
     const REJC_MEET_URL = "https://localhost:4567/rejectMeetup";
-
+    /**
+     * Rejecting Meetup Requests
+     * @param mid
+     * @returns {string}
+     */
     const rejectMeetup = (mid) => {
         fetch(REJC_MEET_URL, {
             method: 'POST',
