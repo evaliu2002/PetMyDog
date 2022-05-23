@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BsFillPersonFill } from "react-icons/bs";
 import { useNavigate } from 'react-router';
-import Map from '../map/Map';
 
 const DogRequests = () => {
     // useNavigate for event handling to other web pages
@@ -17,8 +16,6 @@ const DogRequests = () => {
     }
 
     const [requests, setRequests] = useState([]);
-    const [sender, setSender] = useState([]);
-    const [receiver, setReceiver] = useState([]);
     const UPDATE_EVERY_MIN = 10 * 1000;
 
     /**
@@ -131,8 +128,8 @@ const DogRequests = () => {
                 <div>
                     {req}
                     <br />
-                    <button onClick={acceptRequest({mid: req.mid})}>Yes</button>
-                    <button onClick={rejectMeetup({mid: req.mid})}>No</button>
+                    <button onClick={() => {acceptRequest(req.mid)}}>Yes</button>
+                    <button onClick={() => {rejectMeetup(req.mid)}}>No</button>
                 </div>)}
         </div>
     );
