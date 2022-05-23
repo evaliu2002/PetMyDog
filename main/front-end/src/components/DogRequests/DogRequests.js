@@ -82,7 +82,7 @@ const DogRequests = () => {
 
     const ACPT_MEET_URL = "https://localhost:4567/acceptMeetup";
 
-    function acceptRequest ({mid}) {
+    const acceptRequest  = (mid)  => {
         fetch(ACPT_MEET_URL, {
             method: 'POST',
             mode: 'no-cors',
@@ -91,12 +91,13 @@ const DogRequests = () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(mid)
+            body: JSON.stringify(mid.mid)
         })
             .then(checkStatus)
-            .then(() => navOwner)
+            .then(navOwner)
             .then(() => {console.log("Accepted Meetup")})
             .catch(() => {console.log("Accepting meetup failed")})
+        return mid.mid;
     }
 
     const REJC_MEET_URL = "https://localhost:4567/rejectMeetup";
