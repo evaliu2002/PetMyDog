@@ -21,9 +21,9 @@ const MapView = () => {
             <Routes>
                 <Route path="/find-dogs" element={<FindDogs changedDogObj={setSelectedDog}/>}/>
                 <Route path="/dog-requests" element={<DogRequests setThatUser={setThatUser}/>}/>
-                <Route path="/dog-requests/nav-owner" element={<NavOwner thatUser={thatUser} setThatUserLocation={setThatUserLocation} />}/>
+                <Route path="/nav-owner" element={<NavOwner thatUser={thatUser} setThatUserLocation={setThatUserLocation} />}/>
                 <Route path="/selected-dog" element={<SelectedDog dogObj={selectedDog}/>}/>
-                <Route path="/selected-dog/nav-user" element={<NavUser thatUser={thatUser} setThatUserLocation={setThatUserLocation} />}/>
+                <Route path="/nav-user" element={<NavUser thatUser={thatUser} setThatUserLocation={setThatUserLocation} />}/>
             </Routes>
         </div>
     )
