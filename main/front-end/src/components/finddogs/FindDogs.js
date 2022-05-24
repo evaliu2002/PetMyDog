@@ -112,7 +112,6 @@ const FindDogs = ({changedDogObj}) => {
                     }
                     await Promise.all(fetches);
                     setDogsNearby(displayDogs);
-                    console.log("Dogs displayed: " + JSON.stringify(displayDogs));
                 })
                 // .catch(() => {console.log("Location not updated")});
         });

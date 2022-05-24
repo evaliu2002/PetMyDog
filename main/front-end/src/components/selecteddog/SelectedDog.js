@@ -37,9 +37,9 @@ const SelectedDog = ({dogObj}) => {
         navigate("/map-view/nav-user")
     }
 
-    useEffect(() => {
-        console.log(dogObj);
-    })
+    // useEffect(() => {
+    //     console.log(dogObj);
+    // })
 
     return (
         <div>
@@ -55,7 +55,7 @@ const SelectedDog = ({dogObj}) => {
                         <p>Age: { dogObj.age }</p>
                         <p>Breed: { dogObj.breed }</p>
                     </Card.Text>
-                    <Button variant="primary" onClick={dogRequests}>Go to Dog</Button>
+                    <Button variant="primary" onClick={navUser}>Go to Dog</Button>
                 </Card.Body>
             </Card>
         </div>

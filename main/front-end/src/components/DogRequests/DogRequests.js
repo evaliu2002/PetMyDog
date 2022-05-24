@@ -66,10 +66,7 @@ const DogRequests = () => {
                 let reqObj = (await response.json());
                 if (reqObj !== "No meetups") {
                     for (let i = 0; i < reqObj.length; i++) {
-                        reqArr.push(reqObj[i].senderProfile.username +
-                            " would like to request to pet " +
-                            reqObj[i].receiverProfile.username +
-                        "'s dog")
+                        reqArr.push(reqObj[i])
                     }
                 }
                 setRequests(reqArr)
@@ -134,8 +131,13 @@ const DogRequests = () => {
             <h4>Petting Requests</h4>
             {requests.map(req =>
                 <div>
-                    {req}
+                    {req.senderProfile.username + " would like to request to pet "
+                        + req.receiverProfile.username + "'s dog"}
                     <br />
+                    {/*{req.status === "Pending" ? req.senderProfile.username + " would like to request to pet " +*/}
+                    {/*    req.receiverProfile.username + " 's dog" && <br/> &&*/}
+                    {/*    <button onClick={() => {acceptRequest(req.mid);}}>Yes</button> +*/}
+                    {/*    <button onClick={() => {rejectMeetup(req.mid);}}>No</button> : <p/>}*/}
                     <button onClick={() => {acceptRequest(req.mid);}}>Yes</button>
                     <button onClick={() => {rejectMeetup(req.mid);}}>No</button>
                 </div>)}
