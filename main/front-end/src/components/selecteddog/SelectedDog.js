@@ -37,16 +37,14 @@ const SelectedDog = ({dogObj}) => {
         navigate("/map-view/nav-user")
     }
 
-    // useEffect(() => {
-    //     console.log(dogObj);
-    // })
+    useEffect(() => {
+        console.log(dogObj);
+    })
 
     return (
         <div>
             <BsArrowLeftSquare onClick={back}/>
-
             <BsFillPersonFill onClick={ownerProfile}/>
-
             <Card style={{ width: '18rem' }}>
                 <Card.Img variant="top" src="https://www.pumpkin.care/dog-breeds/wp-content/uploads/2021/03/Husky-Hero.png" />
                 <Card.Body>
