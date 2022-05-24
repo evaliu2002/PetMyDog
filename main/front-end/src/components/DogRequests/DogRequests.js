@@ -14,8 +14,12 @@ const DogRequests = () => {
     const navOwner = () => {
         navigate("/map-view/nav-owner")
     }
+    const navUser = () => {
+        navigate("/map-view/nav-user")
+    }
 
     const [requests, setRequests] = useState([]);
+    const [myUID, setMyUID] = useState("");
     const UPDATE_EVERY_MIN = 10 * 1000;
 
     /**
@@ -51,7 +55,7 @@ const DogRequests = () => {
             .then(checkStatus)
             .then(async (response) => {
                 let userProfile = (await response.json());
-                userProfileUID = userProfile.uid;
+                setMyUID(userProfile.uid);
             })
         fetch(REQ_MEET_URL, {
             cache: 'no-cache',
@@ -92,7 +96,6 @@ const DogRequests = () => {
             body: JSON.stringify({mid: mid})
         })
             .then(checkStatus)
-            .then(navOwner)
             .then(() => {console.log("Accepted Meetup")})
             .catch(() => {console.log("Accepting meetup failed")})
         return mid;
@@ -116,7 +119,6 @@ const DogRequests = () => {
             body: JSON.stringify({mid: mid})
         })
             .then(checkStatus)
-            .then(navOwner)
             .then(() => {console.log("Rejected Meetup")})
             .catch(() => {console.log("Rejecting meetup failed")})
         return mid;
@@ -136,6 +138,7 @@ const DogRequests = () => {
                     <br />
                     {"Status: " + req.status}
                     <br />
+                    {/*{myUID === req.sender ? navUser(): navOwner()}*/}
                     <button onClick={() => {acceptRequest(req.mid);}}>Yes</button>
                     <button onClick={() => {rejectMeetup(req.mid);}}>No</button>
                 </div>)}

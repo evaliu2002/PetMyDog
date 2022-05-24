@@ -34,7 +34,7 @@ const SelectedDog = ({dogObj}) => {
         })
             .then(() => {console.log("Sent meetup request")})
             .catch(() => {console.log("Send meetup request failed")})
-        navigate("/map-view/nav-user")
+        navigate("/map-view/dog-requests")
     }
 
     useEffect(() => {
