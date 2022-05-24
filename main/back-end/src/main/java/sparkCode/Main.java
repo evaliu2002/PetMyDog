@@ -53,7 +53,7 @@ public class Main {
         secure("keystore.jks", "eq04aqOA", null, null);
 
         if (DEPLOYMENT) {
-            staticFiles.externalLocation("/home/wenxuanliu/testing/public");
+            staticFiles.externalLocation("/home/wenxuanliu/deployment/public");
             port(443);
         }
 
@@ -559,14 +559,14 @@ public class Main {
         try {
             restHighLevelClient.index(indexRequest, RequestOptions.DEFAULT);
         } catch (IOException e) {
-            System.out.println(e.getMessage());
-            halt(500, "failed to update");
+            System.out.println(e);
         }
         return gson.toJson("updated");
     }
 
     private static String getNearbyUser(Request request, Response response) throws Exception {
         Gson gson = new Gson();
+        String uid = getUserId(request, response);
         DBUtils.Location loc = gson.fromJson(request.body(), DBUtils.Location.class);
         SearchSourceBuilder srb = new SearchSourceBuilder();
         QueryBuilder qb = QueryBuilders.geoDistanceQuery(INDEX)
@@ -583,7 +583,8 @@ public class Main {
             for (SearchHit hit: hits) {
                 String location = hit.getSourceAsString();
                 DBUtils.UserLocation jsonObject = gson.fromJson(location, DBUtils.UserLocation.class);
-                if (System.currentTimeMillis() - jsonObject.getTimestamp() < LOCATION_EXPIRE_TIME)
+                if (System.currentTimeMillis() - jsonObject.getTimestamp() < LOCATION_EXPIRE_TIME
+                && !jsonObject.getUid().equals(uid))
                     result.add(jsonObject.getUid());
             }
         } catch (IOException e) {

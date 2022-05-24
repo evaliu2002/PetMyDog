@@ -31,9 +31,9 @@ const DogRequests = () => {
         }
     };
 
-    const REQ_MEET_URL = "https://localhost:4567/meetups";
+    const REQ_MEET_URL = process.env.REACT_APP_BASE_URL + "/meetups";
 
-    const MY_PROF_URL = "https://localhost:4567/getMyProfile"
+    const MY_PROF_URL = process.env.REACT_APP_BASE_URL + "/getMyProfile"
 
     /**
      * Getting requests from users from back-end endpoint
@@ -74,7 +74,7 @@ const DogRequests = () => {
             .catch(() => {console.log("Receiving meetup request failed")})
     }
 
-    const ACPT_MEET_URL = "https://localhost:4567/acceptMeetup";
+    const ACPT_MEET_URL = process.env.REACT_APP_BASE_URL + "/acceptMeetup";
     /**
      * Accepting meetup requests
      * @param mid
@@ -98,7 +98,7 @@ const DogRequests = () => {
         return mid;
     }
 
-    const REJC_MEET_URL = "https://localhost:4567/rejectMeetup";
+    const REJC_MEET_URL = process.env.REACT_APP_BASE_URL + "/rejectMeetup";
     /**
      * Rejecting Meetup Requests
      * @param mid

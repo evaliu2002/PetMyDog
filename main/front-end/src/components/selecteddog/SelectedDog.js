@@ -16,7 +16,7 @@ const SelectedDog = ({dogObj}) => {
         navigate("/map-view/dog-requests")
     }
 
-    const REQ_MEET_URL = "https://localhost:4567/requestMeetup";
+    const REQ_MEET_URL = process.env.REACT_APP_BASE_URL + "/requestMeetup";
 
     /**
      * Sending meetup request to the back end

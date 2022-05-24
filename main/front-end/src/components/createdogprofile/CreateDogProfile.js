@@ -16,7 +16,7 @@ function CreateDogProfile () {
 
 
 
-    const CREATE_DOG_PROFILE = "https://localhost:4567/newDog";
+    const CREATE_DOG_PROFILE = process.env.REACT_APP_BASE_URL + "/newDog";
 
 
     const onSubmit = () => {

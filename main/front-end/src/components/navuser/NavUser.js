@@ -4,7 +4,7 @@ import {useNavigate} from "react-router";
 
 const NavUser = (props) => {
 
-    const OTHER_USER_LOCATION_URL = "https://localhost:4567/getOtherUserLocation";
+    const OTHER_USER_LOCATION_URL = process.env.REACT_APP_BASE_URL + "/getOtherUserLocation";
     const navigate = useNavigate();
 
     /**
