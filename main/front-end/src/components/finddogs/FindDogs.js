@@ -11,7 +11,7 @@ const FindDogs = ({changedDogObj}) => {
     }
     const selectedDog = async (e) => {
         await changedDogObj(JSON.parse(e.target.id));
-        navigate("/map-view/selected-dog/" + e.target.id);
+        navigate("/map-view/selected-dog");
     }
     const dogRequests = () => {
         navigate("/map-view/dog-requests")
@@ -23,7 +23,7 @@ const FindDogs = ({changedDogObj}) => {
     // Dogs Nearby state
     const [dogsNearby, setDogsNearby] = useState([]);
 
-    const LOCATION_URL = "https://localhost:4567/updateLocation";
+    const LOCATION_URL = process.env.REACT_APP_BASE_URL + "/updateLocation";
     const UPDATE_EVERY = 15 * 1000;
 
     /**
@@ -65,11 +65,11 @@ const FindDogs = ({changedDogObj}) => {
     // setInterval(updateLocation, UPDATE_EVERY);
     // updateLocation();
 
-    const GET_NEARBY_USER_URL = "https://localhost:4567/getNearbyUser";
+    const GET_NEARBY_USER_URL = process.env.REACT_APP_BASE_URL + "/getNearbyUser";
     let displayDogs = [];
     const UPDATE_EVERY_MIN = 60 * 1000;
 
-    const GET_USER_PROFILE_URL = "https://localhost:4567/getUserProfile";
+    const GET_USER_PROFILE_URL = process.env.REACT_APP_BASE_URL + "/getUserProfile";
 
     /**
      * Update nearby users from calling back-end endpoint
@@ -90,8 +90,7 @@ const FindDogs = ({changedDogObj}) => {
             })
                 // .then(checkStatus)
                 .then(async (response) => {
-                    // let uidArr = (await response.json());
-                    let uidArr = ["101836349121923215589"];
+                    let uidArr = (await response.json());
                     displayDogs = [];
                     let fetches = [];
                     for (let i = 0; i < uidArr.length; i++) {
@@ -102,30 +101,26 @@ const FindDogs = ({changedDogObj}) => {
                             // .then(console.log)
                             .then(async (response) => {
                                 let userObj = await response.json();
-                                console.log(userObj);
                                 let userDog = userObj.dogs;
                                 for (let i = 0; i < userDog.length; i++) {
                                     userDog[i].ownerID = userObj.uid;
                                 }
                                 displayDogs = displayDogs.concat(userObj.dogs);
-                                console.log(userObj.dogs);
                             })
                         fetches.push(currentFetch);
                     }
                     await Promise.all(fetches);
                     setDogsNearby(displayDogs);
-                    console.log("Dogs displayed: " + JSON.stringify(displayDogs));
                 })
                 // .catch(() => {console.log("Location not updated")});
         });
     };
 
-    useEffect(updateNearbyUsers, []);
-    useEffect(updateLocation, []);
-
     return (
         <div className='findDogs'>
             <button onClick={dogRequests}>Owner Mode</button>
+            <button onClick={updateNearbyUsers}>See who is nearby</button>
+            <button onClick={updateLocation}>Broadcast my location</button>
             <BsFillPersonFill onClick={ownerProfile}/>
             <h4>Nearby Pets</h4>
             {dogsNearby.map(dog => <div id={JSON.stringify(dog)} onClick={selectedDog}>{dog.name}</div>)}

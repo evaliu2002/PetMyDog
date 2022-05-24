@@ -12,8 +12,11 @@ const SelectedDog = ({dogObj}) => {
     const ownerProfile = () => {
         navigate("/owner-profile")
     }
+    const dogRequests = () => {
+        navigate("/map-view/dog-requests")
+    }
 
-    const REQ_MEET_URL = "https://localhost:4567/requestMeetup";
+    const REQ_MEET_URL = process.env.REACT_APP_BASE_URL + "/requestMeetup";
 
     /**
      * Sending meetup request to the back end
@@ -31,7 +34,7 @@ const SelectedDog = ({dogObj}) => {
         })
             .then(() => {console.log("Sent meetup request")})
             .catch(() => {console.log("Send meetup request failed")})
-        navigate("/nav-user")
+        navigate("/map-view/dog-requests")
     }
 
     useEffect(() => {
@@ -41,9 +44,7 @@ const SelectedDog = ({dogObj}) => {
     return (
         <div>
             <BsArrowLeftSquare onClick={back}/>
-
             <BsFillPersonFill onClick={ownerProfile}/>
-
             <Card style={{ width: '18rem' }}>
                 <Card.Img variant="top" src="https://www.pumpkin.care/dog-breeds/wp-content/uploads/2021/03/Husky-Hero.png" />
                 <Card.Body>
@@ -55,17 +56,6 @@ const SelectedDog = ({dogObj}) => {
                     <Button variant="primary" onClick={navUser}>Go to Dog</Button>
                 </Card.Body>
             </Card>
-            {/*<h3>{ dogObj.name }</h3>*/}
-
-
-
-            {/*<h5>About { dogObj.name }</h5>*/}
-            {/*<p>Age: { dogObj.age }</p>*/}
-            {/*<p>Breed: { dogObj.breed }</p>*/}
-
-            {/* <img></img> */}
-
-            {/*<button onClick={navUser}>Go to Dog</button>*/}
         </div>
     );
 }
