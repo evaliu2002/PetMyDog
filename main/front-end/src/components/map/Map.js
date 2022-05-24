@@ -69,8 +69,16 @@ function Map(props) {
     const [map, setMap] = React.useState(null)
 
     const onLoad = React.useCallback(function callback(map) {
-        const bounds = new window.google.maps.LatLngBounds(thisUser)
-        map.fitBounds(bounds);
+        const marker = new window.google.maps.Marker({
+            map: map,
+            position: new window.google.maps.LatLng(thisUser.lat, thisUser.lng),
+        });
+        const circle = new window.google.maps.Circle({
+            map: map,
+            radius: 500 //500 km
+        });
+        circle.bindTo('center', marker, 'position');
+        map.fitBounds(circle.getBounds());
         setMap(map)
     }, [])
 
@@ -81,24 +89,10 @@ function Map(props) {
     return isLoaded ? (
         <GoogleMap
             mapContainerStyle={containerStyle}
-            zoom={3000}
             center={thisUser}
             onLoad={onLoad}
             onUnmount={onUnmount}
         >
-        <Marker
-            key="1"
-            position={thisUser}
-        />
-        <Circle
-            strokeColor={"#FF0000"}
-            strokeOpacity={0.8}
-            strokeWeight={2}
-            fillColor={"#FF0000"}
-            fillOpacity={0.35}
-            center={{lat: thisUser.lat, lng: thisUser.lng}}
-            radius={500}
-        />
         <DirectionsRenderer
             directions={dir}
         />
