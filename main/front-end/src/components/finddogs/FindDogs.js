@@ -116,12 +116,11 @@ const FindDogs = ({changedDogObj}) => {
         });
     };
 
-    useEffect(updateNearbyUsers, []);
-    useEffect(updateLocation, []);
-
     return (
         <div className='findDogs'>
             <button onClick={dogRequests}>Owner Mode</button>
+            <button onClick={updateNearbyUsers}>See who is nearby</button>
+            <button onClick={updateLocation}>Broadcast my location</button>
             <BsFillPersonFill onClick={ownerProfile}/>
             <h4>Nearby Pets</h4>
             {dogsNearby.map(dog => <div id={JSON.stringify(dog)} onClick={selectedDog}>{dog.name}</div>)}
