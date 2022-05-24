@@ -11,7 +11,7 @@ const FindDogs = ({changedDogObj}) => {
     }
     const selectedDog = async (e) => {
         await changedDogObj(JSON.parse(e.target.id));
-        navigate("/map-view/selected-dog/" + e.target.id);
+        navigate("/map-view/selected-dog");
     }
     const dogRequests = () => {
         navigate("/map-view/dog-requests")
