@@ -24,7 +24,7 @@ const App = () => {
                     <Route path="/map-view/find-dogs" element={<FindDogs />}/>
                     <Route path="/map-view/dog-requests" element={<DogRequests/>}/>
                     <Route path="/map-view/nav-owner" element={<NavOwner />}/>
-                    <Route path="/map-view/selected-dog/:id" element={<SelectedDog />}/>
+                    <Route path="/map-view/selected-dog" element={<SelectedDog />}/>
                     <Route path="/map-view/nav-user" element={<NavUser />}/>
                 </Route>
                 <Route path="owner-profile" element={<OwnerProfile changedDogObject={setSelectedDog} />}/>

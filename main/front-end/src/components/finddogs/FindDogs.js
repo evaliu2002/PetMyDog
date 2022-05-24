@@ -11,7 +11,7 @@ const FindDogs = ({changedDogObj}) => {
     }
     const selectedDog = async (e) => {
         await changedDogObj(JSON.parse(e.target.id));
-        navigate("/map-view/selected-dog/" + e.target.id);
+        navigate("/map-view/selected-dog");
     }
     const dogRequests = () => {
         navigate("/map-view/dog-requests")
@@ -102,19 +102,16 @@ const FindDogs = ({changedDogObj}) => {
                             // .then(console.log)
                             .then(async (response) => {
                                 let userObj = await response.json();
-                                console.log(userObj);
                                 let userDog = userObj.dogs;
                                 for (let i = 0; i < userDog.length; i++) {
                                     userDog[i].ownerID = userObj.uid;
                                 }
                                 displayDogs = displayDogs.concat(userObj.dogs);
-                                console.log(userObj.dogs);
                             })
                         fetches.push(currentFetch);
                     }
                     await Promise.all(fetches);
                     setDogsNearby(displayDogs);
-                    console.log("Dogs displayed: " + JSON.stringify(displayDogs));
                 })
                 // .catch(() => {console.log("Location not updated")});
         });

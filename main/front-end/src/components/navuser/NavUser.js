@@ -7,6 +7,19 @@ const NavUser = (props) => {
     const OTHER_USER_LOCATION_URL = "https://localhost:4567/getOtherUserLocation";
     const navigate = useNavigate();
 
+    /**
+     * Get back-end response
+     * @param response
+     * @returns {Promise<never>|*}
+     */
+    const checkStatus = (response) => {
+        if (response.status >= 200 && response.status < 300 || response.status === 0) {
+            return response;
+        } else {
+            return Promise.reject(new Error(response.status + ": " + response.statusText));
+        }
+    };
+
     const updateThatUserLocation = () => {
         fetch(OTHER_USER_LOCATION_URL, {
             cache: 'no-cache',
@@ -20,19 +33,6 @@ const NavUser = (props) => {
                 props.setThatUserLocation(await response.json());
             })
             .catch(() => {alert("Owner's location is unavailable!")});
-    };
-
-    /**
-     * Get back-end response
-     * @param response
-     * @returns {Promise<never>|*}
-     */
-    const checkStatus = (response) => {
-        if (response.status >= 200 && response.status < 300 || response.status === 0) {
-            return response;
-        } else {
-            return Promise.reject(new Error(response.status + ": " + response.statusText));
-        }
     };
 
     return (
