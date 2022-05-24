@@ -39,6 +39,16 @@ public class Sql2oModel implements DBUtils.Model {
     }
 
     @Override
+    public void dogAndUser(String did, String uid) {
+        Connection conn = sql2o.open();
+        conn.createQuery("INSERT INTO BelongTo VALUES (:did, :uid);")
+                .addParameter("did", did)
+                .addParameter("uid", uid)
+                .executeUpdate();
+        conn.commit();
+    }
+
+    @Override
     public boolean createUser(DBUtils.User user) {
         try (Connection conn = sql2o.beginTransaction()) {
             conn.createQuery("INSERT INTO User VALUES (:uid, :username, :phone, :email, :bio, :pic_link, :last_ping);")
@@ -258,6 +268,7 @@ public class Sql2oModel implements DBUtils.Model {
                     .addParameter("pic_link", dog.getPic_link())
                     .executeUpdate();
             conn.commit();
+
         }
     }
 
