@@ -9,6 +9,18 @@ const Login = () => {
         navigate("/map-view/find-dogs")
     }
 
+    const dogRequests = () => {
+        navigate("/map-view/dog-requests")
+    }
+
+    const navUser = () => {
+        navigate("/map-view/nav-user")
+    }
+
+    const navOwner = () => {
+        navigate("/map-view/nav-owner")
+    }
+
     // Styling
     const headingStyle = {
         color: "#E5737D",
@@ -38,6 +50,9 @@ const Login = () => {
                 Login with Google
             </a>
             <button id="reactButton" onClick={mapView}>Temporary Button for React Router</button>
+            <button id="dogReqButton" onClick={dogRequests}>Temporary Button to dog requests</button>
+            <button id="navUserButton" onClick={navUser}>Temporary Button to nav user</button>
+            <button id="navOwnerButton" onClick={navOwner}>Temporary Button to nav owner</button>
         </div>
     )
 }

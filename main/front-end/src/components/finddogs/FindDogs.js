@@ -90,8 +90,7 @@ const FindDogs = ({changedDogObj}) => {
             })
                 // .then(checkStatus)
                 .then(async (response) => {
-                    // let uidArr = (await response.json());
-                    let uidArr = ["101836349121923215589"];
+                    let uidArr = (await response.json());
                     displayDogs = [];
                     let fetches = [];
                     for (let i = 0; i < uidArr.length; i++) {
