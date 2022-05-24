@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { BsFillTelephoneFill, BsFillPinMapFill, BsArrowUpCircleFill } from "react-icons/bs";
 import {useNavigate} from "react-router";
 
@@ -6,6 +6,7 @@ const NavUser = (props) => {
 
     const OTHER_USER_LOCATION_URL = process.env.REACT_APP_BASE_URL + "/getOtherUserLocation";
     const navigate = useNavigate();
+    const UPDATE_EVERY = 15 * 1000;
 
     /**
      * Get back-end response
@@ -34,6 +35,11 @@ const NavUser = (props) => {
             })
             .catch(() => {alert("Owner's location is unavailable!")});
     };
+
+    useEffect(() => {
+        updateThatUserLocation();
+        setInterval(updateThatUserLocation, UPDATE_EVERY);
+    }, [])
 
     return (
         <div>

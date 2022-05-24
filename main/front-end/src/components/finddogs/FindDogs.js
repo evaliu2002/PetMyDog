@@ -116,8 +116,12 @@ const FindDogs = ({changedDogObj}) => {
         });
     };
 
-    useEffect(updateNearbyUsers, []);
-    useEffect(updateLocation, []);
+    useEffect(() => {
+        updateNearbyUsers();
+        updateLocation();
+        setInterval(updateNearbyUsers, UPDATE_EVERY);
+        setInterval(updateLocation, UPDATE_EVERY);
+    }, [])
 
     return (
         <div className='findDogs'>
