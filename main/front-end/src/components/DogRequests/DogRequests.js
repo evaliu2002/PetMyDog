@@ -134,10 +134,8 @@ const DogRequests = () => {
                     {req.senderProfile.username + " would like to request to pet "
                         + req.receiverProfile.username + "'s dog"}
                     <br />
-                    {/*{req.status === "Pending" ? req.senderProfile.username + " would like to request to pet " +*/}
-                    {/*    req.receiverProfile.username + " 's dog" && <br/> &&*/}
-                    {/*    <button onClick={() => {acceptRequest(req.mid);}}>Yes</button> +*/}
-                    {/*    <button onClick={() => {rejectMeetup(req.mid);}}>No</button> : <p/>}*/}
+                    {"Status: " + req.status}
+                    <br />
                     <button onClick={() => {acceptRequest(req.mid);}}>Yes</button>
                     <button onClick={() => {rejectMeetup(req.mid);}}>No</button>
                 </div>)}
