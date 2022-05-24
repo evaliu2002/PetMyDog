@@ -53,7 +53,7 @@ public class Main {
         secure("keystore.jks", "eq04aqOA", null, null);
 
         if (DEPLOYMENT) {
-            staticFiles.externalLocation("/home/wenxuanliu/testing/public");
+            staticFiles.externalLocation("/home/wenxuanliu/deployment/public");
             port(443);
         }
 

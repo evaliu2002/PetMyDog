@@ -23,7 +23,7 @@ const FindDogs = ({changedDogObj}) => {
     // Dogs Nearby state
     const [dogsNearby, setDogsNearby] = useState([]);
 
-    const LOCATION_URL = "https://localhost:4567/updateLocation";
+    const LOCATION_URL = process.env.REACT_APP_BASE_URL + "/updateLocation";
     const UPDATE_EVERY = 15 * 1000;
 
     /**
@@ -65,11 +65,11 @@ const FindDogs = ({changedDogObj}) => {
     // setInterval(updateLocation, UPDATE_EVERY);
     // updateLocation();
 
-    const GET_NEARBY_USER_URL = "https://localhost:4567/getNearbyUser";
+    const GET_NEARBY_USER_URL = process.env.REACT_APP_BASE_URL + "/getNearbyUser";
     let displayDogs = [];
     const UPDATE_EVERY_MIN = 60 * 1000;
 
-    const GET_USER_PROFILE_URL = "https://localhost:4567/getUserProfile";
+    const GET_USER_PROFILE_URL = process.env.REACT_APP_BASE_URL + "/getUserProfile";
 
     /**
      * Update nearby users from calling back-end endpoint
