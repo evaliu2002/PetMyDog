@@ -40,38 +40,14 @@ function Map(props) {
             setThisUser({lat, lng});
         });
     }
-    // Getting the position of the current user
-    useEffect(() => {
-        updateThisUserLocation();
-        setInterval(updateThisUserLocation, WAIT_15_SECONDS);
-    }, []);
 
-    useEffect(() => {
-        if (props.thatUserLocation && props.thatUser && isLoaded) {
-            const directionsService = new window.google.maps.DirectionsService();
-            directionsService.route(
-                {
-                    origin: thisUser,
-                    destination: props.thatUserLocation,
-                    travelMode: window.google.maps.TravelMode.WALKING
-                },
-                (result, status) => {
-                    if (status === window.google.maps.DirectionsStatus.OK) {
-                        setDir(result);
-                    } else {
-                        console.error(`error fetching directions ${result}`);
-                    }
-                }
-            );
-        }
-    }, [thisUser]);
-
-    const [map, setMap] = React.useState(null)
-
-    const onLoad = React.useCallback(function callback(map) {
+    /**
+     * Update the marker and circle depending on the user's current location
+     */
+    const updateMarkerCircle = () => {
         const marker = new window.google.maps.Marker({
             map: map,
-            position: new window.google.maps.LatLng(thisUser.lat, thisUser.lng),
+            position: new window.google.maps.LatLng(thisUser),
         });
         const circle = new window.google.maps.Circle({
             map: map,
@@ -79,6 +55,40 @@ function Map(props) {
         });
         circle.bindTo('center', marker, 'position');
         map.fitBounds(circle.getBounds());
+    }
+
+    // Getting the position of the current user
+    useEffect(() => {
+        updateThisUserLocation();
+        setInterval(updateThisUserLocation, WAIT_15_SECONDS);
+    }, []);
+
+    useEffect(() => {
+        if (isLoaded) {
+            updateMarkerCircle();
+            if (props.thatUserLocation && props.thatUser) {
+                const directionsService = new window.google.maps.DirectionsService();
+                directionsService.route(
+                    {
+                        origin: thisUser,
+                        destination: props.thatUserLocation,
+                        travelMode: window.google.maps.TravelMode.WALKING
+                    },
+                    (result, status) => {
+                        if (status === window.google.maps.DirectionsStatus.OK) {
+                            setDir(result);
+                        } else {
+                            console.error(`error fetching directions ${result}`);
+                        }
+                    }
+                );
+            }
+        }
+    }, [thisUser]);
+
+    const [map, setMap] = React.useState(null)
+
+    const onLoad = React.useCallback(function callback(map) {
         setMap(map)
     }, [])
 
