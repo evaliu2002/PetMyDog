@@ -14,8 +14,12 @@ const DogRequests = () => {
     const navOwner = () => {
         navigate("/map-view/nav-owner")
     }
+    const navUser = () => {
+        navigate("/map-view/nav-user")
+    }
 
     const [requests, setRequests] = useState([]);
+    const [myUID, setMyUID] = useState("");
     const UPDATE_EVERY_MIN = 10 * 1000;
 
     /**
@@ -31,9 +35,9 @@ const DogRequests = () => {
         }
     };
 
-    const REQ_MEET_URL = "https://localhost:4567/meetups";
+    const REQ_MEET_URL = process.env.REACT_APP_BASE_URL + "/meetups";
 
-    const MY_PROF_URL = "https://localhost:4567/getMyProfile"
+    const MY_PROF_URL = process.env.REACT_APP_BASE_URL + "/getMyProfile"
 
     /**
      * Getting requests from users from back-end endpoint
@@ -51,7 +55,7 @@ const DogRequests = () => {
             .then(checkStatus)
             .then(async (response) => {
                 let userProfile = (await response.json());
-                userProfileUID = userProfile.uid;
+                setMyUID(userProfile.uid);
             })
         fetch(REQ_MEET_URL, {
             cache: 'no-cache',
@@ -74,7 +78,7 @@ const DogRequests = () => {
             .catch(() => {console.log("Receiving meetup request failed")})
     }
 
-    const ACPT_MEET_URL = "https://localhost:4567/acceptMeetup";
+    const ACPT_MEET_URL = process.env.REACT_APP_BASE_URL + "/acceptMeetup";
     /**
      * Accepting meetup requests
      * @param mid
@@ -92,13 +96,12 @@ const DogRequests = () => {
             body: JSON.stringify({mid: mid})
         })
             .then(checkStatus)
-            .then(navOwner)
             .then(() => {console.log("Accepted Meetup")})
             .catch(() => {console.log("Accepting meetup failed")})
         return mid;
     }
 
-    const REJC_MEET_URL = "https://localhost:4567/rejectMeetup";
+    const REJC_MEET_URL = process.env.REACT_APP_BASE_URL + "/rejectMeetup";
     /**
      * Rejecting Meetup Requests
      * @param mid
@@ -116,7 +119,6 @@ const DogRequests = () => {
             body: JSON.stringify({mid: mid})
         })
             .then(checkStatus)
-            .then(navOwner)
             .then(() => {console.log("Rejected Meetup")})
             .catch(() => {console.log("Rejecting meetup failed")})
         return mid;
@@ -136,6 +138,7 @@ const DogRequests = () => {
                     <br />
                     {"Status: " + req.status}
                     <br />
+                    {/*{myUID === req.sender ? navUser(): navOwner()}*/}
                     <button onClick={() => {acceptRequest(req.mid);}}>Yes</button>
                     <button onClick={() => {rejectMeetup(req.mid);}}>No</button>
                 </div>)}
