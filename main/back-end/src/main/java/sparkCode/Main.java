@@ -456,7 +456,12 @@ public class Main {
 
     private static String createDogProfile(Request request, Response response) {
         Gson gson = new Gson();
-        model.createDog(gson.fromJson(request.body(), DBUtils.Dog.class));
+        UUID uuid = UUID.randomUUID();
+        String did = uuid.toString();
+        DBUtils.Dog dog = gson.fromJson(request.body(), DBUtils.Dog.class);
+        model.createDog(did, dog);
+        String uid = getUserId(request, response);
+        model.dogAndUser(did, uid);
         return gson.toJson("Success");
     }
 
