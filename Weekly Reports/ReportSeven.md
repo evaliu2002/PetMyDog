@@ -42,3 +42,14 @@
                             have environment variable. Reconfigured backend code for easier deployment process. 
                             Set up all GCP related resources and deployed the app.
     - Plans and Goals for the Next Week: Test&fix everything.
+
+
+- ##### Steve Ma:
+  - Goals from last week: Completed modifying the Meetup APIs to meet new frontend requirements.
+  - Progress and Issues: I worked on updating the old APIs based on feedback from the team, I explored how to write
+                         tests for my backend APIs and I'm currently working towards it. I also worked with Wenxuan
+                         on clarifying how to update Meetup APIs and how necessary it is to return ther User IDs when
+                         a request has been updated.
+  - Plans and Goals for the Next Week: Make final adjustements for final release and work on writing JUnit tests.
+                                       Check in with the team on any bug reports and also make changes based on
+                                       peer review results.
