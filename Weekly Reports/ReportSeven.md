@@ -7,11 +7,11 @@
 
 - What we did:
     - Front-end: Finished implementing dog requests, 
-    - Back-end: 
+    - Back-end: Finished refining code based on given feedback and tested our APIs.
 
 - What we plan to do:
     - Front-end: 
-    - Back-end: 
+    - Back-end: Write JUnit tests for our APIs and make sure the APIs are working as intended.
 
 #### Individual Reports
 
@@ -23,3 +23,13 @@
     necessary information from the database (mid) but ultimately figured it out. I wasn't stuck on anything.
   - Plans and Goals for the Next Week: Finish developing front end's test suite and add stretch goals if
     possible.
+
+- ##### Anish Konanki:
+  - Goals from last week: Work on refining APIs based on feedback and test them thoroughly.
+  - Progress and Issues: I finished refining the old APIs and updated the backend code based on feedback
+                         so that frontend can work more efficiently now. I also talked with the other devs
+                         to figure out communication between frontend and backend to make createDogProfile
+                         work properly. I'm currently figuring out how to write proper JUnit tests for my APIs,
+                         but I have been testing my APIs and making sure they work as intended, or fix any issues.
+  - Plans and Goals for the Next Week: Work on refining any code in time for the final release, and finish
+                                       writing JUnit tests for my APIs.
