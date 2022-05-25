@@ -14,6 +14,7 @@ import NavOwner from "./components/navowner/NavOwner";
 const App = () => {
 
     const [selectedDog, setSelectedDog] = useState();
+    const [uid, setUid] = useState();
 
     return (
         <div id='App'>
@@ -27,9 +28,9 @@ const App = () => {
                     <Route path="/map-view/selected-dog" element={<SelectedDog />}/>
                     <Route path="/map-view/nav-user" element={<NavUser />}/>
                 </Route>
-                <Route path="owner-profile" element={<OwnerProfile changedDogObject={setSelectedDog} />}/>
+                <Route path="owner-profile" element={<OwnerProfile changedDogObject={setSelectedDog} userID={setUid}/>}/>
                 <Route path="view-dog-profile" element={<ViewDogProfile dogProfile={selectedDog} />}/>
-                <Route path="create-dog-profile" element={<CreateDogProfile />}/>
+                <Route path="create-dog-profile" element={<CreateDogProfile uid={uid} />}/>
             </Routes>
         </div>
     );

@@ -6,14 +6,17 @@ import {Card,Button,Container} from "react-bootstrap";
 
 
 
-const OwnerProfile = ({changedDogObject}) => {
+const OwnerProfile = ({changedDogObject, userID}) => {
+    const   [uid, setUID] = useState();
     const [ownerName, setOwnerName] = useState("Bob");
     const [dogProfiles, setDogProfiles] = useState([]);
     const GET_USER_PROFILE_URL = process.env.REACT_APP_BASE_URL + "/getMyProfile";
 
     let navigate = useNavigate();
 
-    const createDogProfile = () => {
+    const createDogProfile = async() => {
+        await userID(JSON.parse(uid));
+        console.log(JSON.parse(uid));
         navigate("/create-dog-profile")
     }
 
@@ -24,6 +27,7 @@ const OwnerProfile = ({changedDogObject}) => {
     const selectedDog = async(e) => {
         console.log(e.currentTarget);
         await changedDogObject(JSON.parse(e.currentTarget.id));
+        console.log(e.currentTarget.id);
         navigate("/view-dog-profile");
     }
 
@@ -47,8 +51,11 @@ const OwnerProfile = ({changedDogObject}) => {
             .then(async(response) =>{
                 let userObj = await response.json();
                 console.log(userObj);
+                let tempUID = userObj.uid;
+                console.log("UserID: " + tempUID);
+                setUID(tempUID);
                 let userDog = userObj.dogs;
-                console.log(userObj);
+                console.log(userDog);
                 setDogProfiles(userDog);
                 console.log("Dogs displayed: " + JSON.stringify(userDog));
                 let userName = userObj.username;

@@ -4,23 +4,25 @@ import UploadImage from "../uploadandisplayimage/UploadImage";
 import { useNavigate } from 'react-router';
 import { BsArrowLeftSquare } from "react-icons/bs";
 
-function CreateDogProfile () {
+function CreateDogProfile ({uid}) {
     const navigate = useNavigate();
     const [name, setName] = useState("");
     const [age, setAge] = useState("");
     const [breed, setBreed] = useState("");
     const [gender, setGender] = useState("");
     const [piclink, setpicLink] = useState("https://www.pumpkin.care/dog-breeds/wp-content/uploads/2021/03/Husky-Hero.png");
-    const [did, setDid] = useState(15);
+
 
 
 
 
     const CREATE_DOG_PROFILE = process.env.REACT_APP_BASE_URL + "/newDog";
 
+    console.log("UserId: " + uid);
 
     const onSubmit = () => {
-        let dogObject = {did, name, age, breed, gender, piclink};
+
+        let dogObject = {uid, name, age, breed, gender, piclink};
         fetch(CREATE_DOG_PROFILE, {
             method: 'POST',
             cache: 'no-cache',
@@ -31,10 +33,10 @@ function CreateDogProfile () {
         })
             .then(checkStatus)
             .then(() => {console.log("Name: " + name + "Age: "+ age + "Breed: " +
-                breed + "Gender: " + gender + "Id: " + 15 + "Piclink: "+ piclink);})
+                breed + "Gender: " + gender + "Uid: " + uid + "Piclink: "+ piclink);})
             .catch(() => {console.log("Dog's info not updated")} )
 
-        navigate("/owner-profile")
+        // navigate("/owner-profile")
     }
 
 
