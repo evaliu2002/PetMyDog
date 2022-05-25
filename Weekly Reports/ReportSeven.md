@@ -33,3 +33,12 @@
                          but I have been testing my APIs and making sure they work as intended, or fix any issues.
   - Plans and Goals for the Next Week: Work on refining any code in time for the final release, and finish
                                        writing JUnit tests for my APIs.
+
+- ##### Wenxuan Liu:
+    - Goals from last week: Finish /theOtherUserLocation: make a new endpoint that will return the sender’s
+                            location to the receiver or return the receiver’s location to the sender.
+    - Progress and Issues: Finished and tested /theOtherUserLocation. Finished navigation for user and navigation
+                            for owner, now having trouble with displaying the path. Reconfigured front-end code to
+                            have environment variable. Reconfigured backend code for easier deployment process. 
+                            Set up all GCP related resources and deployed the app.
+    - Plans and Goals for the Next Week: Test&fix everything.
