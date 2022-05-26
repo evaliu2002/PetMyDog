@@ -51,7 +51,8 @@ function Map(props) {
         });
         const circle = new window.google.maps.Circle({
             map: map,
-            radius: 500 //500 km
+            radius: 500, //500 km
+            fillOpacity: 0,
         });
         circle.bindTo('center', marker, 'position');
         map.fitBounds(circle.getBounds());
