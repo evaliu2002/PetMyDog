@@ -5,9 +5,11 @@
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/react-fontawesome": "^0.1.18",
+    "@googlemaps/jest-mocks": "^2.7.4",
     "@react-google-maps/api": "^2.10.2",
     "@testing-library/react": "^13.2.0",
     "bootstrap": "^5.1.3",
+    "googleapis": "^100.0.0",
     "react": "^18.1.0",
     "react-bootstrap": "^2.3.1",
     "react-dom": "^18.1.0",
