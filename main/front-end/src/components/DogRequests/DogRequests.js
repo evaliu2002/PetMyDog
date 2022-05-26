@@ -2,21 +2,33 @@ import React, { useState, useEffect } from 'react';
 import { BsFillPersonFill } from "react-icons/bs";
 import { useNavigate } from 'react-router';
 
-const DogRequests = () => {
+const DogRequests = (props) => {
     // useNavigate for event handling to other web pages
     let navigate = useNavigate();
     const ownerProfile = () => {
-        navigate("/owner-profile")
+        navigate("/owner-profile");
     }
     const findDogs = () => {
-        navigate("/map-view/find-dogs")
+        navigate("/map-view/find-dogs");
     }
     const navOwner = () => {
-        navigate("/map-view/nav-owner")
+        navigate("/map-view/nav-owner");
     }
     const navUser = () => {
+        navigate("/map-view/nav-user");
+    }
+
+    const DirectionForUser = (thatUser) => {
+        props.setThatUser(thatUser);
         navigate("/map-view/nav-user")
     }
+
+    const DirectionForOwner = (thatUser) => {
+        props.setThatUser(thatUser);
+        navigate("/map-view/nav-owner");
+    }
+
+
 
     const [requests, setRequests] = useState([]);
     const [myUID, setMyUID] = useState("");
@@ -141,6 +153,8 @@ const DogRequests = () => {
                     {/*{myUID === req.sender ? navUser(): navOwner()}*/}
                     <button onClick={() => {acceptRequest(req.mid);}}>Yes</button>
                     <button onClick={() => {rejectMeetup(req.mid);}}>No</button>
+                    <button onClick={() => {DirectionForUser(req.receiverProfile);}}>Get direction to owner</button>
+                    <button onClick={() => {DirectionForOwner(req.senderProfile);}}>Get direction to user</button>
                 </div>)}
         </div>
     );

@@ -40,15 +40,15 @@ const NavUser = (props) => {
         <div>
             <button onClick={ () => navigate("/map-view/find-dogs") }>Return to search dogs</button>
             <button onClick={ () => navigate("/owner-profile") }>View profile</button>
+            <button onClick={updateThatUserLocation}>Refresh location and suggested path.</button>
 
-            {/*<h3> You are heading to { props.thatUser.username }</h3>*/}
+            <h3> You are heading to { props.thatUser.username }</h3>
 
-            {/*<h5> { props.thatUser.username } </h5> <br />*/}
-            {/*<p> Dog Owner contact: </p>*/}
+            <h5> { props.thatUser.username + "'s contact:"} </h5> <br />
 
-            {/*<BsFillTelephoneFill />*/}
-            {/*<h4> { props.thatUser.phone } </h4>*/}
-            {/*<h4> { props.thatUser.email } </h4>*/}
+            <BsFillTelephoneFill />
+            <h4> { props.thatUser.phone ? props.thatUser.phone : "no phone provided" } </h4>
+            <h4> { props.thatUser.email ? props.thatUser.email : "no email provided" } </h4>
 
             <BsFillPinMapFill />
             <p>
@@ -56,7 +56,6 @@ const NavUser = (props) => {
                 It is possible for the owner's location to be unavailable. If you do not want to wait until it becomes
                 available, go back to request list and cancel this meet up.
             </p>
-            <button onClick={updateThatUserLocation}>Refresh location and suggested path.</button>
         </div>
     );
 }
