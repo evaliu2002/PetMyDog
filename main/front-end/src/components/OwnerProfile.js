@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BsArrowLeftSquare } from "react-icons/bs";
-import './OwnerProfile.css';
+import '../styling/OwnerProfile.css';
 import { useNavigate } from 'react-router';
 import {Card,Button,Container} from "react-bootstrap";
 

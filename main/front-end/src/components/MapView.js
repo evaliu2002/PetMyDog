@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import Map from '../map/Map';
+import Map from './Map';
 import {Route, useNavigate, Routes} from 'react-router';
-import FindDogs from "../finddogs/FindDogs";
-import DogRequests from "../DogRequests/DogRequests";
-import NavOwner from "../navowner/NavOwner";
-import SelectedDog from "../selecteddog/SelectedDog";
-import NavUser from "../navuser/NavUser";
+import FindDogs from "./FindDogs";
+import DogRequests from "./DogRequests";
+import NavOwner from "./NavOwner";
+import SelectedDog from "./SelectedDog";
+import NavUser from "./NavUser";
 
 const MapView = () => {
 

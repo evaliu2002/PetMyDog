@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Form from 'react-bootstrap/Form';
-import UploadImage from "../uploadandisplayimage/UploadImage";
+import UploadImage from "./UploadImage";
 import { useNavigate } from 'react-router';
 import { BsArrowLeftSquare } from "react-icons/bs";
 
