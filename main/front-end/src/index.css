@@ -8,9 +8,8 @@ body {
     font-family: 'Pacifico', cursive;
     font-size: xxx-large;
     color: white;
-    display: flex;
     align-items: center;
-    justify-content: center;
+    text-align: center;
     margin-bottom: 20px;
 }
 
@@ -57,10 +56,9 @@ form {
   display: block;
   /*margin-left: auto;*/
   /*margin-right: auto;*/
-  margin-top: 10%;
-  margin-bottom: 10%;
-  width: 1920px;
-  height: 1080px;
+
+  width: 390px;
+  height: 844px;
   background-color: #E5737D;
 
 }
@@ -69,11 +67,11 @@ form {
     font-family: 'Pacifico', cursive;
     font-size: xx-large;
     color: white;
-    display: flex;
-    width: 30%;
-    margin-right: 30%;
-    margin-left: 40%;
-    padding: 0;
+    width: 100%;
+    text-align: center;
+    align-content: center;
+    align-items: center;
     border: none;
     background: none;
+
 }
