@@ -36,7 +36,7 @@ function CreateDogProfile ({uid}) {
                 breed + "Gender: " + gender + "Uid: " + uid + "Piclink: "+ piclink);})
             .catch(() => {console.log("Dog's info not updated")} )
 
-        // navigate("/owner-profile")
+        navigate("/owner-profile")
     }
 
 
@@ -59,7 +59,7 @@ function CreateDogProfile ({uid}) {
             <div>
                 <div className="container">
 
-                    <Form.Group className='font-link'>Your Dog's Profile</Form.Group>
+                    <Form.Group className="font-link">Your Dog's Profile</Form.Group>
 
                     <UploadImage/>
 
@@ -102,6 +102,7 @@ function CreateDogProfile ({uid}) {
                                 <button className="create-button" onClick={onSubmit}>
                                     Create Profile
                                 </button>
+
                             </Form>
                     </div>
                 </div>

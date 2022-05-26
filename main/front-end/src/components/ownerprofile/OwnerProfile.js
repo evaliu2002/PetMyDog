@@ -25,7 +25,7 @@ const OwnerProfile = ({changedDogObject, userID}) => {
     }
 
     const selectedDog = async(e) => {
-        console.log(e.currentTarget);
+        console.log("e.currentTarget" + e.currentTarget);
         await changedDogObject(JSON.parse(e.currentTarget.id));
         console.log(e.currentTarget.id);
         navigate("/view-dog-profile");
@@ -72,7 +72,7 @@ const OwnerProfile = ({changedDogObject, userID}) => {
             <button className="add-more"  onClick={createDogProfile}>add more</button>
 
             <Container fluid >
-                <div className= "row justify-content-md-center" >
+                <div className="dog-container">
 
                     {dogProfiles.map(dog => <div id={JSON.stringify(dog)} key={JSON.stringify(dog)} onClick={selectedDog} >
 
