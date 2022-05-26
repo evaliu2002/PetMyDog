@@ -153,8 +153,8 @@ const DogRequests = (props) => {
                     {/*{myUID === req.sender ? navUser(): navOwner()}*/}
                     <button onClick={() => {acceptRequest(req.mid);}}>Yes</button>
                     <button onClick={() => {rejectMeetup(req.mid);}}>No</button>
-                    <button onClick={() => {DirectionForUser(req.receiverProfile);}}>No</button>
-                    <button onClick={() => {DirectionForOwner(req.senderProfile);}}>No</button>
+                    <button onClick={() => {DirectionForUser(req.receiverProfile);}}>Get direction to owner</button>
+                    <button onClick={() => {DirectionForOwner(req.senderProfile);}}>Get direction to user</button>
                 </div>)}
         </div>
     );

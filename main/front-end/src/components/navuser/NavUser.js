@@ -41,14 +41,14 @@ const NavUser = (props) => {
             <button onClick={ () => navigate("/map-view/find-dogs") }>Return to search dogs</button>
             <button onClick={ () => navigate("/owner-profile") }>View profile</button>
 
-            {/*<h3> You are heading to { props.thatUser.username }</h3>*/}
+            <h3> You are heading to { props.thatUser.username }</h3>
 
-            {/*<h5> { props.thatUser.username } </h5> <br />*/}
-            {/*<p> Dog Owner contact: </p>*/}
+            <h5> { props.thatUser.username } </h5> <br />
+            <p> Dog Owner contact: </p>
 
-            {/*<BsFillTelephoneFill />*/}
-            {/*<h4> { props.thatUser.phone } </h4>*/}
-            {/*<h4> { props.thatUser.email } </h4>*/}
+            <BsFillTelephoneFill />
+            <h4> { props.thatUser.phone } </h4>
+            <h4> { props.thatUser.email } </h4>
 
             <BsFillPinMapFill />
             <p>
