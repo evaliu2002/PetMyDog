@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
 import {Route, Routes} from "react-router";
-import Login from "./components/login/Login";
-import FindDogs from './components/finddogs/FindDogs'
-import SelectedDog from "./components/selecteddog/SelectedDog";
-import OwnerProfile from "./components/ownerprofile/OwnerProfile"
-import ViewDogProfile from "./components/viewdogprofile/ViewDogProfile";
-import CreateDogProfile from "./components/createdogprofile/CreateDogProfile";
-import DogRequests from "./components/DogRequests/DogRequests";
-import MapView from "./components/mapview/MapView";
-import NavUser from "./components/navuser/NavUser";
-import NavOwner from "./components/navowner/NavOwner";
+import Login from "./components/Login";
+import FindDogs from './components/FindDogs'
+import SelectedDog from "./components/SelectedDog";
+import OwnerProfile from "./components/OwnerProfile"
+import ViewDogProfile from "./components/ViewDogProfile";
+import CreateDogProfile from "./components/CreateDogProfile";
+import DogRequests from "./components/DogRequests";
+import MapView from "./components/MapView";
+import NavUser from "./components/NavUser";
+import NavOwner from "./components/NavOwner";
 
 const App = () => {
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import "./Login.css";
+import "../styling/index.css"
 import {useNavigate} from 'react-router';
 
 const Login = () => {
