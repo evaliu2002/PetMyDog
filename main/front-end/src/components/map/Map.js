@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import {Circle, GoogleMap, Marker, useJsApiLoader, DirectionsRenderer} from '@react-google-maps/api';
 
@@ -27,10 +28,7 @@ function Map(props) {
     })
 
     // Creating current user location state, that user location state, and path to that user.
-    const [thisUser, setThisUser] = useState({
-        lat: 47.659057,
-        lng: -122.308705
-    });
+    const [thisUser, setThisUser] = useState(null);
     const [dir, setDir] = useState();
 
     const updateThisUserLocation = () => {
@@ -40,24 +38,6 @@ function Map(props) {
             setThisUser({lat, lng});
         });
     }
-
-    /**
-     * Update the marker and circle depending on the user's current location
-     */
-    const updateMarkerCircle = () => {
-        const marker = new window.google.maps.Marker({
-            map: map,
-            position: new window.google.maps.LatLng(thisUser),
-        });
-        const circle = new window.google.maps.Circle({
-            map: map,
-            radius: 500, //500 km
-            fillOpacity: 0,
-        });
-        circle.bindTo('center', marker, 'position');
-        map.fitBounds(circle.getBounds());
-    }
-
     // Getting the position of the current user
     useEffect(() => {
         updateThisUserLocation();
@@ -65,25 +45,22 @@ function Map(props) {
     }, []);
 
     useEffect(() => {
-        if (isLoaded) {
-            updateMarkerCircle();
-            if (props.thatUserLocation && props.thatUser) {
-                const directionsService = new window.google.maps.DirectionsService();
-                directionsService.route(
-                    {
-                        origin: thisUser,
-                        destination: props.thatUserLocation,
-                        travelMode: window.google.maps.TravelMode.WALKING
-                    },
-                    (result, status) => {
-                        if (status === window.google.maps.DirectionsStatus.OK) {
-                            setDir(result);
-                        } else {
-                            console.error(`error fetching directions ${result}`);
-                        }
+        if (props.thatUserLocation && props.thatUser && isLoaded) {
+            const directionsService = new window.google.maps.DirectionsService();
+            directionsService.route(
+                {
+                    origin: thisUser,
+                    destination: props.thatUserLocation,
+                    travelMode: window.google.maps.TravelMode.WALKING
+                },
+                (result, status) => {
+                    if (status === window.google.maps.DirectionsStatus.OK) {
+                        setDir(result);
+                    } else {
+                        console.error(`error fetching directions ${result}`);
                     }
-                );
-            }
+                }
+            );
         }
     }, [thisUser]);
 
@@ -91,6 +68,7 @@ function Map(props) {
 
     const onLoad = React.useCallback(function callback(map) {
         setMap(map)
+        map.setZoom(16);
     }, [])
 
     const onUnmount = React.useCallback(function callback(map) {
@@ -104,9 +82,22 @@ function Map(props) {
             onLoad={onLoad}
             onUnmount={onUnmount}
         >
-        <DirectionsRenderer
-            directions={dir}
-        />
+            <Marker
+                key="1"
+                position={thisUser}
+            />
+            <Circle
+                strokeColor={"#FF0000"}
+                strokeOpacity={0.8}
+                strokeWeight={2}
+                fillColor={"#FF0000"}
+                fillOpacity={0.35}
+                center={thisUser}
+                radius={500}
+            />
+            <DirectionsRenderer
+                directions={dir}
+            />
         </GoogleMap>
     ) : <></>
 }
