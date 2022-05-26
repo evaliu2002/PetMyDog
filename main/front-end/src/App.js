@@ -29,7 +29,7 @@ const App = () => {
                 </Route>
                 <Route path="owner-profile" element={<OwnerProfile changedDogObject={setSelectedDog} />}/>
                 <Route path="view-dog-profile" element={<ViewDogProfile dogProfile={selectedDog} />}/>
-                <Route path="create-dog-profile" element={<CreateDogProfile />}/>
+                <Route path="create-dog-profile" element={<CreateDogProfile  />}/>
             </Routes>
         </div>
     );

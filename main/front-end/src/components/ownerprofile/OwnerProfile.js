@@ -7,6 +7,7 @@ import {Card,Button,Container} from "react-bootstrap";
 
 
 const OwnerProfile = ({changedDogObject}) => {
+
     const [ownerName, setOwnerName] = useState("Bob");
     const [dogProfiles, setDogProfiles] = useState([]);
     const GET_USER_PROFILE_URL = process.env.REACT_APP_BASE_URL + "/getMyProfile";
@@ -22,7 +23,6 @@ const OwnerProfile = ({changedDogObject}) => {
     }
 
     const selectedDog = async(e) => {
-        console.log(e.currentTarget);
         await changedDogObject(JSON.parse(e.currentTarget.id));
         navigate("/view-dog-profile");
     }
@@ -48,7 +48,7 @@ const OwnerProfile = ({changedDogObject}) => {
                 let userObj = await response.json();
                 console.log(userObj);
                 let userDog = userObj.dogs;
-                console.log(userObj);
+                console.log(userDog);
                 setDogProfiles(userDog);
                 console.log("Dogs displayed: " + JSON.stringify(userDog));
                 let userName = userObj.username;
@@ -65,9 +65,9 @@ const OwnerProfile = ({changedDogObject}) => {
             <button className="add-more"  onClick={createDogProfile}>add more</button>
 
             <Container fluid >
-                <div className= "row justify-content-md-center" >
+                <div className="dog-container">
 
-                    {dogProfiles.map(dog => <div id={JSON.stringify(dog)} key={JSON.stringify(dog)} onClick={selectedDog} >
+                    {dogProfiles.map(dog => <div key={JSON.stringify(dog)}  >
 
                         <Card id={JSON.stringify(dog)} style={{width: '18rem', margin: '20px'}} >
                         <Card.Img variant="top" src= "https://www.pumpkin.care/dog-breeds/wp-content/uploads/2021/03/Husky-Hero.png"  />
@@ -78,6 +78,7 @@ const OwnerProfile = ({changedDogObject}) => {
                         <p>Breed: {dog.breed}</p>
                         </Card.Text>
                         <Button variant="primary" onClick={findDogs}>Go For A Walk</Button>
+                            <Button variant="primary" id={JSON.stringify(dog)}  onClick={selectedDog}> View Dog</Button>
                         </Card.Body>
                         </Card>
 

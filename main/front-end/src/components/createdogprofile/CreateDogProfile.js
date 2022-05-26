@@ -11,7 +11,7 @@ function CreateDogProfile () {
     const [breed, setBreed] = useState("");
     const [gender, setGender] = useState("");
     const [piclink, setpicLink] = useState("https://www.pumpkin.care/dog-breeds/wp-content/uploads/2021/03/Husky-Hero.png");
-    const [id, setID] = useState("id");
+
 
 
 
@@ -19,11 +19,14 @@ function CreateDogProfile () {
     const CREATE_DOG_PROFILE = process.env.REACT_APP_BASE_URL + "/newDog";
 
 
+
     const onSubmit = () => {
-        let dogObject = {id, name, age, breed, gender, piclink};
+
+        let dogObject = { name, age, breed, gender, piclink};
         fetch(CREATE_DOG_PROFILE, {
             method: 'POST',
             cache: 'no-cache',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -31,7 +34,7 @@ function CreateDogProfile () {
         })
             .then(checkStatus)
             .then(() => {console.log("Name: " + name + "Age: "+ age + "Breed: " +
-                breed + "Gender: " + gender + "Id: " + id + "Piclink: "+ piclink);})
+                breed + "Gender: " + gender  + "Piclink: "+ piclink);})
             .catch(() => {console.log("Dog's info not updated")} )
 
         navigate("/owner-profile")
@@ -57,7 +60,7 @@ function CreateDogProfile () {
             <div>
                 <div className="container">
 
-                    <Form.Group className='font-link'>Your Dog's Profile</Form.Group>
+                    <Form.Group className="font-link">Your Dog's Profile</Form.Group>
 
                     <UploadImage/>
 
@@ -100,6 +103,7 @@ function CreateDogProfile () {
                                 <button className="create-button" onClick={onSubmit}>
                                     Create Profile
                                 </button>
+
                             </Form>
                     </div>
                 </div>

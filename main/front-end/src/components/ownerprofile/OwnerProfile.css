@@ -4,9 +4,20 @@ body{
 }
 .owner-profile {
     background-color: #E5737D;
-    height: 100%;
+    width: 390px;
+    height: fit-content;
+    display: block;
+
 }
 
+.dog-container{
+    display: block;
+    align-content: center;
+    align-items: center;
+    width: 390px;
+    height: fit-content;
+    background-color: #E5737D;
+}
 .font-link {
     font-family: 'Pacifico', cursive;
     font-size: xxx-large;
@@ -23,8 +34,8 @@ body{
     color: white;
     display: flex;
     width: 30%;
-    margin-right: 20%;
-    margin-left: 80%;
+    margin-right: 30%;
+    margin-left: 40%;
     padding: 0;
     border: none;
     background: none;
