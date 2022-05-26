@@ -6,17 +6,15 @@ import {Card,Button,Container} from "react-bootstrap";
 
 
 
-const OwnerProfile = ({changedDogObject, userID}) => {
-    const   [uid, setUID] = useState();
+const OwnerProfile = ({changedDogObject}) => {
+
     const [ownerName, setOwnerName] = useState("Bob");
     const [dogProfiles, setDogProfiles] = useState([]);
     const GET_USER_PROFILE_URL = process.env.REACT_APP_BASE_URL + "/getMyProfile";
 
     let navigate = useNavigate();
 
-    const createDogProfile = async() => {
-        await userID(JSON.parse(uid));
-        console.log(JSON.parse(uid));
+    const createDogProfile = () => {
         navigate("/create-dog-profile")
     }
 
@@ -25,9 +23,7 @@ const OwnerProfile = ({changedDogObject, userID}) => {
     }
 
     const selectedDog = async(e) => {
-        console.log("e.currentTarget" + e.currentTarget);
         await changedDogObject(JSON.parse(e.currentTarget.id));
-        console.log(e.currentTarget.id);
         navigate("/view-dog-profile");
     }
 
@@ -51,9 +47,6 @@ const OwnerProfile = ({changedDogObject, userID}) => {
             .then(async(response) =>{
                 let userObj = await response.json();
                 console.log(userObj);
-                let tempUID = userObj.uid;
-                console.log("UserID: " + tempUID);
-                setUID(tempUID);
                 let userDog = userObj.dogs;
                 console.log(userDog);
                 setDogProfiles(userDog);
@@ -74,7 +67,7 @@ const OwnerProfile = ({changedDogObject, userID}) => {
             <Container fluid >
                 <div className="dog-container">
 
-                    {dogProfiles.map(dog => <div id={JSON.stringify(dog)} key={JSON.stringify(dog)} onClick={selectedDog} >
+                    {dogProfiles.map(dog => <div key={JSON.stringify(dog)}  >
 
                         <Card id={JSON.stringify(dog)} style={{width: '18rem', margin: '20px'}} >
                         <Card.Img variant="top" src= "https://www.pumpkin.care/dog-breeds/wp-content/uploads/2021/03/Husky-Hero.png"  />
@@ -85,6 +78,7 @@ const OwnerProfile = ({changedDogObject, userID}) => {
                         <p>Breed: {dog.breed}</p>
                         </Card.Text>
                         <Button variant="primary" onClick={findDogs}>Go For A Walk</Button>
+                            <Button variant="primary" id={JSON.stringify(dog)}  onClick={selectedDog}> View Dog</Button>
                         </Card.Body>
                         </Card>
 

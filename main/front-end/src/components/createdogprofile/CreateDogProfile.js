@@ -4,7 +4,7 @@ import UploadImage from "../uploadandisplayimage/UploadImage";
 import { useNavigate } from 'react-router';
 import { BsArrowLeftSquare } from "react-icons/bs";
 
-function CreateDogProfile ({uid}) {
+function CreateDogProfile () {
     const navigate = useNavigate();
     const [name, setName] = useState("");
     const [age, setAge] = useState("");
@@ -18,14 +18,15 @@ function CreateDogProfile ({uid}) {
 
     const CREATE_DOG_PROFILE = process.env.REACT_APP_BASE_URL + "/newDog";
 
-    console.log("UserId: " + uid);
+
 
     const onSubmit = () => {
 
-        let dogObject = {uid, name, age, breed, gender, piclink};
+        let dogObject = { name, age, breed, gender, piclink};
         fetch(CREATE_DOG_PROFILE, {
             method: 'POST',
             cache: 'no-cache',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -33,7 +34,7 @@ function CreateDogProfile ({uid}) {
         })
             .then(checkStatus)
             .then(() => {console.log("Name: " + name + "Age: "+ age + "Breed: " +
-                breed + "Gender: " + gender + "Uid: " + uid + "Piclink: "+ piclink);})
+                breed + "Gender: " + gender  + "Piclink: "+ piclink);})
             .catch(() => {console.log("Dog's info not updated")} )
 
         navigate("/owner-profile")
