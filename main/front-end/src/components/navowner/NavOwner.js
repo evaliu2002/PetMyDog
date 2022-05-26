@@ -38,6 +38,7 @@ const NavOwner = (props) => {
         <div>
             <button onClick={ () => navigate("/map-view/dog-requests") }>Refresh location and suggested path.</button>
             <button onClick={ () => navigate("/owner-profile") }>Refresh location and suggested path.</button>
+            <button onClick={ updateThatUserLocation }>Refresh location and suggested path.</button>
 
             <h3> { props.thatUser.username } is coming to you</h3>
 
@@ -53,7 +54,6 @@ const NavOwner = (props) => {
                 It is possible for the visitor's location to be unavailable. If you do not want to wait until it becomes
                 available, go back to request list and cancel this meet up.
             </p>
-            <button onClick={ updateThatUserLocation }>Refresh location and suggested path.</button>
         </div>
     );
 }
