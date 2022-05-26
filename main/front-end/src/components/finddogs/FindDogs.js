@@ -23,32 +23,6 @@ const FindDogs = ({changedDogObj}) => {
     // Dogs Nearby state
     const [dogsNearby, setDogsNearby] = useState([]);
 
-    const LOCATION_URL = process.env.REACT_APP_BASE_URL + "/updateLocation";
-    const UPDATE_EVERY = 15 * 1000;
-
-    /**
-     * Update User Location from calling back-end endpoint
-     */
-    const updateLocation = () => {
-        navigator.geolocation.getCurrentPosition((position) => {
-            let lat = position.coords.latitude;
-            let lng = position.coords.longitude;
-            let locationInfo = {lat, lng};
-            fetch(LOCATION_URL, {
-                method: 'POST',
-                cache: 'no-cache',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(locationInfo) // body data type must match "Content-Type" header
-            })
-                .then(checkStatus)
-                .then(() => {console.log("Updated location: lat: " + lat + " lng: " + lng);})
-                .catch(() => {console.log("Location not updated")});
-        });
-    };
-
     /**
      * Get back-end response
      * @param response
@@ -120,7 +94,6 @@ const FindDogs = ({changedDogObj}) => {
         <div className='findDogs'>
             <button onClick={dogRequests}>Owner Mode</button>
             <button onClick={updateNearbyUsers}>See who is nearby</button>
-            <button onClick={updateLocation}>Broadcast my location</button>
             <BsFillPersonFill onClick={ownerProfile}/>
             <h4>Nearby Pets</h4>
             {dogsNearby.map(dog => <div id={JSON.stringify(dog)} onClick={selectedDog}>{dog.name}</div>)}
