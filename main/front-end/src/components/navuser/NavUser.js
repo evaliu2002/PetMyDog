@@ -43,12 +43,11 @@ const NavUser = (props) => {
 
             <h3> You are heading to { props.thatUser.username }</h3>
 
-            <h5> { props.thatUser.username } </h5> <br />
-            <p> Dog Owner contact: </p>
+            <h5> { props.thatUser.username + "'s contact:"} </h5> <br />
 
             <BsFillTelephoneFill />
-            <h4> { props.thatUser.phone } </h4>
-            <h4> { props.thatUser.email } </h4>
+            <h4> { props.thatUser.phone ? props.thatUser.phone : "no phone provided" } </h4>
+            <h4> { props.thatUser.email ? props.thatUser.email : "no email provided" } </h4>
 
             <BsFillPinMapFill />
             <p>
