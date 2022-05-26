@@ -54,6 +54,13 @@
   - Plans and Goals for the Next Week: Make final adjustements for final release and work on writing JUnit tests.
                                        Check in with the team on any bug reports and also make changes based on
                                        peer review results.
+- 
+- ##### Kevin Kong
+    - Goals from last week: I will continue finishing up some backend APIs. I can write test cases and debug any issues in the code.
+
+    - Progress and Issues: I finished backend API on my part.  
+
+    - Plans and Goals for the next week: Test the web app and fix any remaining issues.
 
 - ##### An Nguyen:
   - Goals from last week: Test the CreateDogProfile post request to the back end. Create test suite for
