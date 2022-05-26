@@ -6,11 +6,12 @@
     - Back-end: Added three more API and added comments to existing ones.
 
 - What we did:
-    - Front-end: Finished implementing dog requests, 
+    - Front-end: Finished implementing dog requests, edited styling for mobile page, edited dog request to 
+      send post request to back-end
     - Back-end: Finished refining code based on given feedback and tested our APIs.
 
 - What we plan to do:
-    - Front-end: 
+    - Front-end: Continue doing tests for the components and prepare for the final release.
     - Back-end: Write JUnit tests for our APIs and make sure the APIs are working as intended.
 
 #### Individual Reports
@@ -53,3 +54,11 @@
   - Plans and Goals for the Next Week: Make final adjustements for final release and work on writing JUnit tests.
                                        Check in with the team on any bug reports and also make changes based on
                                        peer review results.
+
+- ##### An Nguyen:
+  - Goals from last week: Test the CreateDogProfile post request to the back end. Create test suite for
+    front-end components. Edit styling to fit mobile page. 
+  - Progress and Issues: Edited post request so that dog object is received in the back-end after creating a dog profile. 
+    Edited styling to fit mobile pages. 
+  - Plans and Goals for the Next Week: Ensure dog list in owner profile is updated after creating dog object. 
+    Prepare for final release. 
