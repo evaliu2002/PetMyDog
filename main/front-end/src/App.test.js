@@ -3,6 +3,7 @@ import App from './App';
 import {BrowserRouter} from "react-router-dom";
 import React from 'react';
 import {Circle, initialize, Map, Marker, mockInstances} from "@googlemaps/jest-mocks";
+import { useAuth0 } from "@auth0/auth0-react";
 
 /**
  * Testing Pet My Dog Login Heading Display
@@ -18,9 +19,45 @@ test('heading-display', () => {
 });
 
 /**
+ * Testing Google Oauth Login (Test not yet implemented)
+ */
+// test('google-oauth-login', () => {
+//
+// });
+// const user = {
+//     email: "johndoe@me.com",
+//     email_verified: true,
+//     sub: "google-oauth2|12345678901234",
+// };
+//
+// jest.mock("@auth0/auth0-react");
+//
+// const mockedUseAuth0 = mocked(useAuth0, true);
+//
+// describe("Logged in", () => {
+//     beforeEach(() => {
+//         mockedUseAuth0.mockReturnValue({
+//             isAuthenticated: true,
+//             user,
+//             logout: jest.fn(),
+//             loginWithRedirect: jest.fn(),
+//             getAccessTokenWithPopup: jest.fn(),
+//             getAccessTokenSilently: jest.fn(),
+//             getIdTokenClaims: jest.fn(),
+//             loginWithPopup: jest.fn(),
+//             isLoading: false,
+//         });
+//     });
+// });
+
+/**
  * Testing Google Maps Display
  */
-test("mocking-google-maps", () => {
+beforeAll(() => {
+    initialize();
+});
+
+test('mocking-google-maps', () => {
     const map = new google.maps.Map(null);
     const markerOne = new google.maps.Marker();
     const markerTwo = new google.maps.Marker();
@@ -43,10 +80,6 @@ test("mocking-google-maps", () => {
     expect(circleMocks[0].setMap).toHaveBeenCalledTimes(1);
 });
 
-beforeAll(() => {
-    initialize();
-});
-
 // Clear all mocks
 beforeEach(() => {
     mockInstances.clearAll();
@@ -55,4 +88,12 @@ beforeEach(() => {
 // Clear specific mocks
 beforeEach(() => {
     mockInstances.clear(Map, Marker);
+});
+
+/**
+ * Testing Status Change of Meeting Requests after requests are
+ * accepted or declined.
+ */
+test('request-status-change', () => {
+
 });
