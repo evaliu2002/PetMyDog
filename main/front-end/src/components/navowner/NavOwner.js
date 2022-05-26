@@ -16,7 +16,9 @@ const NavOwner = (props) => {
         })
             .then(checkStatus)
             .then(async (response) => {
-                props.setThatUserLocation(await response.json());
+                let location1 = await response.json();
+                let location2 = {lat: location1.lat, lng: location1.lon};
+                props.setThatUserLocation(location2);
             })
             .catch(() => {alert("Petter's location is unavailable!")});
     };
