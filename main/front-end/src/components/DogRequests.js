@@ -32,7 +32,6 @@ const DogRequests = (props) => {
 
     const [senderReqs, setSenderReqs] = useState([]);
     const [receiverReqs, setReceiverReqs] = useState([]);
-    const [myUID, setMyUID] = useState("");
     const UPDATE_EVERY_MIN = 10 * 1000;
 
     /**
@@ -58,6 +57,7 @@ const DogRequests = (props) => {
     const requestMeetup = () => {
         let reqSArr = [];
         let reqRArr = [];
+        let UID;
         fetch(MY_PROF_URL, {
             cache: 'no-cache',
             credentials: 'include',
@@ -68,7 +68,7 @@ const DogRequests = (props) => {
             .then(checkStatus)
             .then(async (response) => {
                 let userProfile = (await response.json());
-                setMyUID(userProfile.uid);
+                UID = userProfile.uid;
             })
         fetch(REQ_MEET_URL, {
             cache: 'no-cache',
@@ -76,16 +76,17 @@ const DogRequests = (props) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(myUID)
+            body: JSON.stringify(UID)
         })
             .then(checkStatus)
             .then(async (response) => {
                 let reqObj = (await response.json());
+                console.log(reqObj)
                 if (reqObj !== "No meetups") {
                     for (let i = 0; i < reqObj.length; i++) {
-                        if (reqObj[i].sender === myUID) {
+                        if (JSON.stringify(reqObj[i].sender) === JSON.stringify(UID)) {
                             reqSArr.push(reqObj[i])
-                        } else if (reqObj[i].receiver === myUID) {
+                        } else if (JSON.stringify(reqObj[i].receiver) === JSON.stringify(UID)) {
                             reqRArr.push(reqObj[i])
                         }
                     }
