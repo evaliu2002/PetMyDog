@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { BsFillPersonFill } from "react-icons/bs";
 import { useNavigate } from 'react-router';
-import "./FindDogs.css";
+import "../styling/index.css"
 
 const FindDogs = ({changedDogObj}) => {
     // useNavigate for event handling to other web pages
