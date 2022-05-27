@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BsArrowLeftSquare } from "react-icons/bs";
-import '../styling/OwnerProfile.css';
+import { BsArrowLeftSquareFill } from "react-icons/bs";
 import { useNavigate } from 'react-router';
 import {Card,Button,Container} from "react-bootstrap";
 
@@ -34,6 +33,16 @@ const OwnerProfile = ({changedDogObject}) => {
         await changedDogObject(JSON.parse(e.currentTarget.id));
         navigate("/view-dog-profile");
     }
+
+    //Go to the log out page
+    const logOut = () => {
+        navigate("/log-out");
+    }
+
+    const back = () => {
+        navigate("/map-view/find-dogs");
+    }
+
 
     const checkStatus = (response) => {
         if (response.status >= 200 && response.status < 300 || response.status === 0) {
@@ -69,16 +78,15 @@ const OwnerProfile = ({changedDogObject}) => {
     //map each dog object to each card
     //using each dog as an id for selectedDog's event
     return (
-        <div className="owner-profile">
-
+        <div className="dog-container">
+            <BsArrowLeftSquareFill  color="white" style={{margin: "20px"}} onClick={back}/>
             <h2 className="font-link"> {ownerName}'s Profile </h2>
-
-            <button className="add-more"  onClick={createDogProfile}>add more</button>
+            <button className="navigate-buttons" onClick={logOut}>   log out</button>
+            <button className="navigate-buttons" onClick={createDogProfile}>add more &nbsp;&nbsp;</button>
             <Container fluid >
                 <div className="dog-container">
                     {dogProfiles.map(dog => <div key={JSON.stringify(dog)}  >
                         <Card id={JSON.stringify(dog)} style={{width: '18rem', margin: '20px'}} >
-                        {/*<Card.Img variant="top" src= "https://www.pumpkin.care/dog-breeds/wp-content/uploads/2021/03/Husky-Hero.png"  />*/}
                         <Card.Body>
                         <Card.Title> {dog.name}</Card.Title>
                         <Card.Text>

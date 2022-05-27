@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Form from 'react-bootstrap/Form';
 import { useNavigate } from 'react-router';
+import {BsArrowLeftSquare} from "react-icons/bs";
 
 /**
  * A form that let the user input the dog's info
@@ -22,7 +23,7 @@ function CreateDogProfile () {
     const onSubmit = () => {
 
         //send the new dog's information to the back-end
-        let dogObject = { name, age, breed, gender, piclink};
+        let dogObject = { name, age, breed, gender};
         fetch(CREATE_DOG_PROFILE, {
             method: 'POST',
             cache: 'no-cache',
@@ -34,13 +35,16 @@ function CreateDogProfile () {
         })
             .then(checkStatus)
             .then(() => {console.log("Name: " + name + "Age: "+ age + "Breed: " +
-                breed + "Gender: " + gender  + "Piclink: "+ piclink);})
+                breed + "Gender: " + gender  );})
             .catch(() => {console.log("Dog's info not updated")} )
 
         //navigate back to the owner's profile once a new is created.
         navigate("/owner-profile")
     }
 
+    const back = () => {
+        navigate("/owner-profile")
+    }
 
 
     /**
@@ -56,18 +60,18 @@ function CreateDogProfile () {
         }
     };
 
-
+    // A form that receive the dog info inputs
         return (
             <div>
                 <div className="container">
-                    // A form that receive the dog's info inputs
+                    <BsArrowLeftSquare  color="white" style={{margin: "20px"}} onClick={back}/>
                     <Form.Group className="font-link">Your Dog's Profile</Form.Group>
 
 
                     <div className="form">
                             <Form>
                                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                    <Form.Label>Dog's Name</Form.Label>
+                                    <Form.Label className="dogText">Dog's Name</Form.Label>
                                     <Form.Control type="text"
                                                   placeholder="Your Dog's Name"
                                                   value={name}

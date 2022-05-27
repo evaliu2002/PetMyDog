@@ -1,6 +1,7 @@
 import React from 'react';
 import {Container, Form} from 'react-bootstrap';
 import { useNavigate } from 'react-router';
+import {BsArrowLeftSquare} from "react-icons/bs";
 
 
 /**
@@ -21,22 +22,23 @@ import { useNavigate } from 'react-router';
          }
      };
 
-    const logOut = () => {
-        navigate("/owner-profile")
-    }
+     const back = () => {
+         navigate("/owner-profile")
+     }
 
      // Read-only forms for dog's information.
      return (
             <Container>
 
-                <button onClick={logOut}>Log Out</button>
+                <BsArrowLeftSquare  color="white" style={{margin: "20px"}} onClick={back}/>
+
                 <Form.Group className='font-link'>Your Dog's Profile</Form.Group>
 
                 <Form.Group>
                         <Form>
                             <img className="circular-profile" src= "https://www.pumpkin.care/dog-breeds/wp-content/uploads/2021/03/Husky-Hero.png" alt="profile sample"/>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                <Form.Label>Dog's Name</Form.Label>
+                                <Form.Label >Dog's Name</Form.Label>
                                 <Form.Control
                                     readOnly type="text" value={dogProfile.name}/>
                             </Form.Group>
