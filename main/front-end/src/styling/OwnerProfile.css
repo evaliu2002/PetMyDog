@@ -42,11 +42,9 @@ body{
 
 .navigate-buttons {
     font-family: 'Pacifico', cursive;
-    font-size: x-large;
+    font-size: large;
     color: white;
     display: inline-block;
-    width: 30%;
-    margin-left: 30px;
     padding: 0;
     border: none;
     background: none;

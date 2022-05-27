@@ -24,7 +24,7 @@ const OwnerProfile = ({changedDogObject}) => {
     }
 
     //Go to the dog requests page
-    const findDogs = () => {
+    const dogRequest = () => {
         navigate("/map-view/dog-requests")
     }
 
@@ -39,7 +39,7 @@ const OwnerProfile = ({changedDogObject}) => {
         navigate("/log-out");
     }
 
-    const back = () => {
+    const findDogs = () => {
         navigate("/map-view/find-dogs");
     }
 
@@ -79,10 +79,12 @@ const OwnerProfile = ({changedDogObject}) => {
     //using each dog as an id for selectedDog's event
     return (
         <div className="dog-container">
-            <BsArrowLeftSquareFill  color="white" style={{margin: "20px"}} onClick={back}/>
+
             <h2 className="font-link"> {ownerName}'s Profile </h2>
-            <button className="navigate-buttons" onClick={logOut}>   log out</button>
-            <button className="navigate-buttons" onClick={createDogProfile}>add more &nbsp;&nbsp;</button>
+            <button className="navigate-buttons" onClick={dogRequest}>dog request</button>
+            <button className="navigate-buttons" onClick={findDogs}>find dogs</button>
+            <button className="navigate-buttons" onClick={logOut}>log out</button>
+            <button className="navigate-buttons" onClick={createDogProfile}>add more</button>
             <Container fluid >
                 <div className="dog-container">
                     {dogProfiles.map(dog => <div key={JSON.stringify(dog)}  >
