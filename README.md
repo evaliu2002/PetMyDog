@@ -1,5 +1,8 @@
 # PetMyDog
 
+Developer Guide: https://github.com/evaliu2002/PetMyDog/blob/docs/docs/dev_guide.md
+User Manual: https://github.com/evaliu2002/PetMyDog/blob/docs/docs/user_guide.md
+
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)<br><br>
 [User Document](https://github.com/evaliu2002/PetMyDog/blob/main/USERDOC.md)
 
