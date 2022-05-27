@@ -1,27 +1,27 @@
 import React, {useState} from 'react';
 import Form from 'react-bootstrap/Form';
-import UploadImage from "../uploadandisplayimage/UploadImage";
 import { useNavigate } from 'react-router';
-import { BsArrowLeftSquare } from "react-icons/bs";
 
+/**
+ * A form that let the user input the dog's info
+ * and send a post request to add a new dog to the database
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function CreateDogProfile () {
     const navigate = useNavigate();
     const [name, setName] = useState("");
     const [age, setAge] = useState("");
     const [breed, setBreed] = useState("");
     const [gender, setGender] = useState("");
-    const [piclink, setpicLink] = useState("https://www.pumpkin.care/dog-breeds/wp-content/uploads/2021/03/Husky-Hero.png");
-
-
-
 
 
     const CREATE_DOG_PROFILE = process.env.REACT_APP_BASE_URL + "/newDog";
 
 
-
     const onSubmit = () => {
 
+        //send the new dog's information to the back-end
         let dogObject = { name, age, breed, gender, piclink};
         fetch(CREATE_DOG_PROFILE, {
             method: 'POST',
@@ -37,6 +37,7 @@ function CreateDogProfile () {
                 breed + "Gender: " + gender  + "Piclink: "+ piclink);})
             .catch(() => {console.log("Dog's info not updated")} )
 
+        //navigate back to the owner's profile once a new is created.
         navigate("/owner-profile")
     }
 
@@ -59,10 +60,9 @@ function CreateDogProfile () {
         return (
             <div>
                 <div className="container">
-
+                    // A form that receive the dog's info inputs
                     <Form.Group className="font-link">Your Dog's Profile</Form.Group>
 
-                    <UploadImage/>
 
                     <div className="form">
                             <Form>

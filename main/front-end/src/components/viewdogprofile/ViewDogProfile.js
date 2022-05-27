@@ -1,12 +1,18 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Container, Form} from 'react-bootstrap';
+import { useNavigate } from 'react-router';
 
-import {useNavigate} from "react-router";
 
+/**
+ *Received the selected dog profile from OwnerProfile
+ * and show the full profile of the dog
+ *
+ * @param dogProfile
+ * @returns {JSX.Element}
+ * @constructor
+ */
  const ViewDogProfile = ({dogProfile}) => {
-
-
-
+     const navigate = useNavigate();
      const checkStatus = (response) => {
          if (response.status >= 200 && response.status < 300 || response.status === 0) {
              return response;
@@ -15,9 +21,15 @@ import {useNavigate} from "react-router";
          }
      };
 
+    const logOut = () => {
+        navigate("/owner-profile")
+    }
 
+     // Read-only forms for dog's information.
      return (
             <Container>
+
+                <button onClick={logOut}>Log Out</button>
                 <Form.Group className='font-link'>Your Dog's Profile</Form.Group>
 
                 <Form.Group>
@@ -43,11 +55,6 @@ import {useNavigate} from "react-router";
                                 <Form.Label>Dog's Gender</Form.Label>
                                 <Form.Control readOnly type="text" value = {dogProfile.gender} />
                             </Form.Group>
-
-                            {/*<Form.Group className="mb-3" controlId="exampleForm.ControlInput1">*/}
-                            {/*    <Form.Label>Dog's Biography</Form.Label>*/}
-                            {/*    <Form.Control readOnly type="text" value = {bio} />*/}
-                            {/*</Form.Group>*/}
 
                         </Form>
 
