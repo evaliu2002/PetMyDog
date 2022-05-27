@@ -174,25 +174,25 @@ public class Main {
 
 
         /*******************************************   Start Security Guard   *****************************************/
-
-        before("/hello", new SecurityFilter(config, "GoogleClient"));
-        before("/getNearbyUser", new SecurityFilter(config, "GoogleClient"));
-        before("/getUserProfile", new SecurityFilter(config, "GoogleClient"));
-        before("/getMyProfile", new SecurityFilter(config, "GoogleClient"));
-        before("/getDogProfile", new SecurityFilter(config, "GoogleClient"));
-        before("/deleteDogProfile", new SecurityFilter(config, "GoogleClient"));
-        before("/meetups", new SecurityFilter(config, "GoogleClient"));
-        before("/endMeetup", new SecurityFilter(config, "GoogleClient"));
-        before("/rejectMeetup", new SecurityFilter(config, "GoogleClient"));
-        before("/acceptMeetup", new SecurityFilter(config, "GoogleClient"));
-        before("/requestMeetup", new SecurityFilter(config, "GoogleClient"));
-        before("/newDog", new SecurityFilter(config, "GoogleClient"));
-        before("/getOtherUserLocation", new SecurityFilter(config, "GoogleClient"));
-        before("/editDogProfile", new SecurityFilter(config, "GoogleClient"));
-        before("/editUserProfile", new SecurityFilter(config, "GoogleClient"));
-        before("/updateLocation", new SecurityFilter(config, "GoogleClient"));
-        before("/getNearbyUser", new SecurityFilter(config, "GoogleClient"));
-
+        if (DEPLOYMENT) {
+            before("/hello", new SecurityFilter(config, "GoogleClient"));
+            before("/getNearbyUser", new SecurityFilter(config, "GoogleClient"));
+            before("/getUserProfile", new SecurityFilter(config, "GoogleClient"));
+            before("/getMyProfile", new SecurityFilter(config, "GoogleClient"));
+            before("/getDogProfile", new SecurityFilter(config, "GoogleClient"));
+            before("/deleteDogProfile", new SecurityFilter(config, "GoogleClient"));
+            before("/meetups", new SecurityFilter(config, "GoogleClient"));
+            before("/endMeetup", new SecurityFilter(config, "GoogleClient"));
+            before("/rejectMeetup", new SecurityFilter(config, "GoogleClient"));
+            before("/acceptMeetup", new SecurityFilter(config, "GoogleClient"));
+            before("/requestMeetup", new SecurityFilter(config, "GoogleClient"));
+            before("/newDog", new SecurityFilter(config, "GoogleClient"));
+            before("/getOtherUserLocation", new SecurityFilter(config, "GoogleClient"));
+            before("/editDogProfile", new SecurityFilter(config, "GoogleClient"));
+            before("/editUserProfile", new SecurityFilter(config, "GoogleClient"));
+            before("/updateLocation", new SecurityFilter(config, "GoogleClient"));
+            before("/getNearbyUser", new SecurityFilter(config, "GoogleClient"));
+        }
         after("/callback", (Request request, Response response) -> {
             List<UserProfile> users = getProfiles(request, response);
             if (users.size() == 1) {
