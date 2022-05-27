@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { BsArrowLeftSquare } from "react-icons/bs";
-import '../styling/OwnerProfile.css';
+import { BsArrowLeftSquareFill } from "react-icons/bs";
 import { useNavigate } from 'react-router';
 import {Card,Button,Container} from "react-bootstrap";
 
 
-
+/**
+ * Shows a list of created dog objects
+ * @param changedDogObject
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const OwnerProfile = ({changedDogObject}) => {
 
     const [ownerName, setOwnerName] = useState("Bob");
@@ -14,18 +18,31 @@ const OwnerProfile = ({changedDogObject}) => {
 
     let navigate = useNavigate();
 
+    //Add more dog
     const createDogProfile = () => {
         navigate("/create-dog-profile")
     }
 
-    const findDogs = () => {
+    //Go to the dog requests page
+    const dogRequest = () => {
         navigate("/map-view/dog-requests")
     }
 
+    //Show the full profile of the selected dog
     const selectedDog = async(e) => {
         await changedDogObject(JSON.parse(e.currentTarget.id));
         navigate("/view-dog-profile");
     }
+
+    //Go to the log out page
+    const logOut = () => {
+        navigate("/log-out");
+    }
+
+    const findDogs = () => {
+        navigate("/map-view/find-dogs");
+    }
+
 
     const checkStatus = (response) => {
         if (response.status >= 200 && response.status < 300 || response.status === 0) {
@@ -35,7 +52,7 @@ const OwnerProfile = ({changedDogObject}) => {
         }
     };
 
-
+    //get the user object and their dog list
     const updateOwnerProfile = () => {
         fetch(GET_USER_PROFILE_URL, {
             cache: 'no-cache',
@@ -58,26 +75,27 @@ const OwnerProfile = ({changedDogObject}) => {
 
     useEffect( updateOwnerProfile,[]);
 
+    //map each dog object to each card
+    //using each dog as an id for selectedDog's event
     return (
-        <div className="owner-profile">
+        <div className="dog-container">
+
             <h2 className="font-link"> {ownerName}'s Profile </h2>
-
-            <button className="add-more"  onClick={createDogProfile}>add more</button>
-
+            <button className="navigate-buttons" onClick={dogRequest}>dog request</button>
+            <button className="navigate-buttons" onClick={findDogs}>find dogs</button>
+            <button className="navigate-buttons" onClick={logOut}>log out</button>
+            <button className="navigate-buttons" onClick={createDogProfile}>add more</button>
             <Container fluid >
                 <div className="dog-container">
-
                     {dogProfiles.map(dog => <div key={JSON.stringify(dog)}  >
-
                         <Card id={JSON.stringify(dog)} style={{width: '18rem', margin: '20px'}} >
-                        <Card.Img variant="top" src= "https://www.pumpkin.care/dog-breeds/wp-content/uploads/2021/03/Husky-Hero.png"  />
                         <Card.Body>
                         <Card.Title> {dog.name}</Card.Title>
                         <Card.Text>
                         <p>Age: {dog.age}   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Gender: {dog.gender}  </p>
                         <p>Breed: {dog.breed}</p>
                         </Card.Text>
-                        <Button variant="primary" onClick={findDogs}>Go For A Walk</Button>
+                            <Button variant="primary" onClick={findDogs}>Go For A Walk</Button>
                             <Button variant="primary" id={JSON.stringify(dog)}  onClick={selectedDog}> View Dog</Button>
                         </Card.Body>
                         </Card>
@@ -85,7 +103,6 @@ const OwnerProfile = ({changedDogObject}) => {
                     </div>)}
                 </div>
             </Container>
-
         </div>
     );
 }
