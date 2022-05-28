@@ -24,7 +24,6 @@ const SelectedDog = ({dogObj}) => {
     const navUser = () => {
         fetch(REQ_MEET_URL, {
             method: 'POST',
-            mode: 'no-cors',
             cache: 'no-cache',
             credentials: 'include',
             headers: {
