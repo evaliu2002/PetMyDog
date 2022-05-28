@@ -37,7 +37,7 @@ const OwnerProfile = ({changedDogObject}) => {
     //Go to the log out page
     const logOut = () => {
         deleteAllCookies();
-        navigate("/login");
+        navigate("/");
     }
 
     const findDogs = () => {
