@@ -92,8 +92,9 @@ const FindDogs = ({changedDogObj}) => {
 
     return (
         <div className='findDogs'>
-            <button onClick={dogRequests}>Owner Mode</button>
-            <button onClick={updateNearbyUsers}>See who is nearby</button>
+            <button className="top-buttons" onClick={dogRequests}>Owner Mode</button>
+            <br />
+            <button className="top-buttons" onClick={updateNearbyUsers}>See who is nearby</button>
             <BsFillPersonFill onClick={ownerProfile}/>
             <h4>Nearby Pets</h4>
             {dogsNearby.map(dog => <div id={JSON.stringify(dog)} onClick={selectedDog}>{dog.name}</div>)}
