@@ -38,8 +38,8 @@ const NavOwner = (props) => {
 
     return (
         <div>
-            <button onClick={ () => navigate("/map-view/dog-requests") }>Refresh location and suggested path.</button>
-            <button onClick={ () => navigate("/owner-profile") }>Refresh location and suggested path.</button>
+            <button onClick={ () => navigate("/map-view/find-dogs") }>Find dogs</button>
+            <button onClick={ () => navigate("/map-view/dog-requests") }>Requests</button>
             <button onClick={ updateThatUserLocation }>Refresh location and suggested path.</button>
 
             <h3> { props.thatUser.username } is coming to you</h3>
