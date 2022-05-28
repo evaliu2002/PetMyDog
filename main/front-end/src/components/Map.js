@@ -61,8 +61,10 @@ function Map(props) {
                     }
                 }
             );
+        } else {
+            setDir(undefined);
         }
-    }, [thisUser]);
+    }, [thisUser, props.thatUser]);
 
     const [map, setMap] = React.useState(null)
 
