@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { BsArrowLeftSquareFill } from "react-icons/bs";
 import { useNavigate } from 'react-router';
 import {Card,Button,Container} from "react-bootstrap";
 
@@ -107,7 +106,7 @@ const OwnerProfile = ({changedDogObject}) => {
                         <p>Age: {dog.age}   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Gender: {dog.gender}  </p>
                         <p>Breed: {dog.breed}</p>
                         </Card.Text>
-                            <Button variant="primary" onClick={findDogs}>Go For A Walk</Button>
+                            <Button variant="primary" style={{margin : '10px'}} onClick={findDogs}>Go For A Walk</Button>
                             <Button variant="primary" id={JSON.stringify(dog)}  onClick={selectedDog}> View Dog</Button>
                         </Card.Body>
                         </Card>
