@@ -30,8 +30,8 @@ const DogRequests = (props) => {
 
 
 
-    const [requests, setRequests] = useState([]);
-    const [myUID, setMyUID] = useState("");
+    const [senderReqs, setSenderReqs] = useState([]);
+    const [receiverReqs, setReceiverReqs] = useState([]);
     const UPDATE_EVERY_MIN = 10 * 1000;
 
     /**
@@ -55,8 +55,9 @@ const DogRequests = (props) => {
      * Getting requests from users from back-end endpoint
      */
     const requestMeetup = () => {
-        let userProfileUID;
-        let reqArr = [];
+        let reqSArr = [];
+        let reqRArr = [];
+        let UID;
         fetch(MY_PROF_URL, {
             cache: 'no-cache',
             credentials: 'include',
@@ -67,7 +68,7 @@ const DogRequests = (props) => {
             .then(checkStatus)
             .then(async (response) => {
                 let userProfile = (await response.json());
-                setMyUID(userProfile.uid);
+                UID = userProfile.uid;
             })
         fetch(REQ_MEET_URL, {
             cache: 'no-cache',
@@ -75,17 +76,23 @@ const DogRequests = (props) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(userProfileUID)
+            body: JSON.stringify(UID)
         })
             .then(checkStatus)
             .then(async (response) => {
                 let reqObj = (await response.json());
+                console.log(reqObj)
                 if (reqObj !== "No meetups") {
                     for (let i = 0; i < reqObj.length; i++) {
-                        reqArr.push(reqObj[i])
+                        if (JSON.stringify(reqObj[i].sender) === JSON.stringify(UID)) {
+                            reqSArr.push(reqObj[i])
+                        } else if (JSON.stringify(reqObj[i].receiver) === JSON.stringify(UID)) {
+                            reqRArr.push(reqObj[i])
+                        }
                     }
                 }
-                setRequests(reqArr)
+                setSenderReqs(reqSArr);
+                setReceiverReqs(reqRArr);
             })
             .catch(() => {console.log("Receiving meetup request failed")})
     }
@@ -143,18 +150,25 @@ const DogRequests = (props) => {
             <button onClick={findDogs}>Petter Mode</button>
             <BsFillPersonFill onClick={ownerProfile}/>
             <h4>Petting Requests</h4>
-            {requests.map(req =>
+            {receiverReqs.map(req =>
                 <div>
                     {req.senderProfile.username + " would like to request to pet "
                         + req.receiverProfile.username + "'s dog"}
                     <br />
                     {"Status: " + req.status}
                     <br />
-                    {/*{myUID === req.sender ? navUser(): navOwner()}*/}
                     <button onClick={() => {acceptRequest(req.mid);}}>Yes</button>
                     <button onClick={() => {rejectMeetup(req.mid);}}>No</button>
-                    <button onClick={() => {DirectionForUser(req.receiverProfile);}}>Get direction to owner</button>
                     <button onClick={() => {DirectionForOwner(req.senderProfile);}}>Get direction to user</button>
+                </div>)}
+            {senderReqs.map(req =>
+                <div>
+                    {req.senderProfile.username + " would like to request to pet "
+                        + req.receiverProfile.username + "'s dog"}
+                    <br />
+                    {"Status: " + req.status}
+                    <br />
+                    <button onClick={() => {DirectionForUser(req.receiverProfile);}}>Get direction to owner</button>
                 </div>)}
         </div>
     );
