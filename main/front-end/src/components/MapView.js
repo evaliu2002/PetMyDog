@@ -61,6 +61,7 @@ const MapView = () => {
         <div>
             <Map thatUser={thatUser} thatUserLocation={thatUserLocation} />
             <button onClick={updateLocation}>Broadcast my location</button>
+            <button onClick={() => {setThatUser(undefined)}}>End Navigation</button>
             <button onClick={ownerProfile}><BsFillPersonFill />My Profile</button>
 
             <Routes>
