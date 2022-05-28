@@ -40,8 +40,8 @@ const NavUser = (props) => {
 
     return (
         <div>
-            <button onClick={ () => navigate("/map-view/find-dogs") }>Return to search dogs</button>
-            <button onClick={ () => navigate("/owner-profile") }>View profile</button>
+            <button onClick={ () => navigate("/map-view/find-dogs") }>Find dogs</button>
+            <button onClick={ () => navigate("/map-view/dog-requests") }>Requests</button>
             <button onClick={updateThatUserLocation}>Refresh location and suggested path.</button>
 
             <h3> You are heading to { props.thatUser.username }</h3>
@@ -49,8 +49,8 @@ const NavUser = (props) => {
             <h5> { props.thatUser.username + "'s contact:"} </h5> <br />
 
             <BsFillTelephoneFill />
-            <h4> { props.thatUser.phone ? props.thatUser.phone : "no phone provided" } </h4>
-            <h4> { props.thatUser.email ? props.thatUser.email : "no email provided" } </h4>
+            <h4> Phone: { props.thatUser.phone ? props.thatUser.phone : "no phone provided" } </h4>
+            <h4> Email: { props.thatUser.email ? props.thatUser.email : "no email provided" } </h4>
 
             <BsFillPinMapFill />
             <p>

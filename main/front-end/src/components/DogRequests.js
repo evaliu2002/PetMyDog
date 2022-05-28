@@ -5,9 +5,7 @@ import { useNavigate } from 'react-router';
 const DogRequests = (props) => {
     // useNavigate for event handling to other web pages
     let navigate = useNavigate();
-    const ownerProfile = () => {
-        navigate("/owner-profile");
-    }
+
     const findDogs = () => {
         navigate("/map-view/find-dogs");
     }
@@ -147,8 +145,8 @@ const DogRequests = (props) => {
 
     return (
         <div className='dogRequests'>
-            <button onClick={findDogs}>Petter Mode</button>
-            <BsFillPersonFill onClick={ownerProfile}/>
+            <button onClick={findDogs}>Find Dogs</button>
+            <button onClick={requestMeetup}>Refresh Requests</button>
             <h4>Petting Requests</h4>
             {receiverReqs.map(req =>
                 <div>
