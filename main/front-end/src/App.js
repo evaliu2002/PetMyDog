@@ -10,7 +10,6 @@ import DogRequests from "./components/DogRequests";
 import MapView from "./components/MapView";
 import NavUser from "./components/NavUser";
 import NavOwner from "./components/NavOwner";
-import Logout from "./components/Logout";
 
 const App = () => {
 
@@ -31,7 +30,6 @@ const App = () => {
                 <Route path="owner-profile" element={<OwnerProfile changedDogObject={setSelectedDog}/>}/>
                 <Route path="view-dog-profile" element={<ViewDogProfile dogProfile={selectedDog}/>}/>
                 <Route path="create-dog-profile" element={<CreateDogProfile/>}/>
-                <Route path="logout" element={<Logout/>}/>
             </Routes>
         </div>
     );

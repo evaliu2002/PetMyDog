@@ -36,11 +36,23 @@ const OwnerProfile = ({changedDogObject}) => {
 
     //Go to the log out page
     const logOut = () => {
-        navigate("/log-out");
+        deleteAllCookies();
+        navigate("/login");
     }
 
     const findDogs = () => {
         navigate("/map-view/find-dogs");
+    }
+
+    const deleteAllCookies = () => {
+        let cookies = document.cookie.split(";");
+
+        for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i];
+            let eqPos = cookie.indexOf("=");
+            let name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+            document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        }
     }
 
 
@@ -81,10 +93,10 @@ const OwnerProfile = ({changedDogObject}) => {
         <div className="dog-container">
 
             <h2 className="font-link"> {ownerName}'s Profile </h2>
-            <button className="navigate-buttons" onClick={dogRequest}>dog request</button>
-            <button className="navigate-buttons" onClick={findDogs}>find dogs</button>
-            <button className="navigate-buttons" onClick={logOut}>log out</button>
-            <button className="navigate-buttons" onClick={createDogProfile}>add more</button>
+            <button className="navigate-buttons" onClick={dogRequest}>Requests</button>
+            <button className="navigate-buttons" onClick={findDogs}>Find dogs</button>
+            <button className="navigate-buttons" onClick={logOut}>Log out</button>
+            <button className="navigate-buttons" onClick={createDogProfile}>Add dog</button>
             <Container fluid >
                 <div className="dog-container">
                     {dogProfiles.map(dog => <div key={JSON.stringify(dog)}  >
