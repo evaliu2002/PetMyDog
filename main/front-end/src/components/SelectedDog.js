@@ -24,13 +24,12 @@ const SelectedDog = ({dogObj}) => {
     const navUser = () => {
         fetch(REQ_MEET_URL, {
             method: 'POST',
-            mode: 'no-cors',
             cache: 'no-cache',
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: { receiver: dogObj.ownerID }
+            body: JSON.stringify({ "receiver": dogObj.ownerID })
         })
             .then(() => {console.log("Sent meetup request")})
             .catch(() => {console.log("Send meetup request failed")})
