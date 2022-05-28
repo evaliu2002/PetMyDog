@@ -24,7 +24,7 @@ function Map(props) {
 
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
-        googleMapsApiKey: "AIzaSyB3i1uDupa_wlGSIrkv9Wfzj0Wfhx4dgxA"
+        googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY
     })
 
     // Creating current user location state, that user location state, and path to that user.
