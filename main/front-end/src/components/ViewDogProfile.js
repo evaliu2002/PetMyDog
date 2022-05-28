@@ -31,9 +31,7 @@ import {BsArrowLeftSquare} from "react-icons/bs";
             <Container>
 
                 <BsArrowLeftSquare  color="white" style={{margin: "20px"}} onClick={back}/>
-
                 <Form.Group className='font-link'>Your Dog's Profile</Form.Group>
-
                 <Form.Group>
                         <Form>
                             <img className="circular-profile" src= "https://www.pumpkin.care/dog-breeds/wp-content/uploads/2021/03/Husky-Hero.png" alt="profile sample"/>
