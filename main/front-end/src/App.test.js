@@ -4,6 +4,9 @@ import {BrowserRouter} from "react-router-dom";
 import React from 'react';
 import {Circle, initialize, Map, Marker, mockInstances} from "@googlemaps/jest-mocks";
 import { useAuth0 } from "@auth0/auth0-react";
+import CreateDogProfile from "./components/CreateDogProfile";
+import ViewDogProfile from "./components/ViewDogProfile";
+import {dogProfile} from "./testdata";
 
 /**
  * Testing Pet My Dog Login Heading Display
@@ -97,3 +100,38 @@ beforeEach(() => {
 test('request-status-change', () => {
 
 });
+
+
+/**
+ * Test if the title is shown
+ */
+test('create-dog-text-shown', () => {
+    render(
+        <BrowserRouter>
+            <CreateDogProfile />
+        </BrowserRouter>
+    );
+    const profileText = screen.getByText(/Your Dog's Profile/i);
+    expect(profileText).toBeInTheDocument;
+});
+
+/**
+ * Test if the sample dogProfile is shown
+ */
+test ('dog-profile-shown', () => {
+    render(
+        <BrowserRouter>
+            <ViewDogProfile dogProfile={dogProfile} />
+        </BrowserRouter>
+    );
+
+    const title = screen.getByText(/Your Dog's Profile/i);
+    expect(title).toBeInTheDocument;
+
+    const newName = screen.getByDisplayValue(/andog1/i);
+    expect(newName).toBeInTheDocument;
+
+    const newAge = screen.getByDisplayValue(/7/i);
+    expect(newAge).toBeInTheDocument;
+} )
+
