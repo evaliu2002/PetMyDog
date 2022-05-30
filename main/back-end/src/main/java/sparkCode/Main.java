@@ -30,6 +30,7 @@ import org.pac4j.jee.context.session.JEESessionStore;
 import org.pac4j.oidc.client.OidcClient;
 import org.pac4j.oidc.config.OidcConfiguration;
 import org.pac4j.sparkjava.CallbackRoute;
+import org.pac4j.sparkjava.SecurityFilter;
 import org.pac4j.sparkjava.SparkHttpActionAdapter;
 import org.pac4j.sparkjava.SparkWebContext;
 import spark.*;
@@ -173,11 +174,25 @@ public class Main {
 
 
         /*******************************************   Start Security Guard   *****************************************/
-
-//        before("/hello", new SecurityFilter(config, "GoogleClient"));
-//        before("/getNearbyUser", new SecurityFilter(config, "GoogleClient"));
-//        before("/updateLocation", new SecurityFilter(config, "GoogleClient"));
-
+        if (DEPLOYMENT) {
+            before("/hello", new SecurityFilter(config, "GoogleClient"));
+            before("/getNearbyUser", new SecurityFilter(config, "GoogleClient"));
+            before("/getUserProfile", new SecurityFilter(config, "GoogleClient"));
+            before("/getMyProfile", new SecurityFilter(config, "GoogleClient"));
+            before("/getDogProfile", new SecurityFilter(config, "GoogleClient"));
+            before("/deleteDogProfile", new SecurityFilter(config, "GoogleClient"));
+            before("/meetups", new SecurityFilter(config, "GoogleClient"));
+            before("/endMeetup", new SecurityFilter(config, "GoogleClient"));
+            before("/rejectMeetup", new SecurityFilter(config, "GoogleClient"));
+            before("/acceptMeetup", new SecurityFilter(config, "GoogleClient"));
+            before("/requestMeetup", new SecurityFilter(config, "GoogleClient"));
+            before("/newDog", new SecurityFilter(config, "GoogleClient"));
+            before("/getOtherUserLocation", new SecurityFilter(config, "GoogleClient"));
+            before("/editDogProfile", new SecurityFilter(config, "GoogleClient"));
+            before("/editUserProfile", new SecurityFilter(config, "GoogleClient"));
+            before("/updateLocation", new SecurityFilter(config, "GoogleClient"));
+            before("/getNearbyUser", new SecurityFilter(config, "GoogleClient"));
+        }
         after("/callback", (Request request, Response response) -> {
             List<UserProfile> users = getProfiles(request, response);
             if (users.size() == 1) {
@@ -294,15 +309,6 @@ public class Main {
         post("/endMeetup", Main::endMeetup);
 
         get("/meetups", Main::getMeetupRequests);
-
-        get("/sql", new Route() {
-            @Override
-            public Object handle(Request request, Response response) throws Exception {
-                model.updateUser("test2", "test2", "1234");
-                Gson gson = new Gson();
-                return gson.toJson("updated");
-            }
-        });
 
         /**
          * Endpoint path: /getNearbyUser

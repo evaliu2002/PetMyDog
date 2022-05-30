@@ -1,14 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import { BsFillPersonFill } from "react-icons/bs";
 import { useNavigate } from 'react-router';
-import "./FindDogs.css";
+import "../styling/index.css"
 
 const FindDogs = ({changedDogObj}) => {
     // useNavigate for event handling to other web pages
     let navigate = useNavigate();
-    const ownerProfile = () => {
-        navigate("/owner-profile")
-    }
+
     const selectedDog = async (e) => {
         await changedDogObj(JSON.parse(e.target.id));
         navigate("/map-view/selected-dog");
@@ -92,9 +90,8 @@ const FindDogs = ({changedDogObj}) => {
 
     return (
         <div className='findDogs'>
-            <button onClick={dogRequests}>Owner Mode</button>
+            <button onClick={dogRequests}>Requests</button>
             <button onClick={updateNearbyUsers}>See who is nearby</button>
-            <BsFillPersonFill onClick={ownerProfile}/>
             <h4>Nearby Pets</h4>
             {dogsNearby.map(dog => <div id={JSON.stringify(dog)} onClick={selectedDog}>{dog.name}</div>)}
         </div>

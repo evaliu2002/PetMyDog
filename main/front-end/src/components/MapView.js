@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import Map from '../map/Map';
+import Map from './Map';
 import {Route, useNavigate, Routes} from 'react-router';
-import FindDogs from "../finddogs/FindDogs";
-import DogRequests from "../DogRequests/DogRequests";
-import NavOwner from "../navowner/NavOwner";
-import SelectedDog from "../selecteddog/SelectedDog";
-import NavUser from "../navuser/NavUser";
+import FindDogs from "./FindDogs";
+import DogRequests from "./DogRequests";
+import NavOwner from "./NavOwner";
+import SelectedDog from "./SelectedDog";
+import NavUser from "./NavUser";
+import {BsFillPersonFill} from "react-icons/bs";
 
 const MapView = () => {
 
@@ -14,7 +15,11 @@ const MapView = () => {
     const [thatUserLocation, setThatUserLocation] = useState();
 
     const LOCATION_URL = process.env.REACT_APP_BASE_URL + "/updateLocation";
-    const UPDATE_EVERY = 15 * 1000;
+    let navigate = useNavigate();
+
+    const ownerProfile = () => {
+        navigate("/owner-profile")
+    }
 
     /**
      * Update User Location from calling back-end endpoint
@@ -56,8 +61,9 @@ const MapView = () => {
         <div>
             <Map thatUser={thatUser} thatUserLocation={thatUserLocation} />
             <button onClick={updateLocation}>Broadcast my location</button>
-            {/*<button onClick={ () => { navigate("/owner-profile")}}> Profile </button>*/}
-            {/*Routes for each web page*/}
+            <button onClick={() => {setThatUser(undefined)}}>End Navigation</button>
+            <button onClick={ownerProfile}><BsFillPersonFill />My Profile</button>
+
             <Routes>
                 <Route path="/find-dogs" element={<FindDogs changedDogObj={setSelectedDog}/>}/>
                 <Route path="/dog-requests" element={<DogRequests setThatUser={setThatUser}/>}/>

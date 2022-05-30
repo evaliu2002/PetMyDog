@@ -1,28 +1,29 @@
 import React, {useState} from 'react';
 import Form from 'react-bootstrap/Form';
-import UploadImage from "../uploadandisplayimage/UploadImage";
 import { useNavigate } from 'react-router';
-import { BsArrowLeftSquare } from "react-icons/bs";
+import {BsArrowLeftSquare} from "react-icons/bs";
 
+/**
+ * A form that let the user input the dog's info
+ * and send a post request to add a new dog to the database
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function CreateDogProfile () {
     const navigate = useNavigate();
     const [name, setName] = useState("");
     const [age, setAge] = useState("");
     const [breed, setBreed] = useState("");
     const [gender, setGender] = useState("");
-    const [piclink, setpicLink] = useState("https://www.pumpkin.care/dog-breeds/wp-content/uploads/2021/03/Husky-Hero.png");
-
-
-
 
 
     const CREATE_DOG_PROFILE = process.env.REACT_APP_BASE_URL + "/newDog";
 
 
-
     const onSubmit = () => {
 
-        let dogObject = { name, age, breed, gender, piclink};
+        //send the new dog's information to the back-end
+        let dogObject = { name, age, breed, gender};
         fetch(CREATE_DOG_PROFILE, {
             method: 'POST',
             cache: 'no-cache',
@@ -34,12 +35,16 @@ function CreateDogProfile () {
         })
             .then(checkStatus)
             .then(() => {console.log("Name: " + name + "Age: "+ age + "Breed: " +
-                breed + "Gender: " + gender  + "Piclink: "+ piclink);})
+                breed + "Gender: " + gender  );})
             .catch(() => {console.log("Dog's info not updated")} )
 
+        //navigate back to the owner's profile once a new is created.
         navigate("/owner-profile")
     }
 
+    const back = () => {
+        navigate("/owner-profile")
+    }
 
 
     /**
@@ -55,19 +60,18 @@ function CreateDogProfile () {
         }
     };
 
-
+    // A form that receive the dog info inputs
         return (
             <div>
                 <div className="container">
-
+                    <BsArrowLeftSquare  color="white" style={{margin: "20px"}} onClick={back}/>
                     <Form.Group className="font-link">Your Dog's Profile</Form.Group>
 
-                    <UploadImage/>
 
                     <div className="form">
                             <Form>
                                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                    <Form.Label>Dog's Name</Form.Label>
+                                    <Form.Label className="dogText">Dog's Name</Form.Label>
                                     <Form.Control type="text"
                                                   placeholder="Your Dog's Name"
                                                   value={name}
