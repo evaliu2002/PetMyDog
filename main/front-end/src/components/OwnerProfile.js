@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { BsArrowLeftSquareFill } from "react-icons/bs";
 import { useNavigate } from 'react-router';
 import {Card,Button,Container} from "react-bootstrap";
 
@@ -36,11 +35,23 @@ const OwnerProfile = ({changedDogObject}) => {
 
     //Go to the log out page
     const logOut = () => {
-        navigate("/log-out");
+        deleteAllCookies();
+        navigate("/");
     }
 
     const findDogs = () => {
         navigate("/map-view/find-dogs");
+    }
+
+    const deleteAllCookies = () => {
+        let cookies = document.cookie.split(";");
+
+        for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i];
+            let eqPos = cookie.indexOf("=");
+            let name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+            document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        }
     }
 
 
@@ -81,10 +92,10 @@ const OwnerProfile = ({changedDogObject}) => {
         <div className="dog-container">
 
             <h2 className="font-link"> {ownerName}'s Profile </h2>
-            <button className="navigate-buttons" onClick={dogRequest}>dog request</button>
-            <button className="navigate-buttons" onClick={findDogs}>find dogs</button>
-            <button className="navigate-buttons" onClick={logOut}>log out</button>
-            <button className="navigate-buttons" onClick={createDogProfile}>add more</button>
+            <button className="navigate-buttons" onClick={dogRequest}>Requests</button>
+            <button className="navigate-buttons" onClick={findDogs}>Find dogs</button>
+            <button className="navigate-buttons" onClick={logOut}>Log out</button>
+            <button className="navigate-buttons" onClick={createDogProfile}>Add dog</button>
             <Container fluid >
                 <div className="dog-container">
                     {dogProfiles.map(dog => <div key={JSON.stringify(dog)}  >
@@ -95,7 +106,7 @@ const OwnerProfile = ({changedDogObject}) => {
                         <p>Age: {dog.age}   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Gender: {dog.gender}  </p>
                         <p>Breed: {dog.breed}</p>
                         </Card.Text>
-                            <Button variant="primary" onClick={findDogs}>Go For A Walk</Button>
+                            <Button variant="primary" style={{margin : '10px'}} onClick={findDogs}>Go For A Walk</Button>
                             <Button variant="primary" id={JSON.stringify(dog)}  onClick={selectedDog}> View Dog</Button>
                         </Card.Body>
                         </Card>

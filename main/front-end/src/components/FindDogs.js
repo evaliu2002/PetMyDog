@@ -2,13 +2,12 @@ import React, {useEffect, useState} from 'react';
 import { BsFillPersonFill } from "react-icons/bs";
 import { useNavigate } from 'react-router';
 import "../styling/index.css"
+import ownerProfile from "./OwnerProfile";
 
 const FindDogs = ({changedDogObj}) => {
     // useNavigate for event handling to other web pages
     let navigate = useNavigate();
-    const ownerProfile = () => {
-        navigate("/owner-profile")
-    }
+
     const selectedDog = async (e) => {
         await changedDogObj(JSON.parse(e.target.id));
         navigate("/map-view/selected-dog");
