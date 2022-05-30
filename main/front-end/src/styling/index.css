@@ -27,12 +27,21 @@ h1 {
     color: white;
 }
 
+.header {
+    font-family: 'Pacifico', cursive;
+}
+
 .google-login {
     position: absolute;
     top: 50%;
     left: 50%;
     margin: 0 -50% 0 0;
     transform: translate(-50%, -50%);
+}
+
+.profile-button {
+    position: absolute;
+    right: 10px;
 }
 
 form {
