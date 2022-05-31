@@ -15,13 +15,13 @@ function CreateDogProfile () {
     const [age, setAge] = useState("");
     const [breed, setBreed] = useState("");
     const [gender, setGender] = useState("");
-
+    const [submitClicked, setSC] = useState(false);
 
     const CREATE_DOG_PROFILE = process.env.REACT_APP_BASE_URL + "/newDog";
 
 
     const onSubmit = () => {
-
+        setSC(true)
         //send the new dog's information to the back-end
         let dogObject = { name, age, breed, gender};
         fetch(CREATE_DOG_PROFILE, {

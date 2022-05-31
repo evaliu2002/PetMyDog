@@ -45,7 +45,6 @@ public class Sql2oModel implements DBUtils.Model {
                 .addParameter("did", did)
                 .addParameter("uid", uid)
                 .executeUpdate();
-        conn.commit();
     }
 
     @Override

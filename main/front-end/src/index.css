@@ -1,0 +1,78 @@
+body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.font-link {
+    font-family: 'Pacifico', cursive;
+    font-size: xxx-large;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+h1 { 
+    position: absolute;
+    top: 30%;
+    left: 45%;
+    margin: 20px;
+    transform: translate(-50%, -50%);
+    padding: 30px;
+    color: white;
+}
+
+.google-login {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: 0 -50% 0 0;
+    transform: translate(-50%, -50%);
+}
+
+form {
+  padding: 30px;
+}
+
+
+.circular-profile { border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  align-content: center;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 50%;
+
+}
+
+.container{
+  display: block;
+  /*margin-left: auto;*/
+  /*margin-right: auto;*/
+  margin-top: 10%;
+  margin-bottom: 10%;
+  width: 1920px;
+  height: 1080px;
+  background-color: #E5737D;
+
+}
+
+.create-button{
+    font-family: 'Pacifico', cursive;
+    font-size: xx-large;
+    color: white;
+    display: flex;
+    width: 30%;
+    margin-right: 30%;
+    margin-left: 40%;
+    padding: 0;
+    border: none;
+    background: none;
+}

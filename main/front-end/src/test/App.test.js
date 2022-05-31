@@ -5,6 +5,9 @@ import React from 'react';
 import '@testing-library/jest-dom'
 import {Circle, initialize, Map, Marker, mockInstances} from "@googlemaps/jest-mocks";
 import DogRequests from "../components/DogRequests";
+import CreateDogProfile from "../components/CreateDogProfile";
+import ViewDogProfile from "../components/ViewDogProfile";
+import {dogProfile} from "../testdata";
 
 /**
  * Testing Pet My Dog Login Heading Display
@@ -84,9 +87,43 @@ test('button-display', () => {
             <DogRequests />
         </BrowserRouter>
     );
+
     const broadcastLocation = screen.getByText(/Find Dogs/i)
     expect(broadcastLocation).toBeInTheDocument();
 
     const refreshRequests = screen.getByText(/Refresh Requests/i)
     expect(refreshRequests).toBeInTheDocument();
 });
+
+/**
+ * Test if the title is shown
+ */
+test('create-dog-text-shown', () => {
+    render(
+        <BrowserRouter>
+            <CreateDogProfile />
+        </BrowserRouter>
+    );
+    const profileText = screen.getByText(/Your Dog's Profile/i);
+    expect(profileText).toBeInTheDocument;
+});
+
+/**
+ * Test if the sample dogProfile is shown
+ */
+test ('dog-profile-shown', () => {
+    render(
+        <BrowserRouter>
+            <ViewDogProfile dogProfile={dogProfile} />
+        </BrowserRouter>
+    );
+
+    const title = screen.getByText(/Your Dog's Profile/i);
+    expect(title).toBeInTheDocument;
+
+    const newName = screen.getByDisplayValue(/andog1/i);
+    expect(newName).toBeInTheDocument;
+
+    const newAge = screen.getByDisplayValue(/7/i);
+    expect(newAge).toBeInTheDocument;
+} )

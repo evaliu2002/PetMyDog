@@ -132,9 +132,9 @@ const DogRequests = (props) => {
 
     return /*{requestMeetup, acceptRequest}*/(
         <div className='dogRequests'>
-            <button onClick={findDogs}>Find Dogs</button>
-            <button onClick={requestMeetup}>Refresh Requests</button>
-            <h4>Petting Requests</h4>
+            <button className="top-buttons" onClick={findDogs}>Find Dogs</button>
+            <button className="top-buttons" onClick={requestMeetup}>Refresh Requests</button>
+            <h4 className='header'>Petting Requests</h4>
             {receiverReqs.map(req =>
                 <div>
                     {req.senderProfile.username + " would like to request to pet "
