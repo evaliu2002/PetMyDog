@@ -51,7 +51,7 @@ public class Main {
     private static final boolean DEPLOYMENT = false;
 
     public static void main(String[] args) {
-        secure("keystore.jks", "eq04aqOA", null, null);
+        // secure("keystore.jks", "eq04aqOA", null, null);
 
         if (DEPLOYMENT) {
             staticFiles.externalLocation("/home/wenxuanliu/deployment/public");
