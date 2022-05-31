@@ -105,7 +105,7 @@ test('create-dog-text-shown', () => {
         </BrowserRouter>
     );
     const profileText = screen.getByText(/Your Dog's Profile/i);
-    expect(profileText).toBeInTheDocument;
+    expect(profileText).toBeInTheDocument();
 });
 
 /**
@@ -119,11 +119,11 @@ test ('dog-profile-shown', () => {
     );
 
     const title = screen.getByText(/Your Dog's Profile/i);
-    expect(title).toBeInTheDocument;
+    expect(title).toBeInTheDocument();
 
     const newName = screen.getByDisplayValue(/andog1/i);
-    expect(newName).toBeInTheDocument;
+    expect(newName).toBeInTheDocument();
 
     const newAge = screen.getByDisplayValue(/7/i);
-    expect(newAge).toBeInTheDocument;
+    expect(newAge).toBeInTheDocument();
 } )
