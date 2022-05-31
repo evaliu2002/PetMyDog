@@ -4,6 +4,7 @@ import {BrowserRouter} from "react-router-dom";
 import React from 'react';
 import '@testing-library/jest-dom'
 import {Circle, initialize, Map, Marker, mockInstances} from "@googlemaps/jest-mocks";
+import DogRequests from "../components/DogRequests";
 
 /**
  * Testing Pet My Dog Login Heading Display
@@ -25,6 +26,19 @@ beforeAll(() => {
     initialize();
 });
 
+// Clear all mocks
+beforeEach(() => {
+    mockInstances.clearAll();
+});
+
+// Clear specific mocks
+beforeEach(() => {
+    mockInstances.clear(Map, Marker);
+});
+
+/**
+ * Google Maps Mock Test
+ */
 test('mocking-google-maps', () => {
     const map = new google.maps.Map(null);
     const markerOne = new google.maps.Marker();
@@ -48,20 +62,31 @@ test('mocking-google-maps', () => {
     expect(circleMocks[0].setMap).toHaveBeenCalledTimes(1);
 });
 
-// Clear all mocks
-beforeEach(() => {
-    mockInstances.clearAll();
-});
-
-// Clear specific mocks
-beforeEach(() => {
-    mockInstances.clear(Map, Marker);
+/**
+ * Testing Petting Requests Heading Display
+ */
+test('heading-display', () => {
+    render(
+        <BrowserRouter>
+            <DogRequests />
+        </BrowserRouter>
+    );
+    const heading = screen.getByText(/Petting Requests/i);
+    expect(heading).toBeInTheDocument();
 });
 
 /**
- * Testing Status Change of Meeting Requests after requests are
- * accepted or declined.
+ * Testing Button Display
  */
-test('request-status-change', () => {
+test('button-display', () => {
+    render(
+        <BrowserRouter>
+            <DogRequests />
+        </BrowserRouter>
+    );
+    const broadcastLocation = screen.getByText(/Find Dogs/i)
+    expect(broadcastLocation).toBeInTheDocument();
 
+    const refreshRequests = screen.getByText(/Refresh Requests/i)
+    expect(refreshRequests).toBeInTheDocument();
 });

@@ -128,10 +128,9 @@ const DogRequests = (props) => {
         return mid;
     }
 
-    useEffect(requestMeetup, []);
+    useEffect(() => requestMeetup, []);
 
-    return {requestMeetup, acceptRequest}
-    (
+    return /*{requestMeetup, acceptRequest}*/(
         <div className='dogRequests'>
             <button onClick={findDogs}>Find Dogs</button>
             <button onClick={requestMeetup}>Refresh Requests</button>
