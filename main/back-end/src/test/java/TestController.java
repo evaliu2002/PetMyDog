@@ -28,7 +28,7 @@ public class TestController {
     public static SparkServer<TestContollerTestSparkApplication> testServer = new SparkServer<>(TestController.TestContollerTestSparkApplication.class, 4567);
 
     @Test
-    public void test() throws Exception {
+    public void testRequestMeetup() throws Exception {
         /* The second parameter indicates whether redirects must be followed or not */
         PostMethod post = testServer.post("/requestMeetup", "{\"sender\": \"100428689288578997907\", \"receiver\": \"101836349121923215589\"}", false);
         HttpResponse httpResponse = testServer.execute(post);
