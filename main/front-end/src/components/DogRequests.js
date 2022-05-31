@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { BsFillPersonFill } from "react-icons/bs";
 import { useNavigate } from 'react-router';
 
 const DogRequests = (props) => {
@@ -8,12 +7,6 @@ const DogRequests = (props) => {
 
     const findDogs = () => {
         navigate("/map-view/find-dogs");
-    }
-    const navOwner = () => {
-        navigate("/map-view/nav-owner");
-    }
-    const navUser = () => {
-        navigate("/map-view/nav-user");
     }
 
     const DirectionForUser = (thatUser) => {
@@ -25,8 +18,6 @@ const DogRequests = (props) => {
         props.setThatUser(thatUser);
         navigate("/map-view/nav-owner");
     }
-
-
 
     const [senderReqs, setSenderReqs] = useState([]);
     const [receiverReqs, setReceiverReqs] = useState([]);
@@ -49,14 +40,14 @@ const DogRequests = (props) => {
 
     const MY_PROF_URL = process.env.REACT_APP_BASE_URL + "/getMyProfile"
 
+    let reqSArr = [];
+    let reqRArr = [];
+    let UID;
+
     /**
      * Getting requests from users from back-end endpoint
      */
-    const requestMeetup = () => {
-        let reqSArr = [];
-        let reqRArr = [];
-        let UID;
-        fetch(MY_PROF_URL, {
+    const requestMeetup = () => fetch(MY_PROF_URL, {
             cache: 'no-cache',
             credentials: 'include',
             headers: {
@@ -93,7 +84,6 @@ const DogRequests = (props) => {
                 setReceiverReqs(reqRArr);
             })
             .catch(() => {console.log("Receiving meetup request failed")})
-    }
 
     const ACPT_MEET_URL = process.env.REACT_APP_BASE_URL + "/acceptMeetup";
     /**
@@ -101,22 +91,19 @@ const DogRequests = (props) => {
      * @param mid
      * @returns {string}
      */
-    const acceptRequest = (mid)  => {
-        fetch(ACPT_MEET_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            cache: 'no-cache',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({mid: mid})
-        })
+    const acceptRequest = (mid) => fetch(ACPT_MEET_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        cache: 'no-cache',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({mid: mid})
+    })
             .then(checkStatus)
             .then(() => {console.log("Accepted Meetup")})
-            .catch(() => {console.log("Accepting meetup failed")})
-        return mid;
-    }
+            .catch(() => {console.log("Accepting meetup failed")});
 
     const REJC_MEET_URL = process.env.REACT_APP_BASE_URL + "/rejectMeetup";
     /**
@@ -143,7 +130,8 @@ const DogRequests = (props) => {
 
     useEffect(requestMeetup, []);
 
-    return (
+    return {requestMeetup, acceptRequest}
+    (
         <div className='dogRequests'>
             <button onClick={findDogs}>Find Dogs</button>
             <button onClick={requestMeetup}>Refresh Requests</button>
