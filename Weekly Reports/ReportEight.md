@@ -25,3 +25,9 @@
     - Progress and Issues: I finished implementing request responses for dog requests. I developed
       part of the front-end test suite. I also fixed the styling for the web-app.
       necessary information from the database (mid) but ultimately figured it out. I wasn't stuck on anything.
+
+- ##### Wenxuan Liu:
+    - Goals from last week: Test&fix everything
+    - Progress and Issues: Edit the navigation on the front end that allow users navigate through the app using buttons
+      Helped to fix new dogs and other components for deployment preparation. Deploy our app every time new features are added.
+      Record demo with eva. Attempted to write tests for find the dogs does not work yet.
