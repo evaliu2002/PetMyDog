@@ -1,6 +1,6 @@
 # PetMyDog
 
-Final Release Youtube Video: https://youtu.be/twSkNjZrh9Y
+Final Release Youtube Video: https://youtu.be/XxjCbclx_OQ
 
 Developer Guide: https://github.com/evaliu2002/PetMyDog/blob/docs/docs/dev_guide.md
 
