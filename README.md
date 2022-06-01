@@ -1,5 +1,7 @@
 # PetMyDog
 
+Final Release Youtube Video: https://youtu.be/XxjCbclx_OQ
+
 Developer Guide: https://github.com/evaliu2002/PetMyDog/blob/docs/docs/dev_guide.md
 
 User Manual: https://github.com/evaliu2002/PetMyDog/blob/docs/docs/user_guide.md
@@ -7,11 +9,19 @@ User Manual: https://github.com/evaliu2002/PetMyDog/blob/docs/docs/user_guide.md
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)<br><br>
 [User Document](https://github.com/evaliu2002/PetMyDog/blob/main/USERDOC.md)
 
-<img width="284" alt="image" src="https://user-images.githubusercontent.com/69877857/169405947-e56490a4-6a40-45c2-b817-35abd105f87f.png">
-<img width="286" alt="image" src="https://user-images.githubusercontent.com/69877857/169406030-94fdac2e-f9c0-4ca4-96e7-6f86320f6e55.png">
-<img width="284" alt="image" src="https://user-images.githubusercontent.com/69877857/169406065-392f572e-d51f-44ac-b4bb-ccea7d50aa15.png">
-<img width="283" alt="image" src="https://user-images.githubusercontent.com/69877857/169406213-db67b0e3-8da3-48e1-ac72-c76135c3e225.png">
-
+<img width="286" alt="image" src="https://user-images.githubusercontent.com/69877857/171104547-4c8e61b5-257b-4838-bbc4-c735bddec6d9.PNG">
+<img width="286" alt="image" src="https://user-images.githubusercontent.com/69877857/171105202-cd21a465-2767-4a76-8397-03ea645b03b7.png">
+<img width="286" alt="image" src="https://user-images.githubusercontent.com/69877857/171105293-5868d950-7ed6-4a0f-aa55-4966d5c8f26b.png">
+<img width="286" alt="image" src="https://user-images.githubusercontent.com/69877857/171105327-84ee1e8a-1165-4389-999e-7a38820c689f.png">
+<img width="286" alt="image" src="https://user-images.githubusercontent.com/69877857/171105358-3053eef5-5704-4eb1-829f-11f2e18bde53.png">
+<img width="286" alt="image" src="https://user-images.githubusercontent.com/69877857/171105403-42cef8e7-d64d-4a4e-bdad-aab0b13fe540.png">
+<img width="286" alt="image" src="https://user-images.githubusercontent.com/69877857/171104698-2a12273c-5b10-4e44-8c48-2dd6bfa0937e.PNG">
+<img width="284" alt="image" src="https://user-images.githubusercontent.com/69877857/171104766-57fa4d67-5c10-4d2f-b08f-e33c1fc3a8b3.PNG">
+<img width="284" alt="image" src="https://user-images.githubusercontent.com/69877857/171104868-a3817d9c-e584-4217-a99e-fa68272f3ff1.PNG">
+<img width="286" alt="image" src="https://user-images.githubusercontent.com/69877857/171105059-f786474f-80b0-4a74-b716-97812f2545fa.png">
+<img width="286" alt="image" src="https://user-images.githubusercontent.com/69877857/171105565-d66b244b-814e-40da-98a3-8c7a693c5dcc.png">
+<img width="286" alt="image" src="https://user-images.githubusercontent.com/69877857/171105729-ea7856e9-0b8f-4b9a-afdb-d53f59656f00.PNG">
+<img width="286" alt="image" src="https://user-images.githubusercontent.com/69877857/171105744-cc016aac-b4c7-4c13-bac3-d54eefe5831a.PNG">
 
 ### Project Idea/Goal
 
