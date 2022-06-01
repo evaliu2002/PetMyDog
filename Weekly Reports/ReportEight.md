@@ -31,3 +31,12 @@
     - Progress and Issues: Edit the navigation on the front end that allow users navigate through the app using buttons
       Helped to fix new dogs and other components for deployment preparation. Deploy our app every time new features are added.
       Record demo with eva. Attempted to write tests for find the dogs does not work yet.
+      
+- ##### Steve Ma:
+  - Goals from last week: Make final adjustements for final release and work on writing JUnit tests.
+                                       Check in with the team on any bug reports and also make changes based on
+                                       peer review results.
+  - Progress and Issues: I figured out how to write backend testing for the spark server framework. However, the test
+                            is not working for everyone and I helped trouble shoot the issue and narrowed the issue down to
+                            Java related. I also adjusted our docs based on the feedback provided and improved the developer 
+                            doc and user guide.
