@@ -30,7 +30,7 @@
     - Goals from last week: Work on refining any code in time for the final release, and finish
       writing JUnit tests for my APIs.
     - Progress and Issues: Finished refining the code based on feedback given. Worked on testing, but setting up tests for
-      the backend proved to be complicated. I worked with Steve to figure out what was going wrong, and tried setting up the test.
+      the backend proved to be complicated. I worked with Steve to figure out what was going wrong (it was Java), and tried setting up the test.
 
 - ##### Wenxuan Liu:
     - Goals from last week: Test&fix everything
