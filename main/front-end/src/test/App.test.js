@@ -1,12 +1,13 @@
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import App from '../App';
 import {BrowserRouter} from "react-router-dom";
 import React from 'react';
+import '@testing-library/jest-dom'
 import {Circle, initialize, Map, Marker, mockInstances} from "@googlemaps/jest-mocks";
-import { useAuth0 } from "@auth0/auth0-react";
-import CreateDogProfile from "./components/CreateDogProfile";
-import ViewDogProfile from "./components/ViewDogProfile";
-import {dogProfile} from "./testdata";
+import DogRequests from "../components/DogRequests";
+import CreateDogProfile from "../components/CreateDogProfile";
+import ViewDogProfile from "../components/ViewDogProfile";
+import {dogProfile} from "../testdata";
 
 /**
  * Testing Pet My Dog Login Heading Display
@@ -22,44 +23,25 @@ test('heading-display', () => {
 });
 
 /**
- * Testing Google Oauth Login (Test not yet implemented)
- */
-// test('google-oauth-login', () => {
-//
-// });
-// const user = {
-//     email: "johndoe@me.com",
-//     email_verified: true,
-//     sub: "google-oauth2|12345678901234",
-// };
-//
-// jest.mock("@auth0/auth0-react");
-//
-// const mockedUseAuth0 = mocked(useAuth0, true);
-//
-// describe("Logged in", () => {
-//     beforeEach(() => {
-//         mockedUseAuth0.mockReturnValue({
-//             isAuthenticated: true,
-//             user,
-//             logout: jest.fn(),
-//             loginWithRedirect: jest.fn(),
-//             getAccessTokenWithPopup: jest.fn(),
-//             getAccessTokenSilently: jest.fn(),
-//             getIdTokenClaims: jest.fn(),
-//             loginWithPopup: jest.fn(),
-//             isLoading: false,
-//         });
-//     });
-// });
-
-/**
  * Testing Google Maps Display
  */
 beforeAll(() => {
     initialize();
 });
 
+// Clear all mocks
+beforeEach(() => {
+    mockInstances.clearAll();
+});
+
+// Clear specific mocks
+beforeEach(() => {
+    mockInstances.clear(Map, Marker);
+});
+
+/**
+ * Google Maps Mock Test
+ */
 test('mocking-google-maps', () => {
     const map = new google.maps.Map(null);
     const markerOne = new google.maps.Marker();
@@ -83,24 +65,35 @@ test('mocking-google-maps', () => {
     expect(circleMocks[0].setMap).toHaveBeenCalledTimes(1);
 });
 
-// Clear all mocks
-beforeEach(() => {
-    mockInstances.clearAll();
-});
-
-// Clear specific mocks
-beforeEach(() => {
-    mockInstances.clear(Map, Marker);
+/**
+ * Testing Petting Requests Heading Display
+ */
+test('heading-display', () => {
+    render(
+        <BrowserRouter>
+            <DogRequests />
+        </BrowserRouter>
+    );
+    const heading = screen.getByText(/Petting Requests/i);
+    expect(heading).toBeInTheDocument();
 });
 
 /**
- * Testing Status Change of Meeting Requests after requests are
- * accepted or declined.
+ * Testing Button Display
  */
-test('request-status-change', () => {
+test('button-display', () => {
+    render(
+        <BrowserRouter>
+            <DogRequests />
+        </BrowserRouter>
+    );
 
+    const broadcastLocation = screen.getByText(/Find Dogs/i)
+    expect(broadcastLocation).toBeInTheDocument();
+
+    const refreshRequests = screen.getByText(/Refresh Requests/i)
+    expect(refreshRequests).toBeInTheDocument();
 });
-
 
 /**
  * Test if the title is shown
@@ -112,7 +105,7 @@ test('create-dog-text-shown', () => {
         </BrowserRouter>
     );
     const profileText = screen.getByText(/Your Dog's Profile/i);
-    expect(profileText).toBeInTheDocument;
+    expect(profileText).toBeInTheDocument();
 });
 
 /**
@@ -126,12 +119,11 @@ test ('dog-profile-shown', () => {
     );
 
     const title = screen.getByText(/Your Dog's Profile/i);
-    expect(title).toBeInTheDocument;
+    expect(title).toBeInTheDocument();
 
     const newName = screen.getByDisplayValue(/andog1/i);
-    expect(newName).toBeInTheDocument;
+    expect(newName).toBeInTheDocument();
 
     const newAge = screen.getByDisplayValue(/7/i);
-    expect(newAge).toBeInTheDocument;
+    expect(newAge).toBeInTheDocument();
 } )
-
