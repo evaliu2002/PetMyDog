@@ -26,6 +26,12 @@
       part of the front-end test suite. I also fixed the styling for the web-app.
       necessary information from the database (mid) but ultimately figured it out. I wasn't stuck on anything.
 
+- ##### Anish Konanki:
+    - Goals from last week: Work on refining any code in time for the final release, and finish
+      writing JUnit tests for my APIs.
+    - Progress and Issues: Finished refining the code based on feedback given. Worked on testing, but setting up tests for
+      the backend proved to be complicated. I worked with Steve to figure out what was going wrong, and tried setting up the test.
+
 - ##### Wenxuan Liu:
     - Goals from last week: Test&fix everything
     - Progress and Issues: Edit the navigation on the front end that allow users navigate through the app using buttons
