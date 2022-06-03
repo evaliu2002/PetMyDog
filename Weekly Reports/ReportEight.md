@@ -46,3 +46,8 @@
                             is not working for everyone and I helped trouble shoot the issue and narrowed the issue down to
                             Java related. I also adjusted our docs based on the feedback provided and improved the developer 
                             doc and user guide.
+- ##### An Nguyen    
+  -Goals from last week: Ensure dog list in owner profile is updated after creating dog object.
+  Prepare for final release. 
+  -Progress and issue: Wrote tests for ViewDogProfile and CreateDogProfile. Help with the final release 
+  slides and videos. Reviewed the code and adjusted based on peer view's feedback
